@@ -52,6 +52,16 @@ const GUIDE_LINKS = [
 ];
 
 const APP_VERSION = 'v0.0.1';
+const TYPE_COLOR_MAP = {
+  金: 'gold',
+  草: 'grass',
+  花: 'flower',
+  水: 'water',
+  木: 'wood',
+  火: 'fire',
+  地: 'earth',
+  魔玉: 'arcane',
+};
 
 function pick(value, locale) {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
@@ -62,6 +72,20 @@ function pick(value, locale) {
 
 function cx(...names) {
   return names.filter(Boolean).join(' ');
+}
+
+function getTypeTone(typeLabel) {
+  return TYPE_COLOR_MAP[typeLabel] ?? 'neutral';
+}
+
+function TypeTag({ type, locale, compact = false }) {
+  const label = pick(type, locale);
+  if (!label) return null;
+  return (
+    <span className={cx('typeTag', `tone-${getTypeTone(label)}`, compact && 'compact')}>
+      {label}
+    </span>
+  );
 }
 
 function App() {
@@ -176,7 +200,7 @@ function App() {
     <div className="appShell">
       <header className="topbar">
         <button className="brand" onClick={() => selectRoot(defaultItemId)} aria-label={t.appTitle}>
-          <span className="brandMark">炼</span>
+          <span className="brandMark">飘</span>
           <span className="brandText">{t.appTitle}</span>
         </button>
         <div className="topActions" aria-label={t.language}>
@@ -261,9 +285,9 @@ function App() {
                         onClick={() => selectRoot(id)}
                       >
                         <span className="itemName">{pick(item.name, locale)}</span>
-                        <span className="itemMeta">
-                          {item.level ? `${t.levelPrefix}${item.level}` : t.unrecorded}
-                          {pick(item.type, locale) ? ` · ${pick(item.type, locale)}` : ''}
+                        <span className="itemMeta itemMetaRow">
+                          <span>{item.level ? `${t.levelPrefix}${item.level}` : t.unrecorded}</span>
+                          <TypeTag type={item.type} locale={locale} compact />
                         </span>
                       </button>
                     ))
@@ -304,9 +328,9 @@ function App() {
                         onClick={() => selectRoot(id)}
                       >
                         <span className="itemName">{pick(item.name, locale)}</span>
-                        <span className="itemMeta">
-                          {item.level ? `${t.levelPrefix}${item.level}` : t.unrecorded}
-                          {pick(item.type, locale) ? ` · ${pick(item.type, locale)}` : ''}
+                        <span className="itemMeta itemMetaRow">
+                          <span>{item.level ? `${t.levelPrefix}${item.level}` : t.unrecorded}</span>
+                          <TypeTag type={item.type} locale={locale} compact />
                         </span>
                       </button>
                     ))
@@ -387,7 +411,12 @@ function ItemDetailView({
           </div>
           <div className="statLine">
             {currentItem.level ? <span className="chip level">{t.levelPrefix}{currentItem.level}</span> : null}
-            {pick(currentItem.type, locale) ? <span className="chip">{t.type}：{pick(currentItem.type, locale)}</span> : null}
+            {pick(currentItem.type, locale) ? (
+              <span className="chip typeChip">
+                <span className="chipLabel">{t.type}：</span>
+                <TypeTag type={currentItem.type} locale={locale} />
+              </span>
+            ) : null}
             {currentItem.stats ? <span className="chip stat">{currentItem.stats}</span> : null}
           </div>
         </section>
@@ -493,10 +522,15 @@ function RecipeBlock({ item, itemId, recipe, recipeIndex, items, locale, t, pick
               >
                 <span className="materialIndex">{String(index + 1).padStart(2, '0')}</span>
                 <span className="materialName">{label}</span>
-                <span className="materialMeta">
-                  {linked
-                    ? `${linked.level ? `${t.levelPrefix}${linked.level}` : t.unrecorded}${pick(linked.type, locale) ? ` · ${pick(linked.type, locale)}` : ''}`
-                    : t.unrecorded}
+                <span className="materialMeta materialMetaRow">
+                  {linked ? (
+                    <>
+                      <span>{linked.level ? `${t.levelPrefix}${linked.level}` : t.unrecorded}</span>
+                      <TypeTag type={linked.type} locale={locale} compact />
+                    </>
+                  ) : (
+                    t.unrecorded
+                  )}
                 </span>
                 <span className="materialAction">{linked ? t.openMaterial : t.unrecorded}</span>
               </button>

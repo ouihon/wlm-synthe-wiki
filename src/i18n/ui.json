@@ -1,6 +1,6 @@
 {
   "zh-Hans": {
-    "appTitle": "飘流幻境新炼金百科",
+    "appTitle": "飘流幻境M·新炼金百科",
     "searchPlaceholder": "搜索物品、等级、物属",
     "inventory": "物品索引",
     "recipe": "当前配方",
@@ -27,7 +27,7 @@
     "allItems": "全部物品"
   },
   "zh-Hant": {
-    "appTitle": "飄流幻境新煉金百科",
+    "appTitle": "飄流幻境M·新煉金百科",
     "searchPlaceholder": "搜尋物品、等級、物屬",
     "inventory": "物品索引",
     "recipe": "目前配方",
@@ -54,7 +54,7 @@
     "allItems": "全部物品"
   },
   "en": {
-    "appTitle": "Wonderland Online Alchemy Wiki",
+    "appTitle": "Wonderland M Alchemy Wiki",
     "searchPlaceholder": "Search item, level, type",
     "inventory": "Item Index",
     "recipe": "Current Recipe",

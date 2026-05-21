@@ -400,6 +400,14 @@ input,
   font-weight: 600;
 }
 
+.itemMetaRow,
+.materialMetaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .emptyList {
   padding: 20px;
   color: var(--ink-soft);
@@ -523,6 +531,14 @@ input,
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.typeChip {
+  gap: 6px;
+}
+
+.chipLabel {
+  color: var(--ink-soft);
 }
 
 .chip.level {
@@ -753,6 +769,79 @@ input,
   color: var(--ink-soft);
   font-size: 13px;
   font-weight: 600;
+}
+
+.typeTag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.typeTag.compact {
+  min-height: 22px;
+  padding: 0 8px;
+  font-size: 11px;
+}
+
+.typeTag.tone-gold {
+  color: #8a5b00;
+  border-color: rgba(195, 138, 43, 0.2);
+  background: rgba(255, 242, 204, 0.95);
+}
+
+.typeTag.tone-grass {
+  color: #2f7d32;
+  border-color: rgba(76, 175, 80, 0.2);
+  background: rgba(229, 248, 230, 0.95);
+}
+
+.typeTag.tone-flower {
+  color: #b3294c;
+  border-color: rgba(233, 30, 99, 0.18);
+  background: rgba(255, 232, 239, 0.95);
+}
+
+.typeTag.tone-water {
+  color: #1565c0;
+  border-color: rgba(33, 150, 243, 0.2);
+  background: rgba(231, 244, 255, 0.96);
+}
+
+.typeTag.tone-wood {
+  color: #6d4c41;
+  border-color: rgba(121, 85, 72, 0.18);
+  background: rgba(241, 233, 228, 0.96);
+}
+
+.typeTag.tone-fire {
+  color: #c43d12;
+  border-color: rgba(255, 87, 34, 0.18);
+  background: rgba(255, 236, 230, 0.96);
+}
+
+.typeTag.tone-earth {
+  color: #8d6e63;
+  border-color: rgba(141, 110, 99, 0.18);
+  background: rgba(243, 235, 230, 0.96);
+}
+
+.typeTag.tone-arcane {
+  color: #6a1bb1;
+  border-color: rgba(156, 39, 176, 0.18);
+  background: rgba(245, 232, 255, 0.96);
+}
+
+.typeTag.tone-neutral {
+  color: var(--ink-soft);
+  border-color: var(--line);
+  background: rgba(245, 248, 252, 0.96);
 }
 
 .materialAction {
@@ -1046,6 +1135,12 @@ input,
     min-height: 28px;
     padding: 5px 9px;
     font-size: 12px;
+  }
+
+  .typeTag {
+    min-height: 24px;
+    padding: 0 8px;
+    font-size: 11px;
   }
 
   .recipeSwitch,
