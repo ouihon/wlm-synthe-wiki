@@ -1,0 +1,1114 @@
+:root {
+  color-scheme: light;
+  --bg: #eff3f8;
+  --bg-deep: #dde6f2;
+  --panel: rgba(255, 255, 255, 0.88);
+  --panel-strong: #ffffff;
+  --panel-soft: #f5f8fc;
+  --ink: #162031;
+  --ink-soft: #657287;
+  --line: rgba(22, 32, 49, 0.1);
+  --line-strong: rgba(22, 32, 49, 0.18);
+  --accent: #2563eb;
+  --accent-soft: #e8f0ff;
+  --accent-deep: #163e8f;
+  --gold: #c38a2b;
+  --danger: #c34747;
+  --danger-soft: #fff0f0;
+  --shadow-lg: 0 24px 64px rgba(37, 54, 88, 0.12);
+  --shadow-md: 0 12px 32px rgba(37, 54, 88, 0.08);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 26rem),
+    radial-gradient(circle at right 10% top 4%, rgba(195, 138, 43, 0.14), transparent 20rem),
+    linear-gradient(180deg, #f8fbff 0%, var(--bg) 44%, var(--bg-deep) 100%);
+  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at center, transparent 55%, rgba(22, 32, 49, 0.04) 100%);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input::placeholder {
+  color: color-mix(in srgb, var(--ink-soft) 82%, white);
+}
+
+button,
+input,
+.itemRow,
+.crumb,
+.recipeTab,
+.formulaMaterial,
+.materialCard,
+.localeBtn {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.appShell {
+  width: min(1360px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 18px 0 36px;
+}
+
+.topbar,
+.searchPanel,
+.itemList,
+.crumbCard,
+.recipeCard,
+.recipeSwitch,
+.formulaPanel,
+.materialCard,
+.noRecipeBox {
+  position: relative;
+}
+
+.topbar,
+.searchPanel,
+.itemList,
+.crumbCard,
+.recipeCard {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border-radius: var(--radius-xl);
+}
+
+.pageTabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 4px;
+  border: 1px solid rgba(22, 32, 49, 0.08);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: 0 8px 22px rgba(37, 54, 88, 0.05);
+}
+
+.pageTab {
+  flex: 1 1 0;
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: var(--ink-soft);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.pageTab:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.pageTab.active {
+  color: var(--accent-deep);
+  border-color: rgba(37, 99, 235, 0.16);
+  background: linear-gradient(180deg, #f6faff, #eaf2ff);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  color: white;
+  background:
+    linear-gradient(135deg, #1d4ed8, #2563eb 60%, #4f46e5);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.brandText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.topActions {
+  display: flex;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.localeBtn {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: var(--ink-soft);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.localeBtn:hover {
+  color: var(--ink);
+  background: rgba(22, 32, 49, 0.05);
+}
+
+.localeBtn.active {
+  color: white;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.searchPanel {
+  padding: 16px;
+  border-radius: var(--radius-xl);
+}
+
+.categoryList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.categoryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+  background: white;
+  font-weight: 800;
+}
+
+.categoryBtn small {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.categoryBtn:hover {
+  border-color: rgba(37, 99, 235, 0.18);
+  background: #f8fbff;
+}
+
+.categoryBtn.active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.2);
+}
+
+.categoryBtn.active small {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.searchLabelRow {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.searchLabelRow h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.searchLabelRow span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.searchBox {
+  position: relative;
+}
+
+.searchBox::before {
+  content: "⌕";
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  translate: 0 -50%;
+  color: var(--ink-soft);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.searchBox input {
+  width: 100%;
+  padding: 13px 14px 13px 38px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  outline: 0;
+  color: var(--ink);
+  background: white;
+}
+
+.searchBox input:focus {
+  border-color: rgba(37, 99, 235, 0.42);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.itemList {
+  display: grid;
+  gap: 8px;
+  max-height: calc(100vh - 188px);
+  padding: 8px;
+  overflow: auto;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(245, 248, 252, 0.95)),
+    var(--panel-soft);
+}
+
+.itemRow {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  min-height: 68px;
+  padding: 12px 13px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+}
+
+.itemRow:hover {
+  border-color: rgba(37, 99, 235, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  transform: translateY(-1px);
+}
+
+.itemRow.current {
+  border-color: rgba(37, 99, 235, 0.22);
+  background: linear-gradient(180deg, #edf4ff, #f7faff);
+}
+
+.itemRow.root:not(.current) {
+  background: rgba(232, 240, 255, 0.52);
+}
+
+.itemName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.itemMeta {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.emptyList {
+  padding: 20px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.content {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.crumbCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 12px;
+  border-radius: var(--radius-xl);
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.84);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.crumb:hover {
+  border-color: rgba(37, 99, 235, 0.2);
+  background: var(--accent-soft);
+}
+
+.crumb.active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+}
+
+.crumbArrow {
+  color: var(--ink-soft);
+  font-weight: 800;
+}
+
+.rootDot {
+  color: var(--gold);
+  font-size: 8px;
+}
+
+.recipeCard {
+  overflow: hidden;
+  min-height: 620px;
+  border-radius: var(--radius-xl);
+}
+
+.itemHero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: end;
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at right top, rgba(37, 99, 235, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 252, 0.96));
+}
+
+.itemHero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #1d4ed8, #60a5fa);
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.itemHero h1 {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 950;
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.statLine {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.chip,
+.bookTag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 31px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.84);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.chip.level {
+  color: var(--accent-deep);
+  border-color: rgba(37, 99, 235, 0.16);
+  background: var(--accent-soft);
+}
+
+.chip.stat {
+  color: #805c1b;
+  border-color: rgba(195, 138, 43, 0.18);
+  background: rgba(255, 243, 218, 0.92);
+}
+
+.recipeSwitch,
+.formulaPanel,
+.materialSection,
+.noRecipeBox {
+  margin: 20px;
+}
+
+.recipeSwitch,
+.formulaPanel,
+.noRecipeBox {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.recipeSwitch {
+  padding: 16px;
+}
+
+.switchHead,
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.switchHead small {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.recipeTabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.recipeTab {
+  display: grid;
+  gap: 6px;
+  min-height: 78px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  text-align: left;
+}
+
+.recipeTab:hover {
+  border-color: rgba(37, 99, 235, 0.18);
+  background: white;
+  transform: translateY(-1px);
+}
+
+.recipeTab.active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.2);
+}
+
+.recipeTab.danger:not(.active) {
+  border-color: rgba(195, 71, 71, 0.16);
+  background: var(--danger-soft);
+}
+
+.recipeTab span {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.recipeTab small {
+  color: inherit;
+  opacity: 0.8;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.formulaPanel {
+  padding: 16px;
+}
+
+.formulaLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-height: 72px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.84);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.5;
+}
+
+.formulaLine strong {
+  color: var(--accent-deep);
+  font-weight: 900;
+}
+
+.equal,
+.plus {
+  color: var(--ink-soft);
+  font-weight: 800;
+}
+
+.formulaMaterial {
+  padding: 7px 11px;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 999px;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+
+.formulaMaterial:hover {
+  border-color: rgba(37, 99, 235, 0.28);
+  background: #dce8ff;
+}
+
+.formulaMaterial.plain {
+  color: var(--ink);
+  border-color: var(--line);
+  background: #f5f8fc;
+}
+
+.bookTag {
+  color: #805c1b;
+  border-color: rgba(195, 138, 43, 0.18);
+  background: rgba(255, 243, 218, 0.92);
+  font-size: 14px;
+}
+
+.recipeMetaLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.recipeMetaLine span {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.recipeMetaLine .badText {
+  color: var(--danger);
+  border-color: rgba(195, 71, 71, 0.16);
+  background: var(--danger-soft);
+}
+
+.materialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.materialCard {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 10px;
+  min-height: 168px;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at right bottom, rgba(37, 99, 235, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(245, 248, 252, 0.96));
+  text-align: left;
+}
+
+.materialCard:not(.disabled):hover {
+  border-color: rgba(37, 99, 235, 0.18);
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.materialCard.disabled {
+  cursor: default;
+  opacity: 0.78;
+}
+
+.materialIndex {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.materialName {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.materialMeta {
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.materialAction {
+  justify-self: start;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.materialCard:not(.disabled) .materialAction {
+  color: var(--accent-deep);
+  border-color: rgba(37, 99, 235, 0.16);
+  background: var(--accent-soft);
+}
+
+.noRecipeBox {
+  padding: 28px;
+  border-style: dashed;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.guidePanel {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--panel);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.guidePanelHead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.guidePanelHead h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.guidePanelHead span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.guideList {
+  display: grid;
+  gap: 12px;
+}
+
+.guideCard {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  color: inherit;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow-md);
+}
+
+.guideCard:hover {
+  border-color: rgba(37, 99, 235, 0.2);
+  transform: translateY(-2px);
+}
+
+.guideCard strong {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.guideNote {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.guideBadge {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.guideUrl {
+  color: var(--ink-soft);
+  font-size: 13px;
+  word-break: break-all;
+}
+
+.guideAction {
+  display: inline-flex;
+  justify-self: start;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.siteFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 24px;
+  padding: 18px 8px 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.88;
+  border-top: 1px solid rgba(22, 32, 49, 0.08);
+  text-align: center;
+}
+
+.siteFooter strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 1120px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .itemList {
+    max-height: 360px;
+  }
+
+  .materialGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .appShell {
+    width: min(100% - 10px, 1360px);
+    padding: 6px 0 18px;
+  }
+
+  .pageTabs {
+    gap: 6px;
+    margin-bottom: 8px;
+    padding: 4px;
+    border-radius: 14px;
+  }
+
+  .pageTab {
+    min-height: 38px;
+    font-size: 12px;
+  }
+
+  .topbar,
+  .itemHero {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .brand {
+    gap: 12px;
+  }
+
+  .brandMark {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+
+  .brandText {
+    font-size: 22px;
+    white-space: normal;
+  }
+
+  .topActions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .localeBtn {
+    flex: 1 1 0;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .layout {
+    gap: 8px;
+  }
+
+  .sidebar,
+  .content {
+    gap: 8px;
+  }
+
+  .searchPanel,
+  .itemList,
+  .crumbCard,
+  .recipeCard {
+    border-radius: 16px;
+  }
+
+  .searchPanel {
+    padding: 12px;
+  }
+
+  .categoryList {
+    grid-template-columns: 1fr;
+  }
+
+  .searchLabelRow h2 {
+    font-size: 17px;
+  }
+
+  .searchBox input {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .itemList {
+    padding: 6px;
+  }
+
+  .itemRow {
+    min-height: 62px;
+    padding: 10px 11px;
+  }
+
+  .crumbCard {
+    min-height: auto;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .crumb {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .itemHero {
+    gap: 14px;
+    padding: 18px 14px 16px;
+  }
+
+  .itemHero h1 {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .statLine {
+    justify-content: flex-start;
+    max-width: none;
+    gap: 6px;
+  }
+
+  .chip,
+  .bookTag {
+    min-height: 28px;
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+
+  .recipeSwitch,
+  .formulaPanel,
+  .materialSection,
+  .noRecipeBox {
+    margin: 10px;
+  }
+
+  .recipeSwitch,
+  .formulaPanel,
+  .noRecipeBox {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .recipeTabs,
+  .materialGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .recipeTab {
+    min-height: 70px;
+    padding: 12px;
+  }
+
+  .formulaLine {
+    min-height: 0;
+    padding: 12px;
+    font-size: 17px;
+  }
+
+  .materialGrid {
+    gap: 10px;
+  }
+
+  .materialCard {
+    min-height: 146px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .materialName {
+    font-size: 20px;
+  }
+
+  .guidePanel {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .guidePanelHead h2 {
+    font-size: 18px;
+  }
+
+  .guideCard {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .siteFooter {
+    margin-top: 10px;
+    padding-top: 8px;
+    font-size: 12px;
+  }
+}

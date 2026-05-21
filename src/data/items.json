@@ -1,0 +1,1428 @@
+{
+  "schemaVersion": 2,
+  "defaultItemId": "black_bishop_robe",
+  "locales": [
+    "zh-Hans",
+    "zh-Hant",
+    "en"
+  ],
+  "items": {
+    "black_bishop_robe": {
+      "name": {
+        "zh-Hans": "黑主教袍",
+        "zh-Hant": "黑主教袍",
+        "en": "黑主教袍"
+      },
+      "level": 84,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "MATK+42",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "主配方",
+            "zh-Hant": "主配方",
+            "en": "主配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书4",
+            "zh-Hant": "書4",
+            "en": "书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "蓝羽功夫装",
+                "zh-Hant": "藍羽功夫裝",
+                "en": "蓝羽功夫装"
+              },
+              "itemId": "blue_feather_kungfu"
+            },
+            {
+              "name": {
+                "zh-Hans": "赤炎筒靴",
+                "zh-Hant": "赤炎筒靴",
+                "en": "赤炎筒靴"
+              },
+              "itemId": "red_flame_boots"
+            },
+            {
+              "name": {
+                "zh-Hans": "黄金战枪",
+                "zh-Hant": "黃金戰槍",
+                "en": "黄金战枪"
+              },
+              "itemId": "golden_spear"
+            }
+          ]
+        }
+      ]
+    },
+    "blue_feather_kungfu": {
+      "name": {
+        "zh-Hans": "蓝羽功夫装",
+        "zh-Hant": "藍羽功夫裝",
+        "en": "蓝羽功夫装"
+      },
+      "level": 78,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "SPD+24 ATK+15",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "长白手套路线",
+            "zh-Hant": "長白手套路線",
+            "en": "长白手套路线"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书3 / 书4",
+            "zh-Hant": "書3 / 書4",
+            "en": "书3 / 书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "长白手套",
+                "zh-Hant": "長白手套",
+                "en": "长白手套"
+              },
+              "itemId": "long_white_gloves"
+            },
+            {
+              "name": {
+                "zh-Hans": "耀眼铠甲",
+                "zh-Hant": "耀眼鎧甲",
+                "en": "耀眼铠甲"
+              },
+              "itemId": "shining_armor"
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "轻灵丝袍路线",
+            "zh-Hant": "輕靈絲袍路線",
+            "en": "轻灵丝袍路线"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书4",
+            "zh-Hant": "書4",
+            "en": "书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "轻灵丝袍",
+                "zh-Hant": "輕靈絲袍",
+                "en": "轻灵丝袍"
+              },
+              "itemId": "light_silk_robe"
+            },
+            {
+              "name": {
+                "zh-Hans": "法王之戒 / 王者之戒",
+                "zh-Hant": "法王之戒 / 王者之戒",
+                "en": "法王之戒 / 王者之戒"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "芬丝琪手套路线",
+            "zh-Hant": "芬絲琪手套路線",
+            "en": "芬丝琪手套路线"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书4",
+            "zh-Hant": "書4",
+            "en": "书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "芬丝琪手套",
+                "zh-Hant": "芬絲琪手套",
+                "en": "芬丝琪手套"
+              },
+              "itemId": "finski_gloves"
+            },
+            {
+              "name": {
+                "zh-Hans": "法王之戒 / 王者之戒",
+                "zh-Hant": "法王之戒 / 王者之戒",
+                "en": "法王之戒 / 王者之戒"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "long_white_gloves": {
+      "name": {
+        "zh-Hans": "长白手套",
+        "zh-Hant": "長白手套",
+        "en": "长白手套"
+      },
+      "level": 66,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "MDEF+25 DEF+8",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "长白手套配方",
+            "zh-Hant": "長白手套配方",
+            "en": "长白手套配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书4",
+            "zh-Hant": "書4",
+            "en": "书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "青木旗袍",
+                "zh-Hant": "青木旗袍",
+                "en": "青木旗袍"
+              },
+              "itemId": "green_wood_qipao"
+            },
+            {
+              "name": {
+                "zh-Hans": "法丝护腕",
+                "zh-Hant": "法絲護腕",
+                "en": "法丝护腕"
+              },
+              "itemId": "magic_silk_bracer"
+            }
+          ]
+        }
+      ]
+    },
+    "green_wood_qipao": {
+      "name": {
+        "zh-Hans": "青木旗袍",
+        "zh-Hant": "青木旗袍",
+        "en": "青木旗袍"
+      },
+      "level": 54,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "SPD+17 DEF+10",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "常用方法",
+            "zh-Hant": "常用方法",
+            "en": "常用方法"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "金丝旗袍",
+                "zh-Hant": "金絲旗袍",
+                "en": "金丝旗袍"
+              },
+              "itemId": "gold_silk_qipao"
+            },
+            {
+              "name": {
+                "zh-Hans": "垂直尾翼",
+                "zh-Hant": "垂直尾翼",
+                "en": "垂直尾翼"
+              },
+              "itemId": "vertical_tail"
+            }
+          ]
+        }
+      ]
+    },
+    "gold_silk_qipao": {
+      "name": {
+        "zh-Hans": "金丝旗袍",
+        "zh-Hant": "金絲旗袍",
+        "en": "金丝旗袍"
+      },
+      "level": 42,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "MATK+11 MDEF+10",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "材料制作",
+            "zh-Hant": "材料製作",
+            "en": "材料制作"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "非炼金",
+            "zh-Hant": "非煉金",
+            "en": "非炼金"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "加工金玫瑰〔18花〕",
+                "zh-Hant": "加工金玫瑰〔18花〕",
+                "en": "加工金玫瑰〔18花〕"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "淬炼金块〔18金〕",
+                "zh-Hant": "淬煉金塊〔18金〕",
+                "en": "淬炼金块〔18金〕"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "vertical_tail": {
+      "name": {
+        "zh-Hans": "垂直尾翼",
+        "zh-Hant": "垂直尾翼",
+        "en": "垂直尾翼"
+      },
+      "level": 21,
+      "type": {
+        "zh-Hans": "木",
+        "zh-Hant": "木",
+        "en": "木"
+      },
+      "stats": "",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "檯鉅制作",
+            "zh-Hant": "檯鉅製作",
+            "en": "檯鉅制作"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "非炼金",
+            "zh-Hant": "非煉金",
+            "en": "非炼金"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "橡木材 × 2",
+                "zh-Hant": "橡木材 × 2",
+                "en": "橡木材 × 2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "magic_silk_bracer": {
+      "name": {
+        "zh-Hans": "法丝护腕",
+        "zh-Hant": "法絲護腕",
+        "en": "法丝护腕"
+      },
+      "level": 54,
+      "type": {
+        "zh-Hans": "草",
+        "zh-Hant": "草",
+        "en": "草"
+      },
+      "stats": "SPD+20 MATK+7",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "推荐配方",
+            "zh-Hant": "推薦配方",
+            "en": "推荐配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "书3 高阶 / 书4 中阶",
+            "zh-Hant": "書3 高階 / 書4 中階",
+            "en": "书3 高阶 / 书4 中阶"
+          },
+          "book": {
+            "zh-Hans": "书3 / 书4",
+            "zh-Hant": "書3 / 書4",
+            "en": "书3 / 书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "蓝灵靴",
+                "zh-Hant": "藍靈靴",
+                "en": "蓝灵靴"
+              },
+              "itemId": "blue_spirit_boots"
+            },
+            {
+              "name": {
+                "zh-Hans": "魔玉石〔21物等魔〕",
+                "zh-Hant": "魔玉石〔21物等魔〕",
+                "en": "魔玉石〔21物等魔〕"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "blue_spirit_boots": {
+      "name": {
+        "zh-Hans": "蓝灵靴",
+        "zh-Hant": "藍靈靴",
+        "en": "蓝灵靴"
+      },
+      "level": 42,
+      "type": {
+        "zh-Hans": "草",
+        "zh-Hant": "草",
+        "en": "草"
+      },
+      "stats": "SPD+12 MDEF+9",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "水蓝皮靴路线",
+            "zh-Hant": "水藍皮靴路線",
+            "en": "水蓝皮靴路线"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "水蓝皮靴",
+                "zh-Hant": "水藍皮靴",
+                "en": "水蓝皮靴"
+              },
+              "itemId": "water_blue_boots"
+            },
+            {
+              "name": {
+                "zh-Hans": "兽骨铁剑",
+                "zh-Hant": "獸骨鐵劍",
+                "en": "兽骨铁剑"
+              },
+              "itemId": "beastbone_iron_sword"
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "树须法袍路线",
+            "zh-Hant": "树鬚法袍路線",
+            "en": "树须法袍路线"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "38 树须法袍",
+                "zh-Hant": "38 树鬚法袍",
+                "en": "38 树须法袍"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "兽骨铁剑",
+                "zh-Hant": "獸骨鐵劍",
+                "en": "兽骨铁剑"
+              },
+              "itemId": "beastbone_iron_sword"
+            }
+          ]
+        }
+      ]
+    },
+    "water_blue_boots": {
+      "name": {
+        "zh-Hans": "水蓝皮靴",
+        "zh-Hant": "水藍皮靴",
+        "en": "水蓝皮靴"
+      },
+      "level": 40,
+      "type": {
+        "zh-Hans": "草",
+        "zh-Hant": "草",
+        "en": "草"
+      },
+      "stats": "MATK+13 SPD+7",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "底层草靴",
+            "zh-Hant": "底層草靴",
+            "en": "底层草靴"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "18等草",
+                "zh-Hant": "18等草",
+                "en": "18等草"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "18等叶",
+                "zh-Hant": "18等葉",
+                "en": "18等叶"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "18等皮，例如埃及皮手套",
+                "zh-Hant": "18等皮，例如埃及皮手套",
+                "en": "18等皮，例如埃及皮手套"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "beastbone_iron_sword": {
+      "name": {
+        "zh-Hans": "兽骨铁剑",
+        "zh-Hant": "獸骨鐵劍",
+        "en": "兽骨铁剑"
+      },
+      "level": 38,
+      "type": {
+        "zh-Hans": "铁",
+        "zh-Hant": "鐵",
+        "en": "铁"
+      },
+      "stats": "ATK+19 SPD+19",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "埃及材料路线",
+            "zh-Hant": "埃及材料路線",
+            "en": "埃及材料路线"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "铁麻鞋",
+                "zh-Hant": "鐵麻鞋",
+                "en": "铁麻鞋"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "狼牙",
+                "zh-Hant": "狼牙",
+                "en": "狼牙"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "铁麻鞋",
+                "zh-Hant": "鐵麻鞋",
+                "en": "铁麻鞋"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "破灭钉锤路线",
+            "zh-Hant": "破滅釘錘路線",
+            "en": "破灭钉锤路线"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "20关破灭钉锤",
+                "zh-Hant": "20關破滅釘錘",
+                "en": "20关破灭钉锤"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "狼牙",
+                "zh-Hant": "狼牙",
+                "en": "狼牙"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "shining_armor": {
+      "name": {
+        "zh-Hans": "耀眼铠甲",
+        "zh-Hant": "耀眼鎧甲",
+        "en": "耀眼铠甲"
+      },
+      "level": 66,
+      "type": {
+        "zh-Hans": "白银",
+        "zh-Hant": "白銀",
+        "en": "白银"
+      },
+      "stats": "MDEF+25 DEF+8",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "常用方法 1",
+            "zh-Hant": "常用方法 1",
+            "en": "常用方法 1"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶",
+            "zh-Hant": "中階",
+            "en": "中阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "90 魔鹰羽饰",
+                "zh-Hant": "90 魔鷹羽飾",
+                "en": "90 魔鹰羽饰"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "64 法王之戒 / 王者之戒",
+                "zh-Hant": "64 法王之戒 / 王者之戒",
+                "en": "64 法王之戒 / 王者之戒"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "常用方法 2",
+            "zh-Hant": "常用方法 2",
+            "en": "常用方法 2"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "90 魔鹰羽饰",
+                "zh-Hant": "90 魔鷹羽飾",
+                "en": "90 魔鹰羽饰"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "60 铜人戒指",
+                "zh-Hant": "60 銅人戒指",
+                "en": "60 铜人戒指"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "秘银护腕路线",
+            "zh-Hant": "祕銀護腕路線",
+            "en": "秘银护腕路线"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "书2 中阶/高阶；书3 中阶",
+            "zh-Hant": "書2 中階/高階；書3 中階",
+            "en": "书2 中阶/高阶；书3 中阶"
+          },
+          "book": {
+            "zh-Hans": "书2 / 书3",
+            "zh-Hant": "書2 / 書3",
+            "en": "书2 / 书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "58 秘银护腕",
+                "zh-Hant": "58 祕銀護腕",
+                "en": "58 秘银护腕"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "58 秘银护腕",
+                "zh-Hant": "58 祕銀護腕",
+                "en": "58 秘银护腕"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "light_silk_robe": {
+      "name": {
+        "zh-Hans": "轻灵丝袍",
+        "zh-Hant": "輕靈絲袍",
+        "en": "轻灵丝袍"
+      },
+      "level": 64,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "MATK+32",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "轻灵丝袍配方",
+            "zh-Hant": "輕靈絲袍配方",
+            "en": "轻灵丝袍配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶",
+            "zh-Hant": "中階",
+            "en": "中阶"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "青木旗袍，或紫绒靴，或银丝履鞋",
+                "zh-Hant": "青木旗袍，或紫絨靴，或銀絲履鞋",
+                "en": "青木旗袍，或紫绒靴，或银丝履鞋"
+              },
+              "itemId": "green_wood_qipao"
+            },
+            {
+              "name": {
+                "zh-Hans": "法丝护腕",
+                "zh-Hant": "法絲護腕",
+                "en": "法丝护腕"
+              },
+              "itemId": "magic_silk_bracer"
+            }
+          ]
+        }
+      ]
+    },
+    "finski_gloves": {
+      "name": {
+        "zh-Hans": "芬丝琪手套",
+        "zh-Hant": "芬絲琪手套",
+        "en": "芬丝琪手套"
+      },
+      "level": 64,
+      "type": {
+        "zh-Hans": "花",
+        "zh-Hant": "花",
+        "en": "花"
+      },
+      "stats": "MDEF+23 DEF+9",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "芬丝琪手套配方",
+            "zh-Hant": "芬絲琪手套配方",
+            "en": "芬丝琪手套配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶",
+            "zh-Hant": "中階",
+            "en": "中阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "青木旗袍，或紫绒靴，或银丝履鞋",
+                "zh-Hant": "青木旗袍，或紫絨靴，或銀絲履鞋",
+                "en": "青木旗袍，或紫绒靴，或银丝履鞋"
+              },
+              "itemId": "green_wood_qipao"
+            },
+            {
+              "name": {
+                "zh-Hans": "54 绿龙皮腕",
+                "zh-Hant": "54 綠龍皮腕",
+                "en": "54 绿龙皮腕"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "red_flame_boots": {
+      "name": {
+        "zh-Hans": "赤炎筒靴",
+        "zh-Hant": "赤炎筒靴",
+        "en": "赤炎筒靴"
+      },
+      "level": 74,
+      "type": {
+        "zh-Hans": "草",
+        "zh-Hant": "草",
+        "en": "草"
+      },
+      "stats": "MDEF+26 MATK+11",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "圣洁桂冠路线",
+            "zh-Hant": "聖潔桂冠路線",
+            "en": "圣洁桂冠路线"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "圣洁桂冠",
+                "zh-Hant": "聖潔桂冠",
+                "en": "圣洁桂冠"
+              },
+              "itemId": "holy_laurel"
+            },
+            {
+              "name": {
+                "zh-Hans": "64 法王之戒 / 王者之戒",
+                "zh-Hant": "64 法王之戒 / 王者之戒",
+                "en": "64 法王之戒 / 王者之戒"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "水珀长筒靴路线",
+            "zh-Hant": "水珀長筒靴路線",
+            "en": "水珀长筒靴路线"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "水珀长筒靴",
+                "zh-Hant": "水珀長筒靴",
+                "en": "水珀长筒靴"
+              },
+              "itemId": "amber_long_boots"
+            },
+            {
+              "name": {
+                "zh-Hans": "64 法王之戒 / 王者之戒",
+                "zh-Hant": "64 法王之戒 / 王者之戒",
+                "en": "64 法王之戒 / 王者之戒"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "铜人戒路线",
+            "zh-Hant": "銅人戒路線",
+            "en": "铜人戒路线"
+          },
+          "recommended": false,
+          "bad": true,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书4",
+            "zh-Hant": "書4",
+            "en": "书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "60 水羽绒服 / 长紫靴 / 热血臂章",
+                "zh-Hant": "60 水羽絨服 / 長紫靴 / 熱血臂章",
+                "en": "60 水羽绒服 / 长紫靴 / 热血臂章"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "60 铜人戒指",
+                "zh-Hant": "60 銅人戒指",
+                "en": "60 铜人戒指"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "holy_laurel": {
+      "name": {
+        "zh-Hans": "圣洁桂冠",
+        "zh-Hant": "聖潔桂冠",
+        "en": "圣洁桂冠"
+      },
+      "level": 66,
+      "type": {
+        "zh-Hans": "草",
+        "zh-Hant": "草",
+        "en": "草"
+      },
+      "stats": "MDEF+33",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "推荐配方",
+            "zh-Hant": "推薦配方",
+            "en": "推荐配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书4 / 书3",
+            "zh-Hant": "書4 / 書3",
+            "en": "书4 / 书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "法丝护腕",
+                "zh-Hant": "法絲護腕",
+                "en": "法丝护腕"
+              },
+              "itemId": "magic_silk_bracer"
+            },
+            {
+              "name": {
+                "zh-Hans": "晚宴礼服",
+                "zh-Hant": "晚宴禮服",
+                "en": "晚宴礼服"
+              },
+              "itemId": "dinner_dress"
+            }
+          ]
+        }
+      ]
+    },
+    "dinner_dress": {
+      "name": {
+        "zh-Hans": "晚宴礼服",
+        "zh-Hant": "晚宴禮服",
+        "en": "晚宴礼服"
+      },
+      "level": 54,
+      "type": {
+        "zh-Hans": "魔",
+        "zh-Hant": "魔",
+        "en": "魔"
+      },
+      "stats": "",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "明王剑路线 1",
+            "zh-Hant": "明王劍路線 1",
+            "en": "明王剑路线 1"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "未注明",
+            "zh-Hant": "未註明",
+            "en": "未注明"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "72 明王剑",
+                "zh-Hant": "72 明王劍",
+                "en": "72 明王剑"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "72 明王剑",
+                "zh-Hant": "72 明王劍",
+                "en": "72 明王剑"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "明王剑路线 2",
+            "zh-Hant": "明王劍路線 2",
+            "en": "明王剑路线 2"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "未注明",
+            "zh-Hant": "未註明",
+            "en": "未注明"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "72 明王剑",
+                "zh-Hant": "72 明王劍",
+                "en": "72 明王剑"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "王者之戒 / 法王之戒",
+                "zh-Hant": "王者之戒 / 法王之戒",
+                "en": "王者之戒 / 法王之戒"
+              }
+            }
+          ]
+        },
+        {
+          "title": {
+            "zh-Hans": "魔玉石路线",
+            "zh-Hant": "魔玉石路線",
+            "en": "魔玉石路线"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "未注明",
+            "zh-Hant": "未註明",
+            "en": "未注明"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "魔玉石",
+                "zh-Hant": "魔玉石",
+                "en": "魔玉石"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "垂直尾翼",
+                "zh-Hant": "垂直尾翼",
+                "en": "垂直尾翼"
+              },
+              "itemId": "vertical_tail"
+            }
+          ]
+        }
+      ]
+    },
+    "amber_long_boots": {
+      "name": {
+        "zh-Hans": "水珀长筒靴",
+        "zh-Hant": "水珀長筒靴",
+        "en": "水珀长筒靴"
+      },
+      "level": 64,
+      "type": {
+        "zh-Hans": "草",
+        "zh-Hant": "草",
+        "en": "草"
+      },
+      "stats": "SPD+18 MATK+14",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "水珀长筒靴配方",
+            "zh-Hant": "水珀長筒靴配方",
+            "en": "水珀长筒靴配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "未注明",
+            "zh-Hant": "未註明",
+            "en": "未注明"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "法丝护腕",
+                "zh-Hant": "法絲護腕",
+                "en": "法丝护腕"
+              },
+              "itemId": "magic_silk_bracer"
+            },
+            {
+              "name": {
+                "zh-Hans": "水丝灵袍",
+                "zh-Hant": "水絲靈袍",
+                "en": "水丝灵袍"
+              },
+              "itemId": "water_silk_robe"
+            }
+          ]
+        }
+      ]
+    },
+    "water_silk_robe": {
+      "name": {
+        "zh-Hans": "水丝灵袍",
+        "zh-Hant": "水絲靈袍",
+        "en": "水丝灵袍"
+      },
+      "level": 54,
+      "type": {
+        "zh-Hans": "叶",
+        "zh-Hant": "葉",
+        "en": "叶"
+      },
+      "stats": "MDEF+27",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "水丝灵袍配方",
+            "zh-Hant": "水絲靈袍配方",
+            "en": "水丝灵袍配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "未注明",
+            "zh-Hant": "未註明",
+            "en": "未注明"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "44 天翔靴",
+                "zh-Hant": "44 天翔靴",
+                "en": "44 天翔靴"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "蓝灵靴",
+                "zh-Hant": "藍靈靴",
+                "en": "蓝灵靴"
+              },
+              "itemId": "blue_spirit_boots"
+            },
+            {
+              "name": {
+                "zh-Hans": "44 大魔手套",
+                "zh-Hant": "44 大魔手套",
+                "en": "44 大魔手套"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "golden_spear": {
+      "name": {
+        "zh-Hans": "黄金战枪",
+        "zh-Hant": "黃金戰槍",
+        "en": "黄金战枪"
+      },
+      "level": 72,
+      "type": {
+        "zh-Hans": "金",
+        "zh-Hant": "金",
+        "en": "金"
+      },
+      "stats": "ATK+50 DEF+22",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "推荐配方",
+            "zh-Hant": "推薦配方",
+            "en": "推荐配方"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "书3 高阶 / 书4 中阶",
+            "zh-Hant": "書3 高階 / 書4 中階",
+            "en": "书3 高阶 / 书4 中阶"
+          },
+          "book": {
+            "zh-Hans": "书3 / 书4",
+            "zh-Hant": "書3 / 書4",
+            "en": "书3 / 书4"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "62 蓝星战腕",
+                "zh-Hant": "62 藍星戰腕",
+                "en": "62 蓝星战腕"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "60 铜人戒指",
+                "zh-Hant": "60 銅人戒指",
+                "en": "60 铜人戒指"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "gold_blade_sword": {
+      "name": {
+        "zh-Hans": "金刃剑",
+        "zh-Hant": "金刃劍",
+        "en": "金刃剑"
+      },
+      "level": 76,
+      "type": {
+        "zh-Hans": "金",
+        "zh-Hant": "金",
+        "en": "金"
+      },
+      "stats": "ATK+46 SPD+30",
+      "recipes": [
+        {
+          "title": {
+            "zh-Hans": "可选高成功率金素材",
+            "zh-Hant": "可選高成功率金素材",
+            "en": "可选高成功率金素材"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书3",
+            "zh-Hant": "書3",
+            "en": "书3"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "66 螺旋剑",
+                "zh-Hant": "66 螺旋劍",
+                "en": "66 螺旋剑"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "66 宝珠额链",
+                "zh-Hant": "66 寶珠額鍊",
+                "en": "66 宝珠额链"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
