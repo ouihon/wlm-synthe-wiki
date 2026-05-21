@@ -362,7 +362,7 @@ input,
   display: grid;
   gap: 4px;
   width: 100%;
-  min-height: 68px;
+  min-height: 76px;
   padding: 12px 13px;
   border: 1px solid transparent;
   border-radius: 14px;
@@ -387,11 +387,11 @@ input,
 }
 
 .itemName {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 15px;
   font-weight: 800;
+  line-height: 1.3;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .itemMeta {
@@ -406,6 +406,10 @@ input,
   align-items: center;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.itemMetaRow {
+  gap: 5px;
 }
 
 .emptyList {
@@ -510,12 +514,24 @@ input,
   text-wrap: balance;
 }
 
-.statLine {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 8px;
+.heroMeta {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  min-width: 160px;
   max-width: 360px;
+}
+
+.heroMetaLine {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.heroMetaLabel {
+  color: var(--ink-soft);
 }
 
 .chip,
@@ -531,14 +547,6 @@ input,
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
-}
-
-.typeChip {
-  gap: 6px;
-}
-
-.chipLabel {
-  color: var(--ink-soft);
 }
 
 .chip.level {
@@ -774,6 +782,7 @@ input,
 .typeTag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 28px;
   padding: 0 10px;
   border: 1px solid transparent;
@@ -782,66 +791,76 @@ input,
   font-weight: 800;
   line-height: 1;
   white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .typeTag.compact {
-  min-height: 22px;
-  padding: 0 8px;
-  font-size: 11px;
+  min-width: 34px;
+  min-height: 18px;
+  padding: 0 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 1px 2px rgba(22, 32, 49, 0.06);
 }
 
 .typeTag.tone-gold {
   color: #8a5b00;
-  border-color: rgba(195, 138, 43, 0.2);
-  background: rgba(255, 242, 204, 0.95);
+  border-color: rgba(195, 138, 43, 0.34);
+  background: linear-gradient(180deg, rgba(255, 248, 222, 1), rgba(255, 238, 188, 0.96));
 }
 
 .typeTag.tone-grass {
   color: #2f7d32;
-  border-color: rgba(76, 175, 80, 0.2);
-  background: rgba(229, 248, 230, 0.95);
+  border-color: rgba(76, 175, 80, 0.34);
+  background: linear-gradient(180deg, rgba(236, 251, 236, 1), rgba(214, 244, 216, 0.96));
 }
 
 .typeTag.tone-flower {
   color: #b3294c;
-  border-color: rgba(233, 30, 99, 0.18);
-  background: rgba(255, 232, 239, 0.95);
+  border-color: rgba(233, 30, 99, 0.3);
+  background: linear-gradient(180deg, rgba(255, 240, 244, 1), rgba(255, 222, 232, 0.96));
 }
 
 .typeTag.tone-water {
   color: #1565c0;
-  border-color: rgba(33, 150, 243, 0.2);
-  background: rgba(231, 244, 255, 0.96);
+  border-color: rgba(33, 150, 243, 0.3);
+  background: linear-gradient(180deg, rgba(239, 248, 255, 1), rgba(220, 238, 255, 0.96));
 }
 
 .typeTag.tone-wood {
   color: #6d4c41;
-  border-color: rgba(121, 85, 72, 0.18);
-  background: rgba(241, 233, 228, 0.96);
+  border-color: rgba(121, 85, 72, 0.26);
+  background: linear-gradient(180deg, rgba(246, 239, 235, 1), rgba(235, 223, 216, 0.96));
 }
 
 .typeTag.tone-fire {
   color: #c43d12;
-  border-color: rgba(255, 87, 34, 0.18);
-  background: rgba(255, 236, 230, 0.96);
+  border-color: rgba(255, 87, 34, 0.3);
+  background: linear-gradient(180deg, rgba(255, 243, 238, 1), rgba(255, 226, 216, 0.96));
 }
 
 .typeTag.tone-earth {
   color: #8d6e63;
-  border-color: rgba(141, 110, 99, 0.18);
-  background: rgba(243, 235, 230, 0.96);
+  border-color: rgba(141, 110, 99, 0.28);
+  background: linear-gradient(180deg, rgba(247, 241, 238, 1), rgba(236, 227, 222, 0.96));
 }
 
 .typeTag.tone-arcane {
   color: #6a1bb1;
-  border-color: rgba(156, 39, 176, 0.18);
-  background: rgba(245, 232, 255, 0.96);
+  border-color: rgba(156, 39, 176, 0.3);
+  background: linear-gradient(180deg, rgba(249, 239, 255, 1), rgba(239, 223, 255, 0.96));
 }
 
 .typeTag.tone-neutral {
   color: var(--ink-soft);
-  border-color: var(--line);
-  background: rgba(245, 248, 252, 0.96);
+  border-color: rgba(22, 32, 49, 0.18);
+  background: linear-gradient(180deg, rgba(250, 252, 255, 1), rgba(241, 246, 252, 0.96));
 }
 
 .materialAction {
@@ -1124,10 +1143,14 @@ input,
     font-size: clamp(30px, 9vw, 40px);
   }
 
-  .statLine {
-    justify-content: flex-start;
+  .heroMeta {
+    justify-items: start;
+    min-width: 0;
     max-width: none;
-    gap: 6px;
+  }
+
+  .heroMetaLine {
+    text-align: left;
   }
 
   .chip,

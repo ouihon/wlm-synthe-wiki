@@ -409,15 +409,15 @@ function ItemDetailView({
             <div className="eyebrow">{pick(rootItem.name, locale) === pick(currentItem.name, locale) ? t.root : t.current}</div>
             <h1>{pick(currentItem.name, locale)}</h1>
           </div>
-          <div className="statLine">
-            {currentItem.level ? <span className="chip level">{t.levelPrefix}{currentItem.level}</span> : null}
+          <div className="heroMeta">
+            {currentItem.level ? <div className="heroMetaLine">{t.levelPrefix}{currentItem.level}</div> : null}
             {pick(currentItem.type, locale) ? (
-              <span className="chip typeChip">
-                <span className="chipLabel">{t.type}：</span>
-                <TypeTag type={currentItem.type} locale={locale} />
-              </span>
+              <div className="heroMetaLine">
+                <span className="heroMetaLabel">{t.type}：</span>
+                <span>{pick(currentItem.type, locale)}</span>
+              </div>
             ) : null}
-            {currentItem.stats ? <span className="chip stat">{currentItem.stats}</span> : null}
+            {currentItem.stats ? <div className="heroMetaLine">{currentItem.stats}</div> : null}
           </div>
         </section>
 
