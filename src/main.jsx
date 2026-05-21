@@ -52,6 +52,7 @@ const GUIDE_LINKS = [
 ];
 
 const APP_VERSION = 'v0.0.1';
+const BRAND_ICON_SRC = `${import.meta.env.BASE_URL}favicon.ico`;
 const TYPE_COLOR_MAP = {
   金: 'gold',
   草: 'grass',
@@ -200,7 +201,9 @@ function App() {
     <div className="appShell">
       <header className="topbar">
         <button className="brand" onClick={() => selectRoot(defaultItemId)} aria-label={t.appTitle}>
-          <span className="brandMark">飘</span>
+          <span className="brandMark">
+            <img src={BRAND_ICON_SRC} alt="" />
+          </span>
           <span className="brandText">{t.appTitle}</span>
         </button>
         <div className="topActions" aria-label={t.language}>
