@@ -467,6 +467,7 @@ function RecipeBlock({ item, itemId, recipe, recipeIndex, items, locale, t, pick
               <span>{pick(entry.title, locale)}</span>
               <small>
                 {pick(entry.rank, locale)}
+                {entry.source ? ` · ${t.recipeSourcePrefix}${pick(entry.source, locale)}` : ''}
                 {entry.recommended ? ` · ${t.recommended}` : ''}
                 {entry.bad ? ` · ${t.notRecommended}` : ''}
               </small>

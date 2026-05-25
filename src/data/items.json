@@ -64,7 +64,8 @@
               },
               "itemId": "golden_spear"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -117,7 +118,8 @@
               },
               "itemId": "shining_armor"
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -153,7 +155,8 @@
                 "en": "法王之戒 / 王者之戒"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -189,7 +192,8 @@
                 "en": "法王之戒 / 王者之戒"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -242,7 +246,8 @@
               },
               "itemId": "magic_silk_bracer"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -295,7 +300,8 @@
               },
               "itemId": "vertical_tail"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -346,7 +352,8 @@
                 "en": "淬炼金块〔18金〕"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -390,7 +397,8 @@
                 "en": "橡木材 × 2"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -442,7 +450,8 @@
                 "en": "魔玉石〔21物等魔〕"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -462,11 +471,48 @@
       "recipes": [
         {
           "title": {
+            "zh-Hans": "树须法袍路线",
+            "zh-Hant": "树鬚法袍路線",
+            "en": "树须法袍路线"
+          },
+          "recommended": true,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "中阶 / 高阶",
+            "zh-Hant": "中階 / 高階",
+            "en": "中阶 / 高阶"
+          },
+          "book": {
+            "zh-Hans": "无",
+            "zh-Hant": "無",
+            "en": "无"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "38 树须法袍",
+                "zh-Hant": "38 树鬚法袍",
+                "en": "38 树须法袍"
+              }
+            },
+            {
+              "name": {
+                "zh-Hans": "兽骨铁剑",
+                "zh-Hant": "獸骨鐵劍",
+                "en": "兽骨铁剑"
+              },
+              "itemId": "beastbone_iron_sword"
+            }
+          ],
+          "source": "GG"
+        },
+        {
+          "title": {
             "zh-Hans": "水蓝皮靴路线",
             "zh-Hant": "水藍皮靴路線",
             "en": "水蓝皮靴路线"
           },
-          "recommended": true,
+          "recommended": false,
           "bad": false,
           "rank": {
             "zh-Hans": "中阶 / 高阶",
@@ -495,43 +541,8 @@
               },
               "itemId": "beastbone_iron_sword"
             }
-          ]
-        },
-        {
-          "title": {
-            "zh-Hans": "树须法袍路线",
-            "zh-Hant": "树鬚法袍路線",
-            "en": "树须法袍路线"
-          },
-          "recommended": false,
-          "bad": false,
-          "rank": {
-            "zh-Hans": "中阶 / 高阶",
-            "zh-Hant": "中階 / 高階",
-            "en": "中阶 / 高阶"
-          },
-          "book": {
-            "zh-Hans": "无",
-            "zh-Hant": "無",
-            "en": "无"
-          },
-          "materials": [
-            {
-              "name": {
-                "zh-Hans": "38 树须法袍",
-                "zh-Hant": "38 树鬚法袍",
-                "en": "38 树须法袍"
-              }
-            },
-            {
-              "name": {
-                "zh-Hans": "兽骨铁剑",
-                "zh-Hant": "獸骨鐵劍",
-                "en": "兽骨铁剑"
-              },
-              "itemId": "beastbone_iron_sword"
-            }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -589,7 +600,8 @@
                 "en": "18等皮，例如埃及皮手套"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -647,7 +659,8 @@
                 "en": "铁麻鞋"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -682,7 +695,8 @@
                 "en": "狼牙"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -733,7 +747,8 @@
                 "en": "64 法王之戒 / 王者之戒"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -768,7 +783,8 @@
                 "en": "60 铜人戒指"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -803,7 +819,8 @@
                 "en": "58 秘银护腕"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -856,7 +873,8 @@
               },
               "itemId": "magic_silk_bracer"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -908,7 +926,8 @@
                 "en": "54 绿龙皮腕"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -960,7 +979,8 @@
                 "en": "64 法王之戒 / 王者之戒"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -996,7 +1016,8 @@
                 "en": "64 法王之戒 / 王者之戒"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -1031,7 +1052,8 @@
                 "en": "60 铜人戒指"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -1084,7 +1106,8 @@
               },
               "itemId": "dinner_dress"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -1135,7 +1158,8 @@
                 "en": "72 明王剑"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -1170,7 +1194,8 @@
                 "en": "王者之戒 / 法王之戒"
               }
             }
-          ]
+          ],
+          "source": "GG"
         },
         {
           "title": {
@@ -1206,7 +1231,8 @@
               },
               "itemId": "vertical_tail"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -1259,7 +1285,8 @@
               },
               "itemId": "water_silk_robe"
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -1318,7 +1345,8 @@
                 "en": "44 大魔手套"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -1369,7 +1397,8 @@
                 "en": "60 铜人戒指"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     },
@@ -1420,7 +1449,8 @@
                 "en": "66 宝珠额链"
               }
             }
-          ]
+          ],
+          "source": "GG"
         }
       ]
     }
