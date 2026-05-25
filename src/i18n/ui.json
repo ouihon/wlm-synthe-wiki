@@ -25,7 +25,9 @@
     "language": "语言",
     "formula": "合成公式",
     "recipeCount": "条配方",
-    "allItems": "全部物品"
+    "allItems": "全部物品",
+    "typeFilter": "物属分类",
+    "allTypes": "全部"
   },
   "zh-Hant": {
     "appTitle": "飄流幻境M·新煉金百科",
@@ -53,7 +55,9 @@
     "language": "語言",
     "formula": "合成公式",
     "recipeCount": "條配方",
-    "allItems": "全部物品"
+    "allItems": "全部物品",
+    "typeFilter": "物屬分類",
+    "allTypes": "全部"
   },
   "en": {
     "appTitle": "Wonderland M Alchemy Wiki",
@@ -81,6 +85,8 @@
     "language": "Language",
     "formula": "Formula",
     "recipeCount": "recipes",
-    "allItems": "All items"
+    "allItems": "All items",
+    "typeFilter": "Type filter",
+    "allTypes": "All"
   }
 }

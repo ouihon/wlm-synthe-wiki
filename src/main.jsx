@@ -26,11 +26,17 @@ const PAGE_TABS = [
 ];
 
 const COMMON_CATEGORIES = [
-  { key: 'ATK', items: [] },
+  {
+    key: 'ATK',
+    items: ['gudia_1da7c8c985', 'gudia_f3acdbeeaa', 'gudia_bfb766cd13', 'gudia_acd8e0a607', 'gudia_57ab719408', 'gudia_79ee2fca6b'],
+  },
   { key: 'CON', items: [] },
-  { key: 'MATK', items: ['black_bishop_robe'] },
+  { key: 'MATK', items: ['black_bishop_robe', 'gudia_b2ea578080', 'gudia_95b634156d', 'gudia_f583f226fc', 'gudia_cc0f8f730e'] },
   { key: 'WIS', items: [] },
-  { key: 'SPD', items: [] },
+  {
+    key: 'SPD',
+    items: ['gudia_b91b18ee78', 'gudia_370c597283', 'gudia_42f2a7107b', 'gudia_8f82e6b47e', 'gudia_c8f81c5b16', 'gudia_989941bc54'],
+  },
 ];
 
 const GUIDE_LINKS = [
@@ -49,21 +55,99 @@ const GUIDE_LINKS = [
     },
     href: 'https://forum.gamer.com.tw/C.php?bsn=31536&snA=1306',
   },
+  {
+    id: 'gu-dia-source',
+    title: {
+      'zh-Hans': 'Gu Dia 资料来源',
+      'zh-Hant': 'Gu Dia 資料來源',
+      en: 'Gu Dia Source',
+    },
+    provider: 'Gu Dia',
+    note: {
+      'zh-Hans': '部分装备资料来源于 Gu Dia。',
+      'zh-Hant': '部分裝備資料來源於 Gu Dia。',
+      en: 'Some item data comes from Gu Dia.',
+    },
+    href: 'https://www.facebook.com/groups/1759640994357521/user/61567112734121',
+  },
 ];
 
-const APP_VERSION = 'v0.0.1';
+const APP_VERSION = 'v0.0.2';
 const BRAND_ICON_SRC = `${import.meta.env.BASE_URL}favicon.ico`;
 const RECIPE_CHOICE_STORAGE_KEY = 'alchemy-recipe-choice';
-const TYPE_COLOR_MAP = {
-  金: 'gold',
-  草: 'grass',
-  花: 'flower',
-  水: 'water',
-  木: 'wood',
-  火: 'fire',
-  地: 'earth',
-  魔玉: 'arcane',
+const TYPE_ORDER = [
+  '钢',
+  '铁',
+  '铜',
+  '钛',
+  '赤铁',
+  '铅',
+  '锡',
+  '金',
+  '银',
+  '白银',
+  '铝',
+  '兽骨',
+  '岩石',
+  '皮',
+  '花',
+  '草',
+  '叶',
+  '兽毛',
+  '羽毛',
+  '木',
+  '魔玉',
+  '水晶',
+  '结晶',
+  '钻石',
+  '宝',
+  '玉',
+  '尼龙',
+  '壳',
+  '硅',
+  '果',
+  '肉',
+  '泌',
+];
+const TYPE_THEME_MAP = {
+  钢: makeTypeTheme('#1f2a3b', '#8a97a8', '#e8edf3', '#c9d2de'),
+  铁: makeTypeTheme('#3a4049', '#a7afb8', '#edf0f3', '#cbd2d9'),
+  铜: makeTypeTheme('#7b4a1f', '#dfb08a', '#fff0e4', '#f0d4bf'),
+  钛: makeTypeTheme('#36506e', '#b6c7db', '#edf4fb', '#d5e2ef'),
+  赤铁: makeTypeTheme('#7a3028', '#db9d93', '#fff0ef', '#f1d0cb'),
+  铅: makeTypeTheme('#4a5563', '#b3bcc8', '#eef2f7', '#d5dde6'),
+  锡: makeTypeTheme('#627082', '#c7d0db', '#f4f7fb', '#dbe3ec'),
+  金: makeTypeTheme('#8b5b00', '#f0c566', '#fff6d8', '#f3deaa'),
+  银: makeTypeTheme('#5d6773', '#d4d8de', '#f7f9fc', '#e1e7ee'),
+  白银: makeTypeTheme('#74808d', '#eef2f5', '#fbfcfe', '#e3e8ee'),
+  铝: makeTypeTheme('#58768e', '#d2e4f1', '#f4fbff', '#deebf6'),
+  兽骨: makeTypeTheme('#7b735f', '#e0d7c1', '#fbf8f0', '#e8dec8'),
+  岩石: makeTypeTheme('#5e646d', '#c8cfd8', '#f3f5f8', '#d8e0e8'),
+  皮: makeTypeTheme('#8e6449', '#e4b48e', '#fff4ec', '#efd2bd'),
+  花: makeTypeTheme('#b12b4f', '#f0a0b7', '#fff1f5', '#f3d4df'),
+  草: makeTypeTheme('#2f7b35', '#9fd19f', '#edf9ee', '#d1ecd2'),
+  叶: makeTypeTheme('#5b8a2a', '#c1e08f', '#f3fbeb', '#ddebbe'),
+  兽毛: makeTypeTheme('#8a5d3b', '#e0b08c', '#fff4eb', '#efd6c5'),
+  羽毛: makeTypeTheme('#4d7ca8', '#c5dcf1', '#f2f9ff', '#d8e8f4'),
+  木: makeTypeTheme('#6e4f31', '#d8b28f', '#fbf4ec', '#e9d5c3'),
+  魔玉: makeTypeTheme('#6a1fa2', '#d9b2ff', '#f8f1ff', '#e5d3f7'),
+  水晶: makeTypeTheme('#008a9f', '#9fe5ef', '#eefcff', '#cbeef2'),
+  结晶: makeTypeTheme('#0f8f7e', '#8fe1d7', '#effdfb', '#cbeee7'),
+  钻石: makeTypeTheme('#1e78d1', '#b7dcff', '#eff8ff', '#d6e8f8'),
+  宝: makeTypeTheme('#6d3bb8', '#d0b4ff', '#f8f2ff', '#e4d6f6'),
+  玉: makeTypeTheme('#0c8d63', '#a8e2c7', '#effbf5', '#d0ecdf'),
+  尼龙: makeTypeTheme('#2d6c9a', '#a9d2ef', '#eff8ff', '#d1e5f3'),
+  壳: makeTypeTheme('#b06b82', '#f0bfd0', '#fff4f8', '#edd5de'),
+  硅: makeTypeTheme('#4e7f8a', '#b8e0e6', '#f0fbfc', '#d7eaee'),
+  果: makeTypeTheme('#d26f1f', '#ffd1a0', '#fff6ec', '#f6ddc3'),
+  肉: makeTypeTheme('#c15f67', '#f0b7ba', '#fff3f4', '#f0d2d3'),
+  泌: makeTypeTheme('#7c9a34', '#d5ea9d', '#f5fce8', '#dfecc2'),
+  __default: makeTypeTheme('#455164', '#ced7e2', '#f6f9fc', '#dbe3ed'),
 };
+
+function makeTypeTheme(text, border, start, end, shadow = 'rgba(22, 32, 49, 0.10)') {
+  return { text, border, start, end, shadow };
+}
 
 function pick(value, locale) {
   if (value && typeof value === 'object' && !Array.isArray(value)) {
@@ -76,18 +160,50 @@ function cx(...names) {
   return names.filter(Boolean).join(' ');
 }
 
-function getTypeTone(typeLabel) {
-  return TYPE_COLOR_MAP[typeLabel] ?? 'neutral';
+function getTypeTheme(typeLabel) {
+  return TYPE_THEME_MAP[typeLabel] ?? TYPE_THEME_MAP.__default;
 }
 
 function TypeTag({ type, locale, compact = false }) {
   const label = pick(type, locale);
   if (!label) return null;
+  const theme = getTypeTheme(label);
   return (
-    <span className={cx('typeTag', `tone-${getTypeTone(label)}`, compact && 'compact')}>
+    <span
+      className={cx('typeTag', compact && 'compact')}
+      style={{
+        '--tag-text': theme.text,
+        '--tag-border': theme.border,
+        '--tag-bg-start': theme.start,
+        '--tag-bg-end': theme.end,
+        '--tag-shadow': theme.shadow,
+      }}
+    >
       {label}
     </span>
   );
+}
+
+function getHandbookMissingWarning(item) {
+  const strings = [];
+  if (!item) return false;
+  if (typeof item.note === 'string') strings.push(item.note);
+  if (typeof item.note === 'object' && item.note) {
+    strings.push(...Object.values(item.note).filter((value) => typeof value === 'string'));
+  }
+  if (Array.isArray(item.notes)) {
+    for (const note of item.notes) {
+      if (typeof note === 'string') {
+        strings.push(note);
+      } else if (note && typeof note === 'object') {
+        strings.push(...Object.values(note).filter((value) => typeof value === 'string'));
+      }
+    }
+  }
+  if (Array.isArray(item.flags) && item.flags.includes('missing_in_handbook')) {
+    return true;
+  }
+  return strings.some((text) => text.includes('手飘无此装') || text.includes('手飄無此裝'));
 }
 
 function App() {
@@ -96,6 +212,7 @@ function App() {
   const [locale, setLocale] = useState(() => localStorage.getItem('alchemy-locale') || 'zh-Hans');
   const [pageTab, setPageTab] = useState('inventory');
   const [commonCategory, setCommonCategory] = useState('MATK');
+  const [typeFilter, setTypeFilter] = useState('all');
   const [rootId, setRootId] = useState(defaultItemId);
   const [path, setPath] = useState([defaultItemId]);
   const [query, setQuery] = useState('');
@@ -129,8 +246,8 @@ function App() {
 
   const filteredItems = useMemo(() => {
     const raw = query.trim().toLowerCase();
-    if (!raw) return itemEntries;
     return itemEntries.filter(({ item }) => {
+      if (typeFilter !== 'all' && pick(item.type, 'zh-Hans') !== typeFilter) return false;
       const haystack = [
         pick(item.name, locale),
         pick(item.name, 'zh-Hans'),
@@ -138,13 +255,15 @@ function App() {
         String(item.level ?? ''),
         item.stats ?? '',
       ].join(' ').toLowerCase();
-      return haystack.includes(raw);
+      return !raw || haystack.includes(raw);
     });
-  }, [itemEntries, query, locale]);
+  }, [itemEntries, query, locale, typeFilter]);
 
   const currentId = path[path.length - 1];
   const currentItem = items[currentId] ?? items[defaultItemId];
   const rootItem = items[rootId] ?? items[defaultItemId];
+  const currentWarning = getHandbookMissingWarning(currentItem);
+  const allTypeTheme = getTypeTheme('__default');
 
   function selectRoot(id) {
     if (!items[id]) return;
@@ -244,6 +363,49 @@ function App() {
         ))}
       </section>
 
+      {pageTab === 'inventory' ? (
+        <section className="inventoryFilterPanel" aria-label={t.typeFilter}>
+          <div className="inventoryFilterHead">
+            <h2>{t.typeFilter}</h2>
+            <span>{typeFilter === 'all' ? t.allTypes : typeFilter}</span>
+          </div>
+          <div className="typeFilterBar">
+            <button
+              className={cx('typeFilterBtn', typeFilter === 'all' && 'active')}
+              onClick={() => setTypeFilter('all')}
+              style={{
+                '--tag-text': allTypeTheme.text,
+                '--tag-border': allTypeTheme.border,
+                '--tag-bg-start': allTypeTheme.start,
+                '--tag-bg-end': allTypeTheme.end,
+                '--tag-shadow': allTypeTheme.shadow,
+              }}
+            >
+              {t.allTypes}
+            </button>
+            {TYPE_ORDER.map((type) => {
+              const theme = getTypeTheme(type);
+              return (
+                <button
+                  key={type}
+                  className={cx('typeFilterBtn', typeFilter === type && 'active')}
+                  onClick={() => setTypeFilter(type)}
+                  style={{
+                    '--tag-text': theme.text,
+                    '--tag-border': theme.border,
+                    '--tag-bg-start': theme.start,
+                    '--tag-bg-end': theme.end,
+                    '--tag-shadow': theme.shadow,
+                  }}
+                >
+                  {type}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
       {pageTab === 'guides' ? (
         <section className="guidePanel">
           <div className="guidePanelHead">
@@ -278,7 +440,7 @@ function App() {
                 <section className="searchPanel">
                   <div className="searchLabelRow">
                     <h2>{t.inventory}</h2>
-                    <span>{t.recordedPrefix} {itemEntries.length} {t.recordedSuffix}</span>
+                    <span>{t.recordedPrefix} {filteredItems.length} {t.recordedSuffix}</span>
                   </div>
                   <div className="searchBox">
                     <input
@@ -297,7 +459,7 @@ function App() {
                     filteredItems.map(({ id, item }) => (
                       <button
                         key={id}
-                        className={cx('itemRow', id === currentId && 'current', id === rootId && 'root')}
+                        className={cx('itemRow', getHandbookMissingWarning(item) && 'warning', id === currentId && 'current', id === rootId && 'root')}
                         onClick={() => selectRoot(id)}
                       >
                         <span className="itemName">{pick(item.name, locale)}</span>
@@ -340,7 +502,7 @@ function App() {
                     commonEntries.map(({ id, item }) => (
                       <button
                         key={id}
-                        className={cx('itemRow', id === currentId && 'current', id === rootId && 'root')}
+                        className={cx('itemRow', getHandbookMissingWarning(item) && 'warning', id === currentId && 'current', id === rootId && 'root')}
                         onClick={() => selectRoot(id)}
                       >
                         <span className="itemName">{pick(item.name, locale)}</span>
@@ -370,6 +532,13 @@ function App() {
             selectedRecipeIndex={selectedRecipeIndex}
             setSelectedRecipe={setSelectedRecipe}
             enterMaterial={enterMaterial}
+            currentWarning={currentWarning}
+            handbookMissingLabel={pick({ 'zh-Hans': '手飘无此装', 'zh-Hant': '手飄無此裝', en: 'Not listed in Wonderland M' }, locale)}
+            handbookMissingHint={pick({
+              'zh-Hans': '飘流幻境M不存在此装备，请留意来源。',
+              'zh-Hant': '飄流幻境M不存在此裝備，請留意來源。',
+              en: 'Wonderland M does not list this gear. Please check the source.',
+            }, locale)}
           />
         </div>
       )}
@@ -397,9 +566,12 @@ function ItemDetailView({
   selectedRecipeIndex,
   setSelectedRecipe,
   enterMaterial,
+  currentWarning,
+  handbookMissingLabel,
+  handbookMissingHint,
 }) {
   return (
-    <main className="content">
+    <main className={cx('content', currentWarning && 'warning')}>
       <section className="crumbCard" aria-label={t.path}>
         {path.map((id, index) => {
           const crumbItem = items[id];
@@ -436,6 +608,13 @@ function ItemDetailView({
             {currentItem.stats ? <div className="heroMetaLine">{currentItem.stats}</div> : null}
           </div>
         </section>
+
+        {currentWarning ? (
+          <div className="warningBanner" role="note" aria-label={handbookMissingLabel}>
+            <strong>{handbookMissingLabel}</strong>
+            <span>{handbookMissingHint}</span>
+          </div>
+        ) : null}
 
         {selectedRecipe ? (
           <RecipeBlock
