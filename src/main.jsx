@@ -53,6 +53,7 @@ const GUIDE_LINKS = [
 
 const APP_VERSION = 'v0.0.1';
 const BRAND_ICON_SRC = `${import.meta.env.BASE_URL}favicon.ico`;
+const RECIPE_CHOICE_STORAGE_KEY = 'alchemy-recipe-choice';
 const TYPE_COLOR_MAP = {
   金: 'gold',
   草: 'grass',
@@ -98,7 +99,15 @@ function App() {
   const [rootId, setRootId] = useState(defaultItemId);
   const [path, setPath] = useState([defaultItemId]);
   const [query, setQuery] = useState('');
-  const [recipeChoice, setRecipeChoice] = useState({});
+  const [recipeChoice, setRecipeChoice] = useState(() => {
+    try {
+      const raw = localStorage.getItem(RECIPE_CHOICE_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : {};
+      return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+    } catch {
+      return {};
+    }
+  });
 
   const t = useMemo(() => uiText[locale] ?? uiText['zh-Hans'], [locale]);
 
@@ -107,6 +116,10 @@ function App() {
     document.documentElement.lang = locale;
     document.title = t.appTitle;
   }, [locale, t.appTitle]);
+
+  useEffect(() => {
+    localStorage.setItem(RECIPE_CHOICE_STORAGE_KEY, JSON.stringify(recipeChoice));
+  }, [recipeChoice]);
 
   const itemEntries = useMemo(() => {
     return Object.entries(items)
@@ -454,8 +467,10 @@ function RecipeBlock({ item, itemId, recipe, recipeIndex, items, locale, t, pick
     <>
       <section className="recipeSwitch">
         <div className="switchHead">
-          <span>{t.recipes}</span>
-          <small>{recipes.length} {t.recipeCount}</small>
+          <div className="switchHeadTitle">
+            <span>{t.recipes}</span>
+            <small>{recipes.length} {t.recipeCount}</small>
+          </div>
         </div>
         <div className="recipeTabs">
           {recipes.map((entry, index) => (
@@ -464,10 +479,17 @@ function RecipeBlock({ item, itemId, recipe, recipeIndex, items, locale, t, pick
               className={cx('recipeTab', index === recipeIndex && 'active', entry.bad && 'danger')}
               onClick={() => setSelectedRecipe(itemId, index)}
             >
-              <span>{pick(entry.title, locale)}</span>
+              <div className="recipeTabTop">
+                <span className="recipeTabTitle">{pick(entry.title, locale)}</span>
+                {entry.source ? (
+                  <span className="recipeTabSource">
+                    {t.recipeSourcePrefix}
+                    {pick(entry.source, locale)}
+                  </span>
+                ) : null}
+              </div>
               <small>
                 {pick(entry.rank, locale)}
-                {entry.source ? ` · ${t.recipeSourcePrefix}${pick(entry.source, locale)}` : ''}
                 {entry.recommended ? ` · ${t.recommended}` : ''}
                 {entry.bad ? ` · ${t.notRecommended}` : ''}
               </small>
