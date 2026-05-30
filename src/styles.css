@@ -61,7 +61,8 @@ body::before {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -75,6 +76,7 @@ input::placeholder {
 
 button,
 input,
+select,
 .itemRow,
 .crumb,
 .recipeTab,
@@ -1039,6 +1041,283 @@ input,
   text-align: center;
 }
 
+
+.sheetPanel {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--panel);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.sheetHero {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at right top, rgba(37, 99, 235, 0.13), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 252, 0.96));
+}
+
+.sheetHero h2 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.sheetHero p {
+  max-width: 760px;
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sheetChainPreview {
+  display: grid;
+  gap: 8px;
+  min-width: min(340px, 100%);
+  padding: 15px 16px;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.sheetChainPreview span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sheetChainPreview strong {
+  color: var(--accent-deep);
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.sheetForm {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) auto;
+  gap: 10px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.sheetField {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.sheetField span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.sheetField input,
+.sheetField select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  outline: 0;
+  color: var(--ink);
+  background: white;
+  font-weight: 800;
+}
+
+.sheetField input {
+  padding: 0 11px;
+}
+
+.sheetField select {
+  padding: 0 33px 0 11px;
+}
+
+.sheetField input:focus,
+.sheetField select:focus {
+  border-color: rgba(37, 99, 235, 0.42);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.sheetActions {
+  display: flex;
+  gap: 8px;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 13px;
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.primaryAction {
+  border: 1px solid transparent;
+  color: white;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.2);
+}
+
+.primaryAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+.secondaryAction {
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: white;
+}
+
+.sheetResultHead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sheetResultHead h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+.sheetResultHead span {
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sheetEmpty {
+  padding: 28px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 18px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.64);
+  text-align: center;
+  font-weight: 800;
+}
+
+.sheetTableWrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: white;
+  box-shadow: var(--shadow-md);
+}
+
+.sheetTable {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.sheetTable th,
+.sheetTable td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  text-align: left;
+}
+
+.sheetTable th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: var(--ink-soft);
+  background: #f8fbff;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.sheetTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sheetTable tbody tr:hover td {
+  background: #fbfdff;
+}
+
+.levelCell {
+  width: 64px;
+  color: var(--accent-deep);
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.statsCell {
+  min-width: 96px;
+  color: #805c1b;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.typeCell {
+  width: 76px;
+}
+
+.recipeRefCell {
+  min-width: 360px;
+  max-width: 560px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.recipeRefCell div + div {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+
+.sheetItemLink {
+  padding: 0;
+  border: 0;
+  color: var(--accent-deep);
+  background: transparent;
+  font-weight: 950;
+  text-align: left;
+}
+
+.sheetItemLink:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.mutedDash {
+  color: var(--ink-soft);
+  opacity: 0.55;
+  font-weight: 800;
+}
+
 .guidePanel {
   padding: 18px;
   border: 1px solid var(--line);
@@ -1160,6 +1439,14 @@ input,
 }
 
 @media (max-width: 1120px) {
+  .sheetForm {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sheetActions {
+    grid-column: 1 / -1;
+  }
+
   .layout {
     grid-template-columns: 1fr;
   }
@@ -1178,6 +1465,43 @@ input,
 }
 
 @media (max-width: 760px) {
+  .sheetPanel {
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .sheetHero {
+    display: grid;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .sheetHero h2 {
+    font-size: 30px;
+  }
+
+  .sheetForm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .sheetField:nth-child(n + 3),
+  .sheetActions {
+    grid-column: 1 / -1;
+  }
+
+  .sheetActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sheetTable {
+    min-width: 980px;
+  }
+
   .appShell {
     width: min(100% - 10px, 1360px);
     padding: 6px 0 18px;
@@ -1381,7 +1705,284 @@ input,
     font-size: 20px;
   }
 
-  .guidePanel {
+  
+.sheetPanel {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--panel);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.sheetHero {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at right top, rgba(37, 99, 235, 0.13), transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 252, 0.96));
+}
+
+.sheetHero h2 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.sheetHero p {
+  max-width: 760px;
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sheetChainPreview {
+  display: grid;
+  gap: 8px;
+  min-width: min(340px, 100%);
+  padding: 15px 16px;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.sheetChainPreview span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sheetChainPreview strong {
+  color: var(--accent-deep);
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.sheetForm {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) auto;
+  gap: 10px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.sheetField {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.sheetField span {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.sheetField input,
+.sheetField select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  outline: 0;
+  color: var(--ink);
+  background: white;
+  font-weight: 800;
+}
+
+.sheetField input {
+  padding: 0 11px;
+}
+
+.sheetField select {
+  padding: 0 33px 0 11px;
+}
+
+.sheetField input:focus,
+.sheetField select:focus {
+  border-color: rgba(37, 99, 235, 0.42);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.sheetActions {
+  display: flex;
+  gap: 8px;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 13px;
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.primaryAction {
+  border: 1px solid transparent;
+  color: white;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.2);
+}
+
+.primaryAction:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+.secondaryAction {
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: white;
+}
+
+.sheetResultHead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sheetResultHead h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+.sheetResultHead span {
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sheetEmpty {
+  padding: 28px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 18px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.64);
+  text-align: center;
+  font-weight: 800;
+}
+
+.sheetTableWrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: white;
+  box-shadow: var(--shadow-md);
+}
+
+.sheetTable {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+.sheetTable th,
+.sheetTable td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  text-align: left;
+}
+
+.sheetTable th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: var(--ink-soft);
+  background: #f8fbff;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.sheetTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.sheetTable tbody tr:hover td {
+  background: #fbfdff;
+}
+
+.levelCell {
+  width: 64px;
+  color: var(--accent-deep);
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.statsCell {
+  min-width: 96px;
+  color: #805c1b;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.typeCell {
+  width: 76px;
+}
+
+.recipeRefCell {
+  min-width: 360px;
+  max-width: 560px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.recipeRefCell div + div {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+
+.sheetItemLink {
+  padding: 0;
+  border: 0;
+  color: var(--accent-deep);
+  background: transparent;
+  font-weight: 950;
+  text-align: left;
+}
+
+.sheetItemLink:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.mutedDash {
+  color: var(--ink-soft);
+  opacity: 0.55;
+  font-weight: 800;
+}
+
+.guidePanel {
     padding: 12px;
     border-radius: 16px;
   }
