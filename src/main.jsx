@@ -76,7 +76,7 @@ const GUIDE_LINKS = [
   },
 ];
 
-const APP_VERSION = 'v0.0.3';
+const APP_VERSION = 'v0.0.4';
 const BRAND_ICON_SRC = `${import.meta.env.BASE_URL}favicon.ico`;
 const RECIPE_CHOICE_STORAGE_KEY = 'alchemy-recipe-choice';
 const TYPE_ORDER = [
@@ -237,9 +237,40 @@ function getRecipeTypeChain(recipe, items) {
   return chain;
 }
 
+function normalizeTypeChain(chain) {
+  if (!Array.isArray(chain) || !chain.length) return [];
+
+  const normalized = [chain[0]];
+  const seen = new Set();
+
+  for (const type of chain.slice(1)) {
+    if (!type || seen.has(type)) continue;
+    seen.add(type);
+    normalized.push(type);
+  }
+
+  return normalized;
+}
+
+function getTypeMatchRank(recipeChain, queryChain) {
+  const normalizedRecipe = normalizeTypeChain(recipeChain);
+  const normalizedQuery = normalizeTypeChain(queryChain);
+
+  if (!normalizedRecipe.length || !normalizedQuery.length) return null;
+  if (normalizedRecipe[0] !== normalizedQuery[0]) return null;
+
+  const recipeSubs = new Set(normalizedRecipe.slice(1));
+  const querySubs = normalizedQuery.slice(1);
+
+  for (const type of querySubs) {
+    if (!recipeSubs.has(type)) return null;
+  }
+
+  return recipeSubs.size === querySubs.length ? 0 : 1;
+}
+
 function matchTypeChain(recipeChain, queryChain) {
-  if (!recipeChain || recipeChain.length !== queryChain.length) return false;
-  return recipeChain.every((type, index) => type === queryChain[index]);
+  return getTypeMatchRank(recipeChain, queryChain) !== null;
 }
 
 function getRecipeMaterialNames(recipe, items, locale) {
@@ -273,7 +304,8 @@ function getTypeOptions(items) {
 }
 
 function queryAlchemySheet({ items, minLevel, maxLevel, queryChain, locale }) {
-  if (!queryChain.length) return [];
+  const normalizedQueryChain = normalizeTypeChain(queryChain);
+  if (!normalizedQueryChain.length) return [];
   const rowsByItem = new Map();
 
   for (const [itemId, item] of Object.entries(items)) {
@@ -285,13 +317,15 @@ function queryAlchemySheet({ items, minLevel, maxLevel, queryChain, locale }) {
     recipes.forEach((recipe, originalIndex) => {
       if (recipe.bad === true) return;
       const recipeChain = getRecipeTypeChain(recipe, items);
-      if (!matchTypeChain(recipeChain, queryChain)) return;
-      matchingRecipes.push({ recipe, originalIndex, recipeChain });
+      const matchRank = getTypeMatchRank(recipeChain, normalizedQueryChain);
+      if (matchRank === null) return;
+      matchingRecipes.push({ recipe, originalIndex, recipeChain, matchRank });
     });
 
     if (!matchingRecipes.length) continue;
 
     matchingRecipes.sort((a, b) => {
+      if (a.matchRank !== b.matchRank) return a.matchRank - b.matchRank;
       if (a.recipe.recommended !== b.recipe.recommended) return a.recipe.recommended ? -1 : 1;
       return a.originalIndex - b.originalIndex;
     });
@@ -301,13 +335,15 @@ function queryAlchemySheet({ items, minLevel, maxLevel, queryChain, locale }) {
       level,
       name: pick(item.name, locale) || pick(item.name, 'zh-Hans'),
       stats: item.stats ?? '',
-      chain: queryChain,
+      chain: normalizedQueryChain,
+      matchRank: matchingRecipes[0]?.matchRank ?? 1,
       recipes: matchingRecipes.map(({ recipe }) => buildRecipeDisplay(recipe, items, locale)),
     });
   }
 
   return [...rowsByItem.values()].sort((a, b) => {
-    if (a.level !== b.level) return a.level - b.level;
+    if (a.matchRank !== b.matchRank) return a.matchRank - b.matchRank;
+    if (a.level !== b.level) return b.level - a.level;
     return a.name.localeCompare(b.name, locale === 'en' ? 'en' : 'zh-Hans');
   });
 }
