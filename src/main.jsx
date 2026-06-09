@@ -317,9 +317,10 @@ function queryAlchemySheet({ items, minLevel, maxLevel, queryChain, locale }) {
     recipes.forEach((recipe, originalIndex) => {
       if (recipe.bad === true) return;
       const recipeChain = getRecipeTypeChain(recipe, items);
-      const matchRank = getTypeMatchRank(recipeChain, normalizedQueryChain);
+      const normalizedRecipeChain = normalizeTypeChain(recipeChain);
+      const matchRank = getTypeMatchRank(normalizedRecipeChain, normalizedQueryChain);
       if (matchRank === null) return;
-      matchingRecipes.push({ recipe, originalIndex, recipeChain, matchRank });
+      matchingRecipes.push({ recipe, originalIndex, recipeChain, normalizedRecipeChain, matchRank });
     });
 
     if (!matchingRecipes.length) continue;
@@ -335,7 +336,7 @@ function queryAlchemySheet({ items, minLevel, maxLevel, queryChain, locale }) {
       level,
       name: pick(item.name, locale) || pick(item.name, 'zh-Hans'),
       stats: item.stats ?? '',
-      chain: normalizedQueryChain,
+      chain: matchingRecipes[0]?.normalizedRecipeChain ?? [],
       matchRank: matchingRecipes[0]?.matchRank ?? 1,
       recipes: matchingRecipes.map(({ recipe }) => buildRecipeDisplay(recipe, items, locale)),
     });
