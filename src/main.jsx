@@ -708,9 +708,9 @@ function AlchemySheet({ items, locale, onOpenItem }) {
   const text = {
     title: pick({ 'zh-Hans': '试算表', 'zh-Hant': '試算表', en: 'Alchemy Calculator' }, locale),
     subtitle: pick({
-      'zh-Hans': '按等级区间和精确物属链列出合法配方。空副属不是通配符；花+草 不会匹配 花草金。',
-      'zh-Hant': '按等級區間和精確物屬鏈列出合法配方。空副屬不是萬用字元；花+草 不會匹配 花草金。',
-      en: 'Find recipes by level range and exact type chain. Empty sub-types are not wildcards.',
+      'zh-Hans': '按等级和物属查询配方，支持模糊匹配，例如 花+草 可查到 花草金。',
+      'zh-Hant': '按等級和物屬查詢配方，支援模糊匹配，例如 花+草 可查到 花草金。',
+      en: 'Search recipes by level and type with fuzzy matching, e.g. Flower + Grass can find Flower-Grass-Metal.',
     }, locale),
     minLevel: pick({ 'zh-Hans': '最低等级', 'zh-Hant': '最低等級', en: 'Min Lv.' }, locale),
     maxLevel: pick({ 'zh-Hans': '最高等级', 'zh-Hant': '最高等級', en: 'Max Lv.' }, locale),
@@ -722,7 +722,7 @@ function AlchemySheet({ items, locale, onOpenItem }) {
     result: pick({ 'zh-Hans': '查询结果', 'zh-Hant': '查詢結果', en: 'Results' }, locale),
     emptyBefore: pick({ 'zh-Hans': '选择主属后点击查询。', 'zh-Hant': '選擇主屬後點擊查詢。', en: 'Choose a main type, then search.' }, locale),
     emptyResult: pick({ 'zh-Hans': '没有符合条件的配方。', 'zh-Hant': '沒有符合條件的配方。', en: 'No matching recipes.' }, locale),
-    exactChain: pick({ 'zh-Hans': '精确物属链', 'zh-Hant': '精確物屬鏈', en: 'Exact chain' }, locale),
+    exactChain: pick({ 'zh-Hans': '匹配物属', 'zh-Hant': '匹配物屬', en: 'Matched types' }, locale),
     legalRef: pick({ 'zh-Hans': '参考合法', 'zh-Hant': '參考合法', en: 'Valid references' }, locale),
     level: pick({ 'zh-Hans': '等级', 'zh-Hant': '等級', en: 'Level' }, locale),
     itemName: pick({ 'zh-Hans': '物品名称', 'zh-Hant': '物品名稱', en: 'Item' }, locale),
