@@ -1318,6 +1318,518 @@ select,
   font-weight: 800;
 }
 
+
+
+.dungeonTreePanel {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--panel);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(12px);
+}
+
+.dungeonTreeHero {
+  margin: 0;
+  padding: 20px 22px;
+}
+
+.dungeonTreeLayout {
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.dungeonMaterialList {
+  max-height: calc(100vh - 286px);
+}
+
+.dungeonMaterialRow {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 54px;
+  padding: 9px 11px;
+}
+
+.dungeonMaterialRow .itemName {
+  min-width: 0;
+  font-size: 14px;
+}
+
+.dungeonMaterialInfo {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.dungeonMaterialCount {
+  min-width: 42px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dungeonMaterialRow.disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.dungeonMaterialRow.disabled:hover {
+  border-color: transparent;
+  background: transparent;
+  transform: none;
+}
+
+.dungeonTreeContent {
+  gap: 12px;
+}
+
+.dungeonProductsCard,
+.dungeonTreeCard {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.dungeonProductFilters {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.dungeonProductSearch input {
+  min-height: 40px;
+}
+
+.dungeonTypeFilterBar {
+  gap: 7px;
+  padding: 1px 0;
+}
+
+.dungeonTypeFilterBar .typeFilterBtn {
+  min-height: 30px;
+  min-width: 42px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+.dungeonProductGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+  gap: 8px;
+}
+
+.dungeonProductCard {
+  display: grid;
+  gap: 5px;
+  min-height: 54px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.84);
+  text-align: left;
+}
+
+.dungeonProductCard:hover {
+  border-color: rgba(37, 99, 235, 0.18);
+  background: white;
+  transform: translateY(-1px);
+}
+
+.dungeonProductCard.active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.16);
+}
+
+.dungeonProductCard.active .itemMeta {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dungeonProductCard.disabled {
+  cursor: not-allowed;
+  color: #9c1f28;
+  border-color: rgba(195, 71, 71, 0.18);
+  background: rgba(255, 240, 240, 0.82);
+  opacity: 0.74;
+}
+
+.dungeonProductCard.disabled:hover {
+  border-color: rgba(195, 71, 71, 0.18);
+  background: rgba(255, 240, 240, 0.82);
+  transform: none;
+}
+
+.dungeonProductCard.disabled .itemMeta {
+  color: #b13238;
+}
+
+.dungeonMissingTag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  padding: 0 7px;
+  border: 1px solid rgba(195, 71, 71, 0.18);
+  border-radius: 999px;
+  color: #9c1f28;
+  background: rgba(255, 240, 240, 0.92);
+  font-size: 10px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.dungeonProductToggle {
+  justify-self: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent-deep);
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.dungeonProductToggle:hover {
+  border-color: rgba(37, 99, 235, 0.2);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.dungeonProductName {
+  overflow: hidden;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dungeonGraphShell {
+  position: relative;
+  height: min(72vh, 760px);
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(37, 99, 235, 0.08), transparent 26rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(245, 248, 252, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.dungeonGraphHint {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  z-index: 5;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.84);
+  font-size: 12px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.dungeonGraphNode {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  gap: 7px;
+  width: 138px;
+  min-height: 104px;
+  padding: 14px 12px;
+  border: 2px solid var(--node-border, var(--line-strong));
+  border-radius: 999px;
+  color: var(--node-text, var(--ink));
+  background: linear-gradient(180deg, var(--node-bg-start, #fff), var(--node-bg-end, #f5f8fc));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 12px 26px rgba(37, 54, 88, 0.12);
+  text-align: center;
+}
+
+.dungeonGraphNode.item.selectedProduct {
+  --node-ring: rgba(37, 99, 235, 0.28);
+  border-color: rgba(37, 99, 235, 0.9);
+  border-width: 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 16px 32px rgba(37, 99, 235, 0.18);
+}
+
+.dungeonGraphNode.item.rootMaterial {
+  --node-ring: rgba(195, 138, 43, 0.3);
+  border-color: rgba(195, 138, 43, 0.95);
+  border-width: 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 15px 30px rgba(195, 138, 43, 0.17);
+}
+
+.dungeonGraphNode.item.selectedProduct::after,
+.dungeonGraphNode.item.rootMaterial::after {
+  content: "";
+  position: absolute;
+  inset: -9px;
+  z-index: -1;
+  border: 2px solid var(--node-ring);
+  border-radius: inherit;
+  background: radial-gradient(circle, var(--node-ring), transparent 64%);
+  opacity: 0.46;
+  animation: dungeonRingPulse 4.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.dungeonGraphNode.item.disabled {
+  color: #9c1f28;
+  border-color: rgba(195, 71, 71, 0.28);
+  background: linear-gradient(180deg, rgba(255, 246, 246, 0.96), rgba(255, 232, 232, 0.92));
+  opacity: 0.78;
+}
+
+.dungeonGraphNode.item.repeated {
+  border-style: dashed;
+}
+
+.dungeonGraphNode.item.summary {
+  width: 164px;
+  min-height: 84px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  border-style: dashed;
+}
+
+.dungeonGraphSummaryLines {
+  display: grid;
+  gap: 4px;
+  max-width: 100%;
+  color: currentColor;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.18;
+}
+
+.dungeonGraphSummaryLines span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes dungeonRingPulse {
+  0%, 100% {
+    opacity: 0.34;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.62;
+    transform: scale(1.08);
+  }
+}
+
+.dungeonGraphNodeName {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+}
+
+.dungeonGraphNodeMeta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  color: currentColor;
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1.2;
+  opacity: 0.86;
+}
+
+.dungeonGraphNode .react-flow__handle.dungeonGraphHandle {
+  width: 7px;
+  height: 7px;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+}
+
+.dungeonGraphHandle.targetLeft,
+.dungeonGraphHandle.sourceLeft {
+  left: 26%;
+  transform: translate(-50%, -50%);
+}
+
+.dungeonGraphHandle.targetMid,
+.dungeonGraphHandle.sourceMid {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dungeonGraphHandle.targetRight,
+.dungeonGraphHandle.sourceRight {
+  left: 74%;
+  transform: translate(-50%, -50%);
+}
+
+.dungeonFlowEdge {
+  animation: dungeonFlowDash 1.8s linear infinite;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dungeonFlowEdge.summary {
+  opacity: 0.78;
+}
+
+.dungeonFlowEdge.recommended {
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.12));
+}
+
+@keyframes dungeonFlowDash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.dungeonGraphShell .react-flow__minimap {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.dungeonGraphShell .react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.dungeonTreeTableWrap {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.dungeonTreeTable {
+  min-width: 1180px;
+}
+
+.dungeonTreeTable tbody tr {
+  cursor: pointer;
+}
+
+.dungeonTreeTable tbody tr.selectedTreeRow td {
+  background: #edf4ff;
+}
+
+.dungeonTreeTable tbody tr.disabledTreeRow {
+  cursor: not-allowed;
+}
+
+.dungeonTreeTable tbody tr.disabledTreeRow td {
+  color: #9c1f28;
+  background: rgba(255, 246, 246, 0.72);
+}
+
+.dungeonTreeTable tbody tr.disabledTreeRow:hover td {
+  background: rgba(255, 240, 240, 0.86);
+}
+
+.dungeonTreeNodeBtn:disabled {
+  cursor: not-allowed;
+  color: #9c1f28;
+  text-decoration: none;
+}
+
+.dungeonNodeCell {
+  min-width: 300px;
+  white-space: nowrap;
+}
+
+.dungeonNodeIndent {
+  display: inline-block;
+  width: calc(var(--tree-depth) * 22px);
+  height: 1px;
+  vertical-align: middle;
+}
+
+.dungeonNodeIndent::after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  margin-right: 7px;
+  background: var(--line-strong);
+  vertical-align: middle;
+}
+
+.dungeonTreeNodeBtn {
+  vertical-align: middle;
+}
+
+.dungeonSeenTag,
+.recommendedTag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  margin-left: 8px;
+  padding: 0 7px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.dungeonSeenTag {
+  color: var(--danger);
+  border: 1px solid rgba(195, 71, 71, 0.18);
+  background: var(--danger-soft);
+}
+
+.dungeonMetaCell {
+  min-width: 180px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dungeonEdgeMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dungeonEdgeMeta span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  white-space: nowrap;
+}
+
+.dungeonEdgeMeta .recommendedTag {
+  margin-left: 0;
+  color: #805c1b;
+  border-color: rgba(195, 138, 43, 0.18);
+  background: rgba(255, 243, 218, 0.92);
+}
+
 .guidePanel {
   padding: 18px;
   border: 1px solid var(--line);
@@ -1451,6 +1963,18 @@ select,
     grid-template-columns: 1fr;
   }
 
+  .dungeonTreeLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .dungeonMaterialList {
+    max-height: 360px;
+  }
+
+  .dungeonProductFilters {
+    grid-template-columns: 1fr;
+  }
+
   .sidebar {
     position: static;
   }
@@ -1500,6 +2024,33 @@ select,
 
   .sheetTable {
     min-width: 980px;
+  }
+
+  .dungeonTreePanel {
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .dungeonProductsCard,
+  .dungeonTreeCard {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .dungeonProductGrid {
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  }
+
+  .dungeonGraphShell {
+    height: 560px;
+    min-height: 460px;
+    border-radius: 16px;
+  }
+
+  .dungeonGraphNode {
+    width: 124px;
+    min-height: 94px;
   }
 
   .appShell {
@@ -1981,6 +2532,7 @@ select,
   opacity: 0.55;
   font-weight: 800;
 }
+
 
 .guidePanel {
     padding: 12px;
