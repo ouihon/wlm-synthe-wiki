@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client';
 import itemsData from './data/items.json';
 import dungeonMaterialCraftingTreeData from './data/dungeon_material_crafting_tree.json';
 import uiText from './i18n/ui.json';
+import packageInfo from '../package.json';
+import VersionUpdateDialog from './VersionUpdateDialog.jsx';
 import './styles.css';
 
 const LOCALES = [
@@ -83,7 +85,7 @@ const GUIDE_LINKS = [
   },
 ];
 
-const APP_VERSION = 'v0.0.4';
+const APP_VERSION = `v${packageInfo.version}`;
 const BRAND_ICON_SRC = `${import.meta.env.BASE_URL}favicon.ico`;
 const RECIPE_CHOICE_STORAGE_KEY = 'alchemy-recipe-choice';
 const DUNGEON_PRODUCT_COLLAPSE_LIMIT = 24;
@@ -488,6 +490,7 @@ function App() {
 
   return (
     <div className="appShell">
+      <VersionUpdateDialog version={APP_VERSION} locale={locale} />
       <header className="topbar">
         <button className="brand" onClick={() => selectRoot(defaultItemId)} aria-label={t.appTitle}>
           <span className="brandMark">
@@ -748,13 +751,14 @@ function DungeonMaterialCraftingTree({ data, items, locale, onOpenItem }) {
     showLess: pick({ 'zh-Hans': '收起', 'zh-Hant': '收起', en: 'Show less' }, locale),
   };
 
-  const roots = useMemo(() => sortDungeonRoots(data?.roots ?? []), [data]);
+  const normalizedData = useMemo(() => normalizeDungeonTreeData(data, items), [data, items]);
+  const roots = useMemo(() => sortDungeonRoots(normalizedData?.roots ?? []), [normalizedData]);
   const [materialQuery, setMaterialQuery] = useState('');
-  const [selectedMaterialId, setSelectedMaterialId] = useState(() => sortDungeonRoots(data?.roots ?? [])[0]?.materialId ?? '');
+  const [selectedMaterialId, setSelectedMaterialId] = useState(() => getInitialDungeonRoot(data, items)?.materialId ?? '');
   const [productQuery, setProductQuery] = useState('');
   const [productType, setProductType] = useState('all');
-  const [selectedProductId, setSelectedProductId] = useState(() => sortDungeonProducts(sortDungeonRoots(data?.roots ?? [])[0]?.allCraftableItemNodes ?? [])[0]?.id ?? '');
-  const [selectedTreeNodeId, setSelectedTreeNodeId] = useState(() => sortDungeonProducts(sortDungeonRoots(data?.roots ?? [])[0]?.allCraftableItemNodes ?? [])[0]?.id ?? '');
+  const [selectedProductId, setSelectedProductId] = useState(() => getInitialDungeonProduct(data, items)?.id ?? '');
+  const [selectedTreeNodeId, setSelectedTreeNodeId] = useState(() => getInitialDungeonProduct(data, items)?.id ?? '');
   const [showAllProducts, setShowAllProducts] = useState(false);
 
   const selectedRoot = useMemo(() => {
@@ -1068,7 +1072,7 @@ function DungeonFlowEdge({ id, sourceX, sourceY, targetX, targetY, style = {}, d
   const c2x = targetX - curveX;
   const c2y = targetY - targetLift;
   const path = `M ${sourceX},${sourceY} C ${c1x},${c1y} ${c2x},${c2y} ${targetX},${targetY}`;
-  const stroke = data.isSummaryEdge ? 'rgba(100, 116, 139, 0.34)' : (style.stroke ?? '#2563eb');
+  const stroke = data.edgeColor ?? style.stroke ?? (data.isSummaryEdge ? 'rgba(100, 116, 139, 0.34)' : '#2563eb');
   const strokeWidth = data.recommended ? 3 : (style.strokeWidth ?? 2);
   const dash = data.isSummaryEdge ? '4 7' : '7 5';
 
@@ -1121,6 +1125,76 @@ function isDungeonItemDisabled(itemId, items) {
   return getHandbookMissingWarning(items?.[itemId]);
 }
 
+function normalizeDungeonTreeData(data, items) {
+  if (!data || data.schemaVersion !== 3) return data;
+  return {
+    ...data,
+    roots: (data.roots ?? []).map((root) => normalizeDungeonTreeRoot(root, items)),
+  };
+}
+
+function normalizeDungeonTreeRoot(root, items) {
+  const sourceNodes = root.nodes ?? {};
+  const nodes = {};
+
+  for (const [nodeId, node] of Object.entries(sourceNodes)) {
+    const display = getDungeonItemDisplayNode(nodeId, items, node);
+    nodes[nodeId] = {
+      ...display,
+      children: (node.children ?? []).map((edge) => normalizeDungeonTreeEdge(edge, root.recipes ?? {}, items, sourceNodes)),
+    };
+  }
+
+  const allCraftableItemNodes = (root.productIds ?? [])
+    .map((itemId) => getDungeonItemDisplayNode(itemId, items, sourceNodes[itemId]))
+    .filter((node) => node.id);
+
+  return {
+    ...root,
+    nodes,
+    allCraftableItemNodes,
+  };
+}
+
+function normalizeDungeonTreeEdge(edge, recipes, items, sourceNodes) {
+  const recipe = recipes[edge.recipeId] ?? {};
+  const target = getDungeonItemDisplayNode(edge.toId, items, sourceNodes?.[edge.toId], edge);
+  return {
+    toId: edge.toId,
+    materialPosition: edge.materialPosition,
+    materialRole: edge.materialRole ?? '',
+    recipe: recipe.recipe ?? '',
+    book: recipe.book ?? '',
+    rank: recipe.rank ?? '',
+    source: recipe.source ?? '',
+    recommended: recipe.recommended === true,
+    bad: recipe.bad === true,
+    toName: target.name,
+    toType: target.type,
+    toLevel: target.level,
+    toStats: target.stats,
+  };
+}
+
+function getDungeonItemDisplayNode(itemId, items, fallback = {}, edge = null) {
+  const item = items?.[itemId];
+  return {
+    id: itemId ?? fallback?.id ?? '',
+    name: pick(item?.name, 'zh-Hant') || fallback?.name || edge?.toName || itemId || '',
+    type: pick(item?.type, 'zh-Hant') || fallback?.type || edge?.toType || '',
+    level: item?.level ?? fallback?.level ?? edge?.toLevel ?? '',
+    stats: item?.stats ?? fallback?.stats ?? edge?.toStats ?? '',
+  };
+}
+
+function getInitialDungeonRoot(data, items) {
+  return sortDungeonRoots(normalizeDungeonTreeData(data, items)?.roots ?? [])[0] ?? null;
+}
+
+function getInitialDungeonProduct(data, items) {
+  return sortDungeonProducts(getInitialDungeonRoot(data, items)?.allCraftableItemNodes ?? [])[0] ?? null;
+}
+
 
 function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text }) {
   const nodesById = root.nodes ?? {};
@@ -1132,6 +1206,7 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
   const nodeByGraphId = new Map();
   const maxDepth = 7;
   const reachMemo = new Map();
+  const recipeColorMap = new Map();
 
   function addNode(node, position = null) {
     const layer = node.data.layer ?? 0;
@@ -1154,6 +1229,15 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
       labelBgStyle: { fill: 'rgba(255, 255, 255, 0.86)' },
       ...edge,
     });
+  }
+
+  function getRecipeColor(group) {
+    if (!group) return 'rgba(37, 99, 235, 0.48)';
+    const key = getDungeonRecipeColorKey(group);
+    if (!recipeColorMap.has(key)) {
+      recipeColorMap.set(key, DUNGEON_RECIPE_EDGE_COLORS[recipeColorMap.size % DUNGEON_RECIPE_EDGE_COLORS.length]);
+    }
+    return recipeColorMap.get(key);
   }
 
   function visitItem(item, depth, path, parentNodeId = null, parentGroup = null, edge = null, pathKey = 'root', siblingIndex = 0, siblingCount = 1) {
@@ -1180,6 +1264,7 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
     }), position);
 
     if (parentNodeId) {
+      const recipeColor = getRecipeColor(parentGroup);
       addEdge({
         id: `${parentNodeId}-${graphNodeId}`,
         source: parentNodeId,
@@ -1188,9 +1273,9 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
         targetHandle: pickDungeonTargetHandle(siblingIndex, siblingCount),
         label: edge?.materialRole ?? '',
         animated: parentGroup?.recommended === true,
-        data: { siblingIndex, siblingCount, recommended: parentGroup?.recommended === true, isSummaryEdge: false },
+        data: { siblingIndex, siblingCount, recommended: parentGroup?.recommended === true, isSummaryEdge: false, edgeColor: recipeColor },
         style: {
-          stroke: parentGroup?.recommended ? '#2563eb' : 'rgba(37, 99, 235, 0.38)',
+          stroke: recipeColor,
           strokeWidth: parentGroup?.recommended ? 3 : 2,
           strokeDasharray: '7 5',
         },
@@ -1224,6 +1309,7 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
     });
 
     if (summaryLines.length) {
+      const recipeColor = getRecipeColor(group);
       const summaryIndex = totalChildren - 1;
       const summaryId = `summary-${pathKey}-${hashString(summaryLines.join('|'))}`;
       const summaryPosition = getDungeonChildPosition(nodeByGraphId.get(graphNodeId)?.position ?? { x: 0, y: depth * 170 }, depth + 1, summaryIndex, totalChildren);
@@ -1235,8 +1321,8 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
         sourceHandle: pickDungeonSourceHandle(summaryIndex, totalChildren),
         targetHandle: pickDungeonTargetHandle(summaryIndex, totalChildren),
         animated: group.recommended === true,
-        data: { siblingIndex: summaryIndex, siblingCount: totalChildren, recommended: group.recommended === true, isSummaryEdge: true },
-        style: { stroke: 'rgba(100, 116, 139, 0.34)', strokeWidth: 2, strokeDasharray: '4 7' },
+        data: { siblingIndex: summaryIndex, siblingCount: totalChildren, recommended: group.recommended === true, isSummaryEdge: true, edgeColor: recipeColor },
+        style: { stroke: recipeColor, strokeWidth: group.recommended === true ? 3 : 2, strokeDasharray: '4 7' },
       });
     }
 
@@ -1247,6 +1333,30 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
   resolveDungeonLayerCollisions(graphNodes);
   const maxLayerWidth = Math.max(0, ...[...layerCounts.values()]);
   return { nodes: graphNodes, edges: graphEdges, maxLayerWidth, preferReadableViewport: maxLayerWidth > 5 };
+}
+
+const DUNGEON_RECIPE_EDGE_COLORS = [
+  '#2563eb',
+  '#d97706',
+  '#059669',
+  '#dc2626',
+  '#7c3aed',
+  '#0891b2',
+  '#c2410c',
+  '#be185d',
+  '#4f46e5',
+  '#65a30d',
+];
+
+function getDungeonRecipeColorKey(group) {
+  return [
+    group?.recipe ?? '',
+    group?.book ?? '',
+    group?.rank ?? '',
+    group?.source ?? '',
+    group?.recommended === true ? 'recommended' : '',
+    group?.bad === true ? 'bad' : '',
+  ].join('|');
 }
 
 function getDungeonChildPosition(parentPosition, layer, siblingIndex, siblingCount) {
