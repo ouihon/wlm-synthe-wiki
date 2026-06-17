@@ -26443,60 +26443,6 @@
             "zh-Hant": "雙熾刃配方",
             "en": "双炽刃配方"
           },
-          "recommended": true,
-          "bad": false,
-          "rank": {
-            "zh-Hans": "高阶",
-            "zh-Hant": "高階",
-            "en": "高阶"
-          },
-          "book": {
-            "zh-Hans": "书",
-            "zh-Hant": "書",
-            "en": "书"
-          },
-          "materials": [
-            {
-              "name": {
-                "zh-Hans": "双炽刃",
-                "zh-Hant": "雙熾刃",
-                "en": "双炽刃"
-              },
-              "itemId": "gudia_8ece129787"
-            },
-            {
-              "name": {
-                "zh-Hans": "天鹅头盔",
-                "zh-Hant": "天鵝頭盔",
-                "en": "天鹅头盔"
-              },
-              "itemId": "gudia_b8995150e1"
-            },
-            {
-              "name": {
-                "zh-Hans": "天翼法杖",
-                "zh-Hant": "天翼法杖",
-                "en": "天翼法杖"
-              },
-              "itemId": "gudia_369516b62b"
-            },
-            {
-              "name": {
-                "zh-Hans": "烈日红爪",
-                "zh-Hant": "烈日紅爪",
-                "en": "烈日红爪"
-              },
-              "itemId": "gudia_21ad73c558"
-            }
-          ],
-          "source": "Gu Dia"
-        },
-        {
-          "title": {
-            "zh-Hans": "双炽刃配方 2",
-            "zh-Hant": "雙熾刃配方 2",
-            "en": "双炽刃配方 2"
-          },
           "recommended": false,
           "bad": false,
           "rank": {
@@ -26536,24 +26482,20 @@
             },
             {
               "name": {
-                "zh-Hans": "35级钛材料",
-                "zh-Hant": "35級鈦材料",
-                "en": "35级钛材料"
+                "zh-Hans": "霸者之剑",
+                "zh-Hant": "霸者之劍",
+                "en": "霸者之剑"
               },
-              "type": {
-                "zh-Hans": "钛",
-                "zh-Hant": "钛",
-                "en": "钛"
-              }
+              "itemId": "gudia_df30ba42fc"
             }
           ],
           "source": "Gu Dia"
         },
         {
           "title": {
-            "zh-Hans": "双炽刃配方 3",
-            "zh-Hant": "雙熾刃配方 3",
-            "en": "双炽刃配方 3"
+            "zh-Hans": "双炽刃配方 2",
+            "zh-Hant": "雙熾刃配方 2",
+            "en": "双炽刃配方 2"
           },
           "recommended": false,
           "bad": false,
@@ -26605,121 +26547,63 @@
         },
         {
           "title": {
+            "zh-Hans": "双炽刃配方 3",
+            "zh-Hant": "雙熾刃配方 3",
+            "en": "双炽刃配方 3"
+          },
+          "recommended": false,
+          "bad": false,
+          "rank": {
+            "zh-Hans": "高阶",
+            "zh-Hant": "高階",
+            "en": "高阶"
+          },
+          "book": {
+            "zh-Hans": "书",
+            "zh-Hant": "書",
+            "en": "书"
+          },
+          "materials": [
+            {
+              "name": {
+                "zh-Hans": "双炽刃",
+                "zh-Hant": "雙熾刃",
+                "en": "双炽刃"
+              },
+              "itemId": "gudia_8ece129787"
+            },
+            {
+              "name": {
+                "zh-Hans": "天鹅头盔",
+                "zh-Hant": "天鵝頭盔",
+                "en": "天鹅头盔"
+              },
+              "itemId": "gudia_b8995150e1"
+            },
+            {
+              "name": {
+                "zh-Hans": "苍鹰法杖",
+                "zh-Hant": "蒼鷹法杖",
+                "en": "苍鹰法杖"
+              },
+              "itemId": "gudia_37bb312233"
+            },
+            {
+              "name": {
+                "zh-Hans": "霸者之剑",
+                "zh-Hant": "霸者之劍",
+                "en": "霸者之剑"
+              },
+              "itemId": "gudia_df30ba42fc"
+            }
+          ],
+          "source": "Gu Dia"
+        },
+        {
+          "title": {
             "zh-Hans": "双炽刃配方 4",
             "zh-Hant": "雙熾刃配方 4",
             "en": "双炽刃配方 4"
-          },
-          "recommended": false,
-          "bad": false,
-          "rank": {
-            "zh-Hans": "高阶",
-            "zh-Hant": "高階",
-            "en": "高阶"
-          },
-          "book": {
-            "zh-Hans": "书",
-            "zh-Hant": "書",
-            "en": "书"
-          },
-          "materials": [
-            {
-              "name": {
-                "zh-Hans": "双炽刃",
-                "zh-Hant": "雙熾刃",
-                "en": "双炽刃"
-              },
-              "itemId": "gudia_8ece129787"
-            },
-            {
-              "name": {
-                "zh-Hans": "天鹅头盔",
-                "zh-Hant": "天鵝頭盔",
-                "en": "天鹅头盔"
-              },
-              "itemId": "gudia_b8995150e1"
-            },
-            {
-              "name": {
-                "zh-Hans": "苍鹰法杖",
-                "zh-Hant": "蒼鷹法杖",
-                "en": "苍鹰法杖"
-              },
-              "itemId": "gudia_37bb312233"
-            },
-            {
-              "name": {
-                "zh-Hans": "烈日红爪",
-                "zh-Hant": "烈日紅爪",
-                "en": "烈日红爪"
-              },
-              "itemId": "gudia_21ad73c558"
-            }
-          ],
-          "source": "Gu Dia"
-        },
-        {
-          "title": {
-            "zh-Hans": "双炽刃配方 5",
-            "zh-Hant": "雙熾刃配方 5",
-            "en": "双炽刃配方 5"
-          },
-          "recommended": false,
-          "bad": false,
-          "rank": {
-            "zh-Hans": "高阶",
-            "zh-Hant": "高階",
-            "en": "高阶"
-          },
-          "book": {
-            "zh-Hans": "书",
-            "zh-Hant": "書",
-            "en": "书"
-          },
-          "materials": [
-            {
-              "name": {
-                "zh-Hans": "双炽刃",
-                "zh-Hant": "雙熾刃",
-                "en": "双炽刃"
-              },
-              "itemId": "gudia_8ece129787"
-            },
-            {
-              "name": {
-                "zh-Hans": "天鹅头盔",
-                "zh-Hant": "天鵝頭盔",
-                "en": "天鹅头盔"
-              },
-              "itemId": "gudia_b8995150e1"
-            },
-            {
-              "name": {
-                "zh-Hans": "苍鹰法杖",
-                "zh-Hant": "蒼鷹法杖",
-                "en": "苍鹰法杖"
-              },
-              "itemId": "gudia_37bb312233"
-            },
-            {
-              "name": {
-                "zh-Hans": "35级钛材料",
-                "zh-Hant": "35級鈦材料",
-                "en": "35级钛材料"
-              },
-              "type": {
-                "zh-Hans": "钛",
-                "zh-Hant": "钛",
-                "en": "钛"
-              }
-            }
-          ],
-          "source": "Gu Dia"
-        },
-        {
-          "title": {
-            "zh-Hans": "双炽刃配方 6",
-            "zh-Hant": "雙熾刃配方 6",
-            "en": "双炽刃配方 6"
           },
           "recommended": false,
           "bad": false,

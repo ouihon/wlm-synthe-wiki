@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactFlow, { Background, Controls, Handle, MiniMap, Position, ReactFlowProvider } from 'reactflow';
 import TypeTag from '../components/TypeTag.jsx';
 import { cx, getHandbookMissingWarning, getTypeFilterStyle, getTypeTheme, pick } from '../lib/ui.js';
@@ -230,7 +230,18 @@ function buildDungeonNameIndex(root, items) {
 }
 
 function parseDungeonRecipeMaterialNames(recipe) {
-  return String(recipe ?? '').split('+').map((part) => part.replace(/[x×]\s*\d+/gi, '').trim()).filter(Boolean);
+  return String(recipe ?? '')
+    .split('+')
+    .flatMap((part) => {
+      const trimmed = part.trim();
+      if (!trimmed) return [];
+      const match = trimmed.match(/^(.*?)(?:\s*[x×]\s*(\d+))$/i);
+      if (!match) return [trimmed];
+      const name = match[1].trim();
+      const count = Math.max(1, Number.parseInt(match[2], 10) || 1);
+      return Array.from({ length: count }, () => name).filter(Boolean);
+    })
+    .filter(Boolean);
 }
 
 function normalizeDungeonBook(book) {
@@ -239,10 +250,57 @@ function normalizeDungeonBook(book) {
   return value;
 }
 
+function normalizeDungeonRecipeText(value) {
+  return parseDungeonRecipeMaterialNames(value)
+    .map((name) => normalizeDungeonNameKey(name))
+    .filter(Boolean)
+    .join('|');
+}
+
+function buildDungeonItemRecipeIndex(items) {
+  const index = new Map();
+
+  for (const [itemId, item] of Object.entries(items ?? {})) {
+    const itemName = pick(item?.name, 'zh-Hant');
+    for (const recipe of item?.recipes ?? []) {
+      const materials = recipe.materials ?? [];
+      const recipeText = materials
+        .map((material) => pick(material?.name, 'zh-Hant'))
+        .filter(Boolean)
+        .join(' + ');
+      const key = [
+        normalizeDungeonNameKey(itemName),
+        normalizeDungeonRecipeText(recipeText),
+        normalizeDungeonBook(pick(recipe?.book, 'zh-Hant')),
+        String(recipe?.source ?? '').trim(),
+      ].join('|');
+
+      if (!index.has(key)) {
+        index.set(key, recipe);
+      }
+    }
+  }
+
+  return index;
+}
+
+function getDungeonRecipePrimaryKeys(group, targetItemName, itemRecipeIndex) {
+  const key = [
+    normalizeDungeonNameKey(targetItemName),
+    normalizeDungeonRecipeText(group?.recipe),
+    normalizeDungeonBook(group?.book),
+    String(group?.source ?? '').trim(),
+  ].join('|');
+  const matchedRecipe = itemRecipeIndex.get(key);
+  if (!matchedRecipe) return new Set();
+
+  const primaryMaterial = matchedRecipe.materials?.[0];
+  const primaryKey = normalizeDungeonNameKey(pick(primaryMaterial?.name, 'zh-Hant'));
+  return primaryKey ? new Set([primaryKey]) : new Set();
+}
+
 function isDungeonMainMaterial(material) {
-  const role = String(material.edge?.materialRole ?? '');
-  if (role.includes('主')) return true;
-  return Number(material.edge?.materialPosition ?? material.order ?? 0) === 1;
+  return material.isPrimary === true;
 }
 
 function buildDungeonSummaryLines(materials, group) {
@@ -258,33 +316,49 @@ function buildDungeonSummaryLines(materials, group) {
 }
 
 function compactDungeonSummaryVisibleLines(lines) {
-  if (lines.length <= 3) return lines;
-  const bookIndex = lines.findIndex((line) => /^書|^书/i.test(line));
-  if (bookIndex < 0) return lines.slice(0, 3);
-  const materialLines = lines.filter((_, index) => index !== bookIndex);
-  return [...materialLines.slice(0, 2), lines[bookIndex]];
+  return lines;
 }
 
-function buildDungeonRecipeMaterialsFromGroup(group, root, items, nameIndex) {
-  const byName = new Map();
+function buildDungeonRecipeMaterialsFromGroup(group, root, items, nameIndex, primaryMaterialKeys = new Set()) {
   const ordered = [];
+  let instanceIndex = 0;
+  const remainingRecipeEntries = parseDungeonRecipeMaterialNames(group.recipe).map((name) => ({
+    name,
+    key: normalizeDungeonNameKey(name),
+  }));
+  const remainingRecipeCounts = new Map();
+  for (const entry of remainingRecipeEntries) {
+    remainingRecipeCounts.set(entry.key, (remainingRecipeCounts.get(entry.key) ?? 0) + 1);
+  }
 
   function addMaterial(node, edge = null, order = 999) {
     const normalized = normalizeDungeonNode(node, node?.id ?? node?.name ?? '', edge);
-    const key = normalized.id ? `id:${normalized.id}` : `name:${normalizeDungeonNameKey(normalized.name)}`;
-    if (!key || byName.has(key)) return;
-    const entry = { ...normalized, edge, order };
-    byName.set(key, entry);
-    ordered.push(entry);
+    if (!normalized.id && !normalized.name) return;
+    const normalizedKey = normalizeDungeonNameKey(normalized.name);
+    const remainingCount = remainingRecipeCounts.get(normalizedKey) ?? 0;
+    if (remainingCount > 0) remainingRecipeCounts.set(normalizedKey, remainingCount - 1);
+    ordered.push({
+      ...normalized,
+      edge,
+      order,
+      isPrimary: primaryMaterialKeys.has(normalizedKey),
+      instanceIndex: instanceIndex += 1,
+    });
   }
 
   for (const material of group.materials ?? []) addMaterial(material.node, material.edge, Number(material.edge?.materialPosition ?? 999));
-  parseDungeonRecipeMaterialNames(group.recipe).forEach((name, index) => {
-    const matched = nameIndex.get(normalizeDungeonNameKey(name));
-    addMaterial(matched ?? { id: '', name, type: '', level: '', stats: '' }, null, index + 1);
-  });
+  remainingRecipeEntries
+    .filter((entry) => (remainingRecipeCounts.get(entry.key) ?? 0) > 0)
+    .forEach((entry, index) => {
+      const matched = nameIndex.get(entry.key);
+      addMaterial(matched ?? { id: '', name: entry.name, type: '', level: '', stats: '' }, null, index + 1);
+    });
 
-  return ordered.sort((a, b) => a.order - b.order);
+  return ordered.sort((a, b) => {
+    const orderDelta = a.order - b.order;
+    if (orderDelta !== 0) return orderDelta;
+    return a.instanceIndex - b.instanceIndex;
+  });
 }
 
 function compareDungeonRecipeGroups(a, b) {
@@ -373,6 +447,45 @@ function pickDungeonPathRecipeGroup(itemId, selectedRootId, reverseIndex, reachM
   return requireRootPath ? null : pickRepresentativeRecipeGroup(groups);
 }
 
+function buildDungeonProductMaxStepMap(root) {
+  const reverseIndex = buildDungeonReverseIndex(root);
+  const selectedRootId = root?.materialId ?? '';
+  const memo = new Map();
+
+  function visitItem(itemId, path = new Set()) {
+    if (!itemId) return Number.NEGATIVE_INFINITY;
+    if (itemId === selectedRootId) return 0;
+    if (path.has(itemId)) return Number.NEGATIVE_INFINITY;
+    if (memo.has(itemId)) return memo.get(itemId);
+
+    const nextPath = new Set(path);
+    nextPath.add(itemId);
+    const groups = reverseIndex.get(itemId) ?? [];
+    let best = Number.NEGATIVE_INFINITY;
+
+    for (const group of groups) {
+      let groupBest = Number.NEGATIVE_INFINITY;
+      for (const material of group.materials ?? []) {
+        const childSteps = visitItem(material.node?.id, nextPath);
+        if (Number.isFinite(childSteps)) {
+          groupBest = Math.max(groupBest, childSteps + 1);
+        }
+      }
+      best = Math.max(best, groupBest);
+    }
+
+    memo.set(itemId, best);
+    return best;
+  }
+
+  const result = new Map();
+  for (const item of root?.allCraftableItemNodes ?? []) {
+    const steps = visitItem(item.id);
+    result.set(item.id, Number.isFinite(steps) && steps > 0 ? steps : 1);
+  }
+  return result;
+}
+
 function makeDungeonItemGraphNode({ id, node, layer, isSelectedProduct, isRootMaterial, disabled, repeated, text }) {
   const theme = getTypeTheme(node.type);
   const title = buildDungeonNodeTitle({ ...node, name: node.name }, text);
@@ -435,6 +548,7 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
   const nodesById = root.nodes ?? {};
   const reverseIndex = buildDungeonReverseIndex(root);
   const nameIndex = buildDungeonNameIndex(root, items);
+  const itemRecipeIndex = buildDungeonItemRecipeIndex(items);
   const graphNodes = [];
   const graphEdges = [];
   const layerCounts = new Map();
@@ -476,7 +590,8 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
     const itemId = item.id;
     const node = normalizeDungeonNode(nodesById[itemId] ?? item, itemId, edge);
     const repeated = itemId ? path.has(itemId) : false;
-    const graphNodeId = `item-${pathKey}-${hashString(itemId || node.name || pathKey)}`;
+    const instanceSuffix = item.instanceIndex ? `-${item.instanceIndex}` : '';
+    const graphNodeId = `item-${pathKey}-${hashString(`${itemId || node.name || pathKey}${instanceSuffix}`)}`;
     const disabled = itemId ? isDungeonItemDisabled(itemId, items) : false;
     const parentNode = parentNodeId ? nodeByGraphId.get(parentNodeId) : null;
     const position = parentNode ? getDungeonChildPosition(parentNode.position, depth, siblingIndex, siblingCount) : { x: 0, y: depth * 170 };
@@ -511,7 +626,8 @@ function buildDungeonGraph({ root, selectedProduct, selectedRootId, items, text 
     const group = pickDungeonPathRecipeGroup(itemId, selectedRootId, reverseIndex, reachMemo, depth > 0);
     if (!group) return graphNodeId;
 
-    const materials = buildDungeonRecipeMaterialsFromGroup(group, root, items, nameIndex);
+    const primaryMaterialKeys = getDungeonRecipePrimaryKeys(group, node.name, itemRecipeIndex);
+    const materials = buildDungeonRecipeMaterialsFromGroup(group, root, items, nameIndex, primaryMaterialKeys);
     if (!materials.length) return graphNodeId;
 
     const nextPath = new Set(path);
@@ -629,6 +745,7 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
     }, locale),
     materialSearch: pick({ 'zh-Hans': '搜索副本材料', 'zh-Hant': '搜尋副本材料', en: 'Search materials' }, locale),
     productSearch: pick({ 'zh-Hans': '搜索产物名称', 'zh-Hant': '搜尋產物名稱', en: 'Search products' }, locale),
+    productSteps: pick({ 'zh-Hans': '步数', 'zh-Hant': '步數', en: 'Steps' }, locale),
     materials: pick({ 'zh-Hans': '副本材料', 'zh-Hant': '副本材料', en: 'Dungeon Materials' }, locale),
     products: pick({ 'zh-Hans': '可合成产物', 'zh-Hant': '可合成產物', en: 'Craftable Items' }, locale),
     tree: pick({ 'zh-Hans': '合成树', 'zh-Hant': '合成樹', en: 'Crafting Tree' }, locale),
@@ -654,9 +771,12 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
   const [selectedMaterialId, setSelectedMaterialId] = useState(() => getInitialDungeonRoot(data, items)?.materialId ?? '');
   const [productQuery, setProductQuery] = useState('');
   const [productType, setProductType] = useState('all');
+  const [productStepLimit, setProductStepLimit] = useState(1);
+  const [draftProductStepLimit, setDraftProductStepLimit] = useState(1);
   const [selectedProductId, setSelectedProductId] = useState(() => getInitialDungeonProduct(data, items)?.id ?? '');
   const [selectedTreeNodeId, setSelectedTreeNodeId] = useState(() => getInitialDungeonProduct(data, items)?.id ?? '');
   const [showAllProducts, setShowAllProducts] = useState(false);
+  const stepDialRef = useRef(null);
 
   const selectedRoot = useMemo(() => roots.find((root) => root.materialId === selectedMaterialId) ?? roots[0] ?? null, [roots, selectedMaterialId]);
   const groupedRoots = useMemo(() => groupDungeonRoots(roots), [roots]);
@@ -666,7 +786,14 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
     return groupedRoots.filter((group) => [group.searchText, group.type, String(group.level ?? '')].join(' ').toLowerCase().includes(raw));
   }, [groupedRoots, materialQuery]);
   const sortedProducts = useMemo(() => sortDungeonProducts(selectedRoot?.allCraftableItemNodes ?? []), [selectedRoot]);
-
+  const productMaxStepsMap = useMemo(() => buildDungeonProductMaxStepMap(selectedRoot), [selectedRoot]);
+  const maxAvailableProductSteps = useMemo(() => {
+    let max = 1;
+    for (const steps of productMaxStepsMap.values()) {
+      max = Math.max(max, Number(steps) || 1);
+    }
+    return max;
+  }, [productMaxStepsMap]);
   const productTypeOptions = useMemo(() => {
     const seen = new Set();
     const options = [];
@@ -682,9 +809,10 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
     const raw = productQuery.trim().toLowerCase();
     return sortedProducts.filter((item) => {
       if (productType !== 'all' && item.type !== productType) return false;
+      if ((productMaxStepsMap.get(item.id) ?? 1) > productStepLimit) return false;
       return !raw || String(item.name ?? '').toLowerCase().includes(raw);
     });
-  }, [sortedProducts, productQuery, productType]);
+  }, [sortedProducts, productQuery, productType, productMaxStepsMap, productStepLimit]);
 
   const selectedProduct = useMemo(() => {
     return filteredProducts.find((item) => item.id === selectedProductId && !isDungeonItemDisabled(item.id, items))
@@ -700,14 +828,22 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
     const firstProduct = sortDungeonProducts(selectedRoot.allCraftableItemNodes ?? []).find((item) => !isDungeonItemDisabled(item.id, items)) ?? null;
     setProductQuery('');
     setProductType('all');
+    const nextStepLimit = Math.max(1, ...((selectedRoot.allCraftableItemNodes ?? []).map((item) => productMaxStepsMap.get(item.id) ?? 1)));
+    setProductStepLimit(nextStepLimit);
+    setDraftProductStepLimit(nextStepLimit);
     setShowAllProducts(false);
     setSelectedProductId(firstProduct?.id ?? '');
     setSelectedTreeNodeId(firstProduct?.id ?? '');
-  }, [selectedRoot?.materialId, items]);
+  }, [selectedRoot?.materialId, items, productMaxStepsMap]);
 
   useEffect(() => {
     setShowAllProducts(false);
-  }, [productQuery, productType]);
+  }, [productQuery, productType, productStepLimit]);
+
+  useEffect(() => {
+    setProductStepLimit((current) => Math.min(Math.max(1, current), maxAvailableProductSteps));
+    setDraftProductStepLimit((current) => Math.min(Math.max(1, current), maxAvailableProductSteps));
+  }, [maxAvailableProductSteps]);
 
   useEffect(() => {
     if (!selectedProduct) return;
@@ -746,6 +882,73 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
   function handleGraphNodeClick(_, node) {
     if (!node?.data?.itemId || node.data.disabled || !onOpenItem) return;
     onOpenItem(node.data.itemId);
+  }
+
+  function formatProductStepLimit(value) {
+    const steps = Math.max(1, Number(value) || 1);
+    if (locale === 'en') return `<= ${steps} ${steps === 1 ? 'step' : 'steps'}`;
+    if (locale === 'zh-Hans') return `${steps} 步内`;
+    return `${steps} 步內`;
+  }
+
+  function commitProductStepLimit(nextValue) {
+    const normalized = Math.min(maxAvailableProductSteps, Math.max(1, Number(nextValue) || 1));
+    setDraftProductStepLimit(normalized);
+    setProductStepLimit(normalized);
+  }
+
+  function getProductStepFromPointer(clientX) {
+    const dial = stepDialRef.current;
+    if (!dial) return draftProductStepLimit;
+    const rect = dial.getBoundingClientRect();
+    if (rect.width <= 0) return draftProductStepLimit;
+    const max = Math.max(1, maxAvailableProductSteps);
+    if (max === 1) return 1;
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    return Math.min(max, Math.max(1, Math.round(ratio * (max - 1)) + 1));
+  }
+
+  function previewProductStepFromPointer(event) {
+    const nextStep = getProductStepFromPointer(event.clientX);
+    setDraftProductStepLimit(nextStep);
+    return nextStep;
+  }
+
+  function handleProductStepPointerDown(event) {
+    event.currentTarget.setPointerCapture(event.pointerId);
+    previewProductStepFromPointer(event);
+  }
+
+  function handleProductStepPointerMove(event) {
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+    previewProductStepFromPointer(event);
+  }
+
+  function handleProductStepPointerUp(event) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    commitProductStepLimit(previewProductStepFromPointer(event));
+  }
+
+  function handleProductStepPointerCancel(event) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    setDraftProductStepLimit(productStepLimit);
+  }
+
+  function handleProductStepKeyDown(event) {
+    const max = Math.max(1, maxAvailableProductSteps);
+    const current = Math.min(max, Math.max(1, Number(draftProductStepLimit) || 1));
+    let nextStep = current;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') nextStep = Math.max(1, current - 1);
+    if (event.key === 'ArrowRight' || event.key === 'ArrowUp') nextStep = Math.min(max, current + 1);
+    if (event.key === 'Home') nextStep = 1;
+    if (event.key === 'End') nextStep = max;
+    if (nextStep === current) return;
+    event.preventDefault();
+    commitProductStepLimit(nextStep);
   }
 
   return (
@@ -827,15 +1030,59 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
                   <div className="searchBox dungeonProductSearch">
                     <input value={productQuery} onChange={(event) => setProductQuery(event.target.value)} placeholder={text.productSearch} spellCheck="false" />
                   </div>
-                  <div className="typeFilterBar dungeonTypeFilterBar" aria-label={text.type}>
-                    <button className={cx('typeFilterBtn', productType === 'all' && 'active')} onClick={() => setProductType('all')} style={getTypeFilterStyle('__default')}>
-                      {text.all}
-                    </button>
-                    {productTypeOptions.map((type) => (
-                      <button key={type} className={cx('typeFilterBtn', productType === type && 'active')} onClick={() => setProductType(type)} style={getTypeFilterStyle(type)}>
-                        {type}
+                  <div className="dungeonProductControls">
+                    <div className="typeFilterBar dungeonTypeFilterBar" aria-label={text.type}>
+                      <button className={cx('typeFilterBtn', productType === 'all' && 'active')} onClick={() => setProductType('all')} style={getTypeFilterStyle('__default')}>
+                        {text.all}
                       </button>
-                    ))}
+                      {productTypeOptions.map((type) => (
+                        <button key={type} className={cx('typeFilterBtn', productType === type && 'active')} onClick={() => setProductType(type)} style={getTypeFilterStyle(type)}>
+                          {type}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="dungeonStepFilter">
+                      <span className="dungeonStepFilterTopline">
+                        <span className="dungeonStepFilterLabel">{text.productSteps}</span>
+                        <span className="dungeonStepValue">{formatProductStepLimit(draftProductStepLimit)}</span>
+                      </span>
+                      <div className="dungeonStepTrackShell">
+                        <div
+                          ref={stepDialRef}
+                          className="dungeonStepDial"
+                          role="slider"
+                          tabIndex="0"
+                          aria-label={text.productSteps}
+                          aria-valuemin="1"
+                          aria-valuemax={maxAvailableProductSteps}
+                          aria-valuenow={draftProductStepLimit}
+                          aria-valuetext={formatProductStepLimit(draftProductStepLimit)}
+                          onPointerDown={handleProductStepPointerDown}
+                          onPointerMove={handleProductStepPointerMove}
+                          onPointerUp={handleProductStepPointerUp}
+                          onPointerCancel={handleProductStepPointerCancel}
+                          onKeyDown={handleProductStepKeyDown}
+                          style={{ '--dungeon-step-count': maxAvailableProductSteps }}
+                        >
+                          {Array.from({ length: maxAvailableProductSteps }, (_, index) => {
+                            const step = index + 1;
+                            return (
+                              <button
+                                type="button"
+                                key={step}
+                                className={cx('dungeonStepTick', step <= draftProductStepLimit && 'active', step === draftProductStepLimit && 'current')}
+                                tabIndex="-1"
+                                aria-hidden="true"
+                              >
+                                <span>
+                                  <strong>{step}</strong>
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
