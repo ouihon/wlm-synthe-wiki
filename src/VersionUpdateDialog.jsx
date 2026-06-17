@@ -2,6 +2,14 @@ import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'alchemy-version-seen';
 
+export function markVersionAsSeen(version) {
+  try {
+    localStorage.setItem(STORAGE_KEY, version);
+  } catch {
+    // Ignore storage failures so dialog interactions still proceed.
+  }
+}
+
 const COPY = {
   'zh-Hans': {
     eyebrow: 'VERSION UPDATE',
@@ -15,6 +23,11 @@ const COPY = {
       {
         title: '优化了试算表体验',
         text: '调整了试算表的使用体验，查询和查看配方时更顺手。',
+      },
+      {
+        title: '飄流皮皮（Pilot）正式發布',
+        text: '新增自動線上寶箱與自動煉金功能，可觀看教學並下載插件。',
+        action: '前去查看',
       },
     ],
     sourcePrefix: '配方资料来自互联网与前人经验整理，可能存在遗漏或版本差异。如发现问题，欢迎联系作者邮箱 ',
@@ -40,6 +53,11 @@ const COPY = {
         title: '優化了試算表體驗',
         text: '調整了試算表的使用體驗，查詢和查看配方時更順手。',
       },
+      {
+        title: '飄流皮皮（Pilot）正式發布',
+        text: '新增自動線上寶箱與自動煉金功能，可觀看教學並下載插件。',
+        action: '前去查看',
+      },
     ],
     sourcePrefix: '配方資料來自網際網路與前人經驗整理，可能存在遺漏或版本差異。如發現問題，歡迎聯絡作者信箱 ',
     sourceMiddle: ' 或作者的 ',
@@ -64,6 +82,11 @@ const COPY = {
         title: 'Improved Calculator Experience',
         text: 'The calculator flow has been refined, making recipe search and review smoother.',
       },
+      {
+        title: 'Pilot Plugin Is Live',
+        text: 'Adds auto online treasure chest and auto alchemy features, with tutorial and download access.',
+        action: 'Open Pilot',
+      },
     ],
     sourcePrefix: 'Recipe data is compiled from internet sources and earlier player experience. It may contain omissions or version differences. If you find an issue, please contact ',
     sourceMiddle: ' or the author on ',
@@ -77,7 +100,7 @@ const COPY = {
   },
 };
 
-export default function VersionUpdateDialog({ version, locale }) {
+export default function VersionUpdateDialog({ version, locale, onOpenPilot }) {
   const text = COPY[locale] ?? COPY['zh-Hans'];
   const [open, setOpen] = useState(false);
 
@@ -90,12 +113,14 @@ export default function VersionUpdateDialog({ version, locale }) {
   }, [version]);
 
   function dismiss() {
-    try {
-      localStorage.setItem(STORAGE_KEY, version);
-    } catch {
-      // Ignore storage failures; closing the dialog should still work.
-    }
+    markVersionAsSeen(version);
     setOpen(false);
+  }
+
+  function openPilot() {
+    markVersionAsSeen(version);
+    setOpen(false);
+    onOpenPilot?.();
   }
 
   if (!open) return null;
@@ -116,6 +141,11 @@ export default function VersionUpdateDialog({ version, locale }) {
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
+                {item.action ? (
+                  <button type="button" className="versionDialogInlineAction" onClick={openPilot}>
+                    {item.action}
+                  </button>
+                ) : null}
               </div>
             </article>
           ))}

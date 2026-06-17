@@ -6,6 +6,7 @@ import dungeonMaterialCraftingTreeData from './data/dungeon_material_crafting_tr
 import uiText from './i18n/ui.json';
 import packageInfo from '../package.json';
 import VersionUpdateDialog from './VersionUpdateDialog.jsx';
+import PilotDownloadDialog from './components/PilotDownloadDialog.jsx';
 import InventoryPage from './pages/InventoryPage.jsx';
 import CommonGearPage from './pages/CommonGearPage.jsx';
 import AlchemySheetPage from './pages/AlchemySheetPage.jsx';
@@ -28,6 +29,7 @@ function App() {
   const defaultItemId = itemsData.defaultItemId;
   const [locale, setLocale] = useState(() => localStorage.getItem('alchemy-locale') || 'zh-Hans');
   const [pageTab, setPageTab] = useState('inventory');
+  const [pilotOpen, setPilotOpen] = useState(false);
   const [commonCategory, setCommonCategory] = useState('MATK');
   const [typeFilter, setTypeFilter] = useState('all');
   const [rootId, setRootId] = useState(defaultItemId);
@@ -174,7 +176,8 @@ function App() {
 
   return (
     <div className="appShell">
-      <VersionUpdateDialog version={APP_VERSION} locale={locale} />
+      <VersionUpdateDialog version={APP_VERSION} locale={locale} onOpenPilot={() => setPilotOpen(true)} />
+      <PilotDownloadDialog open={pilotOpen} onClose={() => setPilotOpen(false)} locale={locale} />
       <header className="topbar">
         <button className="brand" onClick={() => selectRoot(defaultItemId)} aria-label={t.appTitle}>
           <span className="brandMark">
@@ -183,6 +186,11 @@ function App() {
           <span className="brandText">{t.appTitle}</span>
         </button>
         <div className="topActions" aria-label={t.language}>
+          <button className="pilotCta" onClick={() => setPilotOpen(true)}>
+            <span className="pilotCtaGlow" aria-hidden="true" />
+            <span className="pilotCtaIcon" aria-hidden="true">⇣</span>
+            <span className="pilotCtaText">{t.pilotCta}</span>
+          </button>
           {LOCALES.map((entry) => (
             <button
               key={entry.key}
@@ -263,4 +271,8 @@ function App() {
   );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
