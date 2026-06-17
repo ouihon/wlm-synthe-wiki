@@ -85,6 +85,47 @@ function sortDungeonProducts(products) {
   });
 }
 
+function groupDungeonRoots(roots) {
+  const groups = new Map();
+
+  for (const root of roots) {
+    const key = `${root.materialLevel ?? ''}__${root.materialType ?? ''}`;
+    const existing = groups.get(key);
+    if (existing) {
+      existing.items.push(root);
+      continue;
+    }
+    groups.set(key, {
+      groupKey: key,
+      level: root.materialLevel ?? '',
+      type: root.materialType ?? '',
+      items: [root],
+    });
+  }
+
+  return [...groups.values()].map((group) => {
+    const representativeRoot = [...group.items].sort((a, b) => {
+      const countDelta = (b.allCraftableItemNodes?.length ?? 0) - (a.allCraftableItemNodes?.length ?? 0);
+      if (countDelta !== 0) return countDelta;
+      return String(a.materialName ?? '').localeCompare(String(b.materialName ?? ''), 'zh-Hant');
+    })[0] ?? null;
+    const disabled = group.items.every((item) => (item.allCraftableItemNodes?.length ?? 0) === 0);
+    const primaryName = representativeRoot?.materialName ?? group.items[0]?.materialName ?? '';
+    const extraCount = Math.max(0, group.items.length - 1);
+    return {
+      ...group,
+      representativeRoot,
+      disabled,
+      primaryName,
+      extraCount,
+      displayName: group.items.map((item) => item.materialName).filter(Boolean).join('/'),
+      fullNameList: group.items.map((item) => item.materialName).filter(Boolean),
+      searchText: group.items.map((item) => item.materialName).filter(Boolean).join('\n').toLowerCase(),
+      craftableCount: representativeRoot?.allCraftableItemNodes?.length ?? 0,
+    };
+  });
+}
+
 function getInitialDungeonRoot(data, items) {
   return sortDungeonRoots(normalizeDungeonTreeData(data, items)?.roots ?? [])[0] ?? null;
 }
@@ -618,11 +659,12 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
   const [showAllProducts, setShowAllProducts] = useState(false);
 
   const selectedRoot = useMemo(() => roots.find((root) => root.materialId === selectedMaterialId) ?? roots[0] ?? null, [roots, selectedMaterialId]);
+  const groupedRoots = useMemo(() => groupDungeonRoots(roots), [roots]);
   const filteredRoots = useMemo(() => {
     const raw = materialQuery.trim().toLowerCase();
-    if (!raw) return roots;
-    return roots.filter((root) => [root.materialName, root.materialType, String(root.materialLevel ?? ''), root.materialStats ?? ''].join(' ').toLowerCase().includes(raw));
-  }, [roots, materialQuery]);
+    if (!raw) return groupedRoots;
+    return groupedRoots.filter((group) => [group.searchText, group.type, String(group.level ?? '')].join(' ').toLowerCase().includes(raw));
+  }, [groupedRoots, materialQuery]);
   const sortedProducts = useMemo(() => sortDungeonProducts(selectedRoot?.allCraftableItemNodes ?? []), [selectedRoot]);
 
   const productTypeOptions = useMemo(() => {
@@ -724,7 +766,7 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
         <aside className="sidebar dungeonTreeSidebar">
           <section className="searchPanel">
             <div className="searchLabelRow">
-              <h2>{text.materials} {roots.length}</h2>
+              <h2>{text.materials} {groupedRoots.length}</h2>
               <span>{filteredRoots.length}</span>
             </div>
             <div className="searchBox">
@@ -736,23 +778,31 @@ export default function DungeonMaterialTreePage({ data, items, locale, onOpenIte
             {filteredRoots.length === 0 ? (
               <div className="emptyList">{text.noMaterials}</div>
             ) : (
-              filteredRoots.map((root) => {
-                const craftableCount = root.allCraftableItemNodes?.length ?? 0;
+              filteredRoots.map((group) => {
+                const representativeId = group.representativeRoot?.materialId ?? '';
+                const isCurrent = group.items.some((item) => item.materialId === selectedRoot?.materialId);
                 return (
                   <button
-                    key={root.materialId}
-                    className={cx('itemRow dungeonMaterialRow', craftableCount === 0 && 'disabled', root.materialId === selectedRoot?.materialId && 'current')}
-                    onClick={() => craftableCount > 0 && selectMaterial(root.materialId)}
-                    disabled={craftableCount === 0}
+                    key={group.groupKey}
+                    className={cx('itemRow dungeonMaterialRow', group.disabled && 'disabled', isCurrent && 'current')}
+                    onClick={() => !group.disabled && selectMaterial(representativeId)}
+                    disabled={group.disabled}
+                    title={group.displayName}
+                    aria-label={group.displayName}
                   >
                     <span className="dungeonMaterialInfo">
-                      <span className="itemName">{root.materialName}</span>
-                      <span className="itemMeta itemMetaRow">
-                        <span>Lv.{root.materialLevel}</span>
-                        <TypeTag type={root.materialType} locale={locale} compact />
+                      <span className="dungeonMaterialHead">
+                        <span className="itemMeta itemMetaRow">
+                          <span>Lv.{group.level}</span>
+                          <TypeTag type={group.type} locale={locale} compact />
+                        </span>
+                        <span className="itemMeta dungeonMaterialCount">{group.craftableCount}种</span>
+                      </span>
+                      <span className="dungeonMaterialTitleRow">
+                        <span className="dungeonMaterialPrimaryName">{group.primaryName}</span>
+                        {group.extraCount > 0 ? <span className="dungeonMaterialExtraCount">+{group.extraCount}</span> : null}
                       </span>
                     </span>
-                    <span className="itemMeta dungeonMaterialCount">{craftableCount}种</span>
                   </button>
                 );
               })

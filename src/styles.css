@@ -1420,27 +1420,85 @@ select,
 }
 
 .dungeonMaterialRow {
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  min-height: 54px;
-  padding: 9px 11px;
-}
-
-.dungeonMaterialRow .itemName {
-  min-width: 0;
-  font-size: 14px;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+  min-height: auto;
+  padding: 9px 12px 10px;
+  border-radius: 18px;
 }
 
 .dungeonMaterialInfo {
   display: grid;
-  gap: 4px;
+  align-content: start;
+  gap: 5px;
   min-width: 0;
 }
 
+.dungeonMaterialHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.dungeonMaterialInfo .itemMetaRow {
+  gap: 5px;
+  row-gap: 5px;
+}
+
+.dungeonMaterialTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dungeonMaterialPrimaryName {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dungeonMaterialExtraCount {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid rgba(195, 138, 43, 0.18);
+  border-radius: 999px;
+  color: #7c5817;
+  background: linear-gradient(180deg, rgba(255, 245, 225, 0.96), rgba(255, 238, 205, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  font-size: 11px;
+  font-weight: 900;
+}
+
 .dungeonMaterialCount {
-  min-width: 42px;
+  align-self: center;
+  min-width: 48px;
+  padding: 6px 10px;
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-radius: 999px;
+  color: var(--accent-deep);
+  background: linear-gradient(180deg, rgba(232, 240, 255, 0.94), rgba(244, 248, 255, 0.98));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
   text-align: right;
   white-space: nowrap;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.dungeonMaterialRow.current .dungeonMaterialCount {
+  color: #1541a2;
+  border-color: rgba(37, 99, 235, 0.18);
+  background: linear-gradient(180deg, rgba(220, 234, 255, 0.98), rgba(239, 245, 255, 0.98));
 }
 
 .dungeonMaterialRow.disabled {
@@ -2606,6 +2664,10 @@ select,
     max-height: 360px;
   }
 
+  .dungeonMaterialRow {
+    min-height: auto;
+  }
+
   .dungeonProductFilters {
     grid-template-columns: 1fr;
   }
@@ -2811,6 +2873,32 @@ select,
 
   .pilotActionButton {
     width: 100%;
+  }
+
+  .dungeonMaterialRow {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+  }
+
+  .dungeonMaterialHead {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .dungeonMaterialTitleRow {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .dungeonMaterialPrimaryName {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .dungeonMaterialCount {
+    text-align: left;
   }
 
   .layout {
