@@ -16,9 +16,16 @@ export default function ItemDetailView({
   setSelectedRecipe,
   enterMaterial,
   currentWarning,
+  isFavorite = false,
+  onToggleFavorite,
   handbookMissingLabel,
   handbookMissingHint,
 }) {
+  const currentItemName = pick(currentItem.name, locale);
+  const favoriteLabel = isFavorite
+    ? pick({ 'zh-Hans': '取消收藏', 'zh-Hant': '取消收藏', en: 'Remove favorite' }, locale)
+    : pick({ 'zh-Hans': '收藏', 'zh-Hant': '收藏', en: 'Favorite' }, locale);
+
   return (
     <main className={cx('content', currentWarning && 'warning')}>
       <section className="crumbCard" aria-label={t.path}>
@@ -42,19 +49,32 @@ export default function ItemDetailView({
 
       <article className="recipeCard">
         <section className="itemHero">
-          <div>
-            <div className="eyebrow">{pick(rootItem.name, locale) === pick(currentItem.name, locale) ? t.root : t.current}</div>
-            <h1>{pick(currentItem.name, locale)}</h1>
+          <div className="itemHeroTitle">
+            <div className="eyebrow">{pick(rootItem.name, locale) === currentItemName ? t.root : t.current}</div>
+            <h1>{currentItemName}</h1>
           </div>
-          <div className="heroMeta">
-            {currentItem.level ? <div className="heroMetaLine">{t.levelPrefix}{currentItem.level}</div> : null}
-            {pick(currentItem.type, locale) ? (
-              <div className="heroMetaLine">
-                <span className="heroMetaLabel">{t.type}：</span>
-                <span>{pick(currentItem.type, locale)}</span>
-              </div>
-            ) : null}
-            {currentItem.stats ? <div className="heroMetaLine">{currentItem.stats}</div> : null}
+          <div className="heroSide">
+            <button
+              className={cx('favoriteBtn', 'detailFavoriteBtn', isFavorite && 'active')}
+              type="button"
+              onClick={() => onToggleFavorite?.(currentId)}
+              aria-pressed={isFavorite}
+              aria-label={`${favoriteLabel}：${currentItemName}`}
+              title={favoriteLabel}
+            >
+              <span aria-hidden="true">{isFavorite ? '★' : '☆'}</span>
+              <span className="favoriteBtnText">{favoriteLabel}</span>
+            </button>
+            <div className="heroMeta">
+              {currentItem.level ? <div className="heroMetaLine">{t.levelPrefix}{currentItem.level}</div> : null}
+              {pick(currentItem.type, locale) ? (
+                <div className="heroMetaLine">
+                  <span className="heroMetaLabel">{t.type}：</span>
+                  <span>{pick(currentItem.type, locale)}</span>
+                </div>
+              ) : null}
+              {currentItem.stats ? <div className="heroMetaLine">{currentItem.stats}</div> : null}
+            </div>
           </div>
         </section>
 

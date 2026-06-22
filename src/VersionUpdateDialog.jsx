@@ -14,12 +14,16 @@ const COPY = {
   'zh-Hans': {
     eyebrow: 'VERSION UPDATE',
     title: '新版本已上线',
-    subtitle: '这次更新带来了飘流皮皮（Pilot），并优化了副本材料合成树体验。现在可以按合成路径需要的步数筛选路线，查找会更清楚。',
+    subtitle: '这次更新带来了飘流皮皮（Pilot），新增装备收藏功能，并优化了副本材料合成树体验。现在可以按合成路径需要的步数筛选路线，查找会更清楚。',
     highlights: [
       {
         title: '飘流皮皮（Pilot）正式发布',
         text: '新增自动在线宝箱与自动炼金功能，可观看教学并下载插件。',
         action: '前去查看',
+      },
+      {
+        title: '新增装备收藏功能',
+        text: '全部装备和装备详情都可以收藏或取消收藏，收藏后的装备会集中显示在“我的收藏”。',
       },
       {
         title: '优化副本材料合成树体验',
@@ -40,12 +44,16 @@ const COPY = {
   'zh-Hant': {
     eyebrow: 'VERSION UPDATE',
     title: '新版本已上線',
-    subtitle: '這次更新帶來了飄流皮皮（Pilot），並優化了副本材料合成樹體驗。現在可以按合成路徑需要的步數篩選路線，查找會更清楚。',
+    subtitle: '這次更新帶來了飄流皮皮（Pilot），新增裝備收藏功能，並優化了副本材料合成樹體驗。現在可以按合成路徑需要的步數篩選路線，查找會更清楚。',
     highlights: [
       {
         title: '飄流皮皮（Pilot）正式發布',
         text: '新增自動線上寶箱與自動煉金功能，可觀看教學並下載插件。',
         action: '前去查看',
+      },
+      {
+        title: '新增裝備收藏功能',
+        text: '全部裝備和裝備詳情都可以收藏或取消收藏，收藏後的裝備會集中顯示在「我的收藏」。',
       },
       {
         title: '優化副本材料合成樹體驗',
@@ -66,12 +74,16 @@ const COPY = {
   en: {
     eyebrow: 'VERSION UPDATE',
     title: 'New Version Is Live',
-    subtitle: 'This update introduces the Pilot plugin and improves the dungeon material tree experience. You can now filter crafting routes by the number of required steps.',
+    subtitle: 'This update introduces the Pilot plugin, adds gear favorites, and improves the dungeon material tree experience. You can now filter crafting routes by the number of required steps.',
     highlights: [
       {
         title: 'Pilot Plugin Is Live',
         text: 'Adds auto online treasure chest and auto alchemy features, with tutorial and download access.',
         action: 'Open Pilot',
+      },
+      {
+        title: 'Gear Favorites Added',
+        text: 'You can favorite or unfavorite gear from All Gear and item details, then review everything under Favorites.',
       },
       {
         title: 'Improved Dungeon Material Tree',

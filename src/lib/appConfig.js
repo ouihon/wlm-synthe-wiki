@@ -4,7 +4,7 @@ export const LOCALES = [
   { key: 'en', label: 'EN' },
 ];
 
-export const PAGE_TABS = [
+export const GEAR_TABS = [
   {
     key: 'inventory',
     label: { 'zh-Hans': '全部装备', 'zh-Hant': '全部裝備', en: 'All Gear' },
@@ -13,6 +13,13 @@ export const PAGE_TABS = [
     key: 'common',
     label: { 'zh-Hans': '常用装备', 'zh-Hant': '常用裝備', en: 'Common Gear' },
   },
+  {
+    key: 'favorites',
+    label: { 'zh-Hans': '我的收藏', 'zh-Hant': '我的收藏', en: 'Favorites' },
+  },
+];
+
+export const PAGE_TABS = [
   {
     key: 'sheet',
     label: { 'zh-Hans': '试算表', 'zh-Hant': '試算表', en: 'Calculator' },

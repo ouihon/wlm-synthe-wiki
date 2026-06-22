@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import 'reactflow/dist/style.css';
 import { createRoot } from 'react-dom/client';
 import itemsData from './data/items.json';
@@ -9,16 +9,18 @@ import VersionUpdateDialog from './VersionUpdateDialog.jsx';
 import PilotDownloadDialog from './components/PilotDownloadDialog.jsx';
 import InventoryPage from './pages/InventoryPage.jsx';
 import CommonGearPage from './pages/CommonGearPage.jsx';
+import FavoritesPage from './pages/FavoritesPage.jsx';
 import AlchemySheetPage from './pages/AlchemySheetPage.jsx';
 import DungeonMaterialTreePage from './pages/DungeonMaterialTreePage.jsx';
 import CreditsPage from './pages/CreditsPage.jsx';
-import { COMMON_CATEGORIES, GUIDE_LINKS, LOCALES, PAGE_TABS } from './lib/appConfig.js';
+import { COMMON_CATEGORIES, GEAR_TABS, GUIDE_LINKS, LOCALES, PAGE_TABS } from './lib/appConfig.js';
 import { cx, getHandbookMissingWarning, getTypeTheme, pick } from './lib/ui.js';
 import './styles.css';
 
 const APP_VERSION = `v${packageInfo.version}`;
 const BRAND_ICON_SRC = `${import.meta.env.BASE_URL}favicon.ico`;
 const RECIPE_CHOICE_STORAGE_KEY = 'alchemy-recipe-choice';
+const FAVORITE_ITEMS_STORAGE_KEY = 'alchemy-favorite-item-ids';
 const TYPE_ORDER = [
   '钢', '铁', '铜', '钛', '赤铁', '铅', '锡', '金', '银', '白银', '铝', '兽骨', '岩石', '皮', '花', '草',
   '叶', '兽毛', '羽毛', '木', '魔玉', '水晶', '结晶', '钻石', '宝', '玉', '尼龙', '壳', '硅', '果', '肉', '泌',
@@ -44,6 +46,17 @@ function App() {
       return {};
     }
   });
+  const [gearMenuOpen, setGearMenuOpen] = useState(false);
+  const gearMenuRef = useRef(null);
+  const [favoriteItemIds, setFavoriteItemIds] = useState(() => {
+    try {
+      const raw = localStorage.getItem(FAVORITE_ITEMS_STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed.filter((id) => typeof id === 'string') : [];
+    } catch {
+      return [];
+    }
+  });
 
   const t = useMemo(() => uiText[locale] ?? uiText['zh-Hans'], [locale]);
 
@@ -57,11 +70,47 @@ function App() {
     localStorage.setItem(RECIPE_CHOICE_STORAGE_KEY, JSON.stringify(recipeChoice));
   }, [recipeChoice]);
 
+  useEffect(() => {
+    localStorage.setItem(FAVORITE_ITEMS_STORAGE_KEY, JSON.stringify(favoriteItemIds));
+  }, [favoriteItemIds]);
+
+  useEffect(() => {
+    if (!gearMenuOpen) return undefined;
+
+    function handlePointerDown(event) {
+      if (gearMenuRef.current && !gearMenuRef.current.contains(event.target)) {
+        setGearMenuOpen(false);
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setGearMenuOpen(false);
+      }
+    }
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [gearMenuOpen]);
+
   const itemEntries = useMemo(() => {
     return Object.entries(items)
       .map(([id, item]) => ({ id, item }))
       .sort((a, b) => (b.item.level || 0) - (a.item.level || 0));
   }, [items]);
+
+  const favoriteItemIdSet = useMemo(() => new Set(favoriteItemIds), [favoriteItemIds]);
+
+  const favoriteEntries = useMemo(() => {
+    return favoriteItemIds
+      .map((id) => ({ id, item: items[id] }))
+      .filter(({ item }) => item);
+  }, [favoriteItemIds, items]);
 
   const filteredItems = useMemo(() => {
     const raw = query.trim().toLowerCase();
@@ -95,6 +144,16 @@ function App() {
     if (!items[id]) return;
     setPageTab('inventory');
     selectRoot(id);
+  }
+
+  function toggleFavoriteItem(id) {
+    if (!items[id]) return;
+    setFavoriteItemIds((old) => (old.includes(id) ? old.filter((entry) => entry !== id) : [id, ...old]));
+  }
+
+  function selectGearTab(tabKey) {
+    openPageTab(tabKey);
+    setGearMenuOpen(false);
   }
 
   function enterMaterial(id) {
@@ -139,6 +198,13 @@ function App() {
         setPath([firstId]);
       }
     }
+    if (nextTab === 'favorites') {
+      const firstId = favoriteItemIds.find((id) => items[id]);
+      if (firstId) {
+        setRootId(firstId);
+        setPath([firstId]);
+      }
+    }
   }
 
   function selectCommonCategory(nextCategory) {
@@ -151,6 +217,9 @@ function App() {
       setQuery('');
     }
   }
+
+  const activeGearTab = GEAR_TABS.find((tab) => tab.key === pageTab) ?? GEAR_TABS[0];
+  const isGearTabActive = GEAR_TABS.some((tab) => tab.key === pageTab);
 
   const detailProps = {
     path,
@@ -166,6 +235,8 @@ function App() {
     setSelectedRecipe,
     enterMaterial,
     currentWarning,
+    isFavorite: favoriteItemIdSet.has(currentId),
+    onToggleFavorite: toggleFavoriteItem,
     handbookMissingLabel: pick({ 'zh-Hans': '手飘无此装', 'zh-Hant': '手飄無此裝', en: 'Not listed in Wonderland M' }, locale),
     handbookMissingHint: pick({
       'zh-Hans': '飘流幻境M不存在此装备，请留意来源。',
@@ -204,6 +275,39 @@ function App() {
       </header>
 
       <section className="pageTabs" aria-label="page tabs">
+        <div ref={gearMenuRef} className={cx('pageTabGroup', isGearTabActive && 'active', gearMenuOpen && 'menuOpen')}>
+          <button
+            className={cx('pageTab', 'pageTabGroupTrigger', isGearTabActive && 'active')}
+            type="button"
+            onClick={() => setGearMenuOpen((open) => !open)}
+            aria-haspopup="menu"
+            aria-expanded={gearMenuOpen}
+          >
+            <span>{pick({ 'zh-Hans': '装备', 'zh-Hant': '裝備', en: 'Gear' }, locale)}</span>
+            <small>{pick(activeGearTab.label, locale)}</small>
+            <span className="pageTabChevron" aria-hidden="true">⌄</span>
+          </button>
+          {gearMenuOpen ? (
+            <div className="pageSubmenu" role="menu">
+              {GEAR_TABS.map((tab) => (
+                <button
+                  key={tab.key}
+                  className={cx('pageSubmenuItem', pageTab === tab.key && 'active')}
+                  type="button"
+                  onPointerDown={(event) => {
+                    event.preventDefault();
+                    selectGearTab(tab.key);
+                  }}
+                  onClick={() => selectGearTab(tab.key)}
+                  role="menuitem"
+                >
+                  {pick(tab.label, locale)}
+                </button>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
         {PAGE_TABS.map((tab) => (
           <button
             key={tab.key}
@@ -232,6 +336,8 @@ function App() {
           selectRoot={selectRoot}
           getHandbookMissingWarning={getHandbookMissingWarning}
           detailProps={detailProps}
+          favoriteItemIdSet={favoriteItemIdSet}
+          toggleFavoriteItem={toggleFavoriteItem}
         />
       ) : null}
 
@@ -247,6 +353,20 @@ function App() {
           selectRoot={selectRoot}
           getHandbookMissingWarning={getHandbookMissingWarning}
           detailProps={detailProps}
+        />
+      ) : null}
+
+
+      {pageTab === 'favorites' ? (
+        <FavoritesPage
+          locale={locale}
+          favoriteEntries={favoriteEntries}
+          currentId={currentId}
+          rootId={rootId}
+          selectRoot={selectRoot}
+          getHandbookMissingWarning={getHandbookMissingWarning}
+          detailProps={detailProps}
+          toggleFavoriteItem={toggleFavoriteItem}
         />
       ) : null}
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemDetailView from '../components/ItemDetailView.jsx';
-import TypeTag from '../components/TypeTag.jsx';
+import ItemListRow from '../components/ItemListRow.jsx';
 import { cx } from '../lib/ui.js';
 
 export default function InventoryPage({
@@ -19,6 +19,8 @@ export default function InventoryPage({
   selectRoot,
   getHandbookMissingWarning,
   detailProps,
+  favoriteItemIdSet,
+  toggleFavoriteItem,
 }) {
   return (
     <>
@@ -85,17 +87,21 @@ export default function InventoryPage({
               <div className="emptyList">{t.emptySearch}</div>
             ) : (
               filteredItems.map(({ id, item }) => (
-                <button
+                <ItemListRow
                   key={id}
-                  className={cx('itemRow', getHandbookMissingWarning(item) && 'warning', id === currentId && 'current', id === rootId && 'root')}
-                  onClick={() => selectRoot(id)}
-                >
-                  <span className="itemName">{item.name?.[locale] ?? item.name?.['zh-Hans'] ?? ''}</span>
-                  <span className="itemMeta itemMetaRow">
-                    <span>{item.level ? `${t.levelPrefix}${item.level}` : t.unrecorded}</span>
-                    <TypeTag type={item.type} locale={locale} compact />
-                  </span>
-                </button>
+                  id={id}
+                  item={item}
+                  locale={locale}
+                  levelLabel={t.levelPrefix}
+                  unrecordedLabel={t.unrecorded}
+                  currentId={currentId}
+                  rootId={rootId}
+                  onSelect={selectRoot}
+                  warning={getHandbookMissingWarning(item)}
+                  showFavoriteAction
+                  isFavorite={favoriteItemIdSet?.has(id)}
+                  onToggleFavorite={toggleFavoriteItem}
+                />
               ))
             )}
           </nav>

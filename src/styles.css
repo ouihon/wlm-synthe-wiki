@@ -715,12 +715,19 @@ select,
   color: #9f1f2a;
 }
 
+.heroSide {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+  min-width: 160px;
+  max-width: 360px;
+}
+
 .heroMeta {
   display: grid;
   justify-items: end;
   gap: 6px;
-  min-width: 160px;
-  max-width: 360px;
+  width: 100%;
 }
 
 .heroMetaLine {
@@ -733,6 +740,22 @@ select,
 
 .content.warning .heroMetaLine {
   color: #9f1f2a;
+}
+
+.itemHeroTitle {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.detailFavoriteBtn {
+  min-height: 36px;
+  padding: 0 14px;
+}
+
+.detailFavoriteBtn .favoriteBtnText {
+  display: inline;
 }
 
 .warningBanner {
@@ -3501,5 +3524,202 @@ select,
     margin-top: 10px;
     padding-top: 8px;
     font-size: 12px;
+  }
+}
+
+.pageTabGroup {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pageTabGroupTrigger {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  width: 100%;
+  padding: 5px 12px;
+  line-height: 1.15;
+}
+
+.pageTabGroupTrigger > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pageTabGroupTrigger small {
+  grid-column: 1 / 2;
+  overflow: hidden;
+  color: currentColor;
+  opacity: 0.72;
+  font-size: 11px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pageTabChevron {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.pageSubmenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 30;
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  min-width: 148px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  backdrop-filter: blur(12px);
+}
+
+.pageTabGroup.menuOpen .pageSubmenu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.pageSubmenuItem {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--ink-soft);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 850;
+  text-align: left;
+}
+
+.pageSubmenuItem:hover {
+  color: var(--ink);
+  background: rgba(22, 32, 49, 0.05);
+}
+
+.pageSubmenuItem.active {
+  color: var(--accent-deep);
+  border-color: rgba(37, 99, 235, 0.14);
+  background: var(--accent-soft);
+}
+
+.itemRow {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+.itemRow.withFavorite {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.itemRowMain {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+}
+
+.itemRowMain:focus-visible,
+.favoriteBtn:focus-visible,
+.pageTabGroupTrigger:focus-visible,
+.pageSubmenuItem:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.34);
+  outline-offset: 2px;
+}
+
+.favoriteBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 42px;
+  min-height: 36px;
+  padding: 0 9px;
+  border: 1px solid rgba(195, 138, 43, 0.22);
+  border-radius: 999px;
+  color: #805c1b;
+  background: rgba(255, 250, 236, 0.9);
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.favoriteBtn:hover {
+  border-color: rgba(195, 138, 43, 0.36);
+  background: rgba(255, 243, 218, 0.98);
+  transform: translateY(-1px);
+}
+
+.favoriteBtn.active {
+  color: white;
+  border-color: transparent;
+  background: linear-gradient(135deg, #b7791f, #d69e2e);
+  box-shadow: 0 8px 18px rgba(195, 138, 43, 0.2);
+}
+
+.favoriteBtnText {
+  display: none;
+}
+
+@media (min-width: 1121px) {
+  .favoriteBtnText {
+    display: inline;
+  }
+}
+
+@media (max-width: 760px) {
+  .pageTabGroupTrigger {
+    min-height: 38px;
+    padding: 4px 9px;
+  }
+
+  .pageSubmenu {
+    min-width: 132px;
+  }
+
+  .itemRow.withFavorite {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .favoriteBtn {
+    min-width: 36px;
+    min-height: 32px;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .itemHero {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .heroSide,
+  .heroMeta {
+    justify-items: start;
+    max-width: none;
+  }
+
+  .heroMetaLine {
+    text-align: left;
   }
 }
