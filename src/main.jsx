@@ -237,6 +237,7 @@ function App() {
     currentWarning,
     isFavorite: favoriteItemIdSet.has(currentId),
     onToggleFavorite: toggleFavoriteItem,
+    onOpenItem: selectRoot,
     handbookMissingLabel: pick({ 'zh-Hans': '手飘无此装', 'zh-Hant': '手飄無此裝', en: 'Not listed in Wonderland M' }, locale),
     handbookMissingHint: pick({
       'zh-Hans': '飘流幻境M不存在此装备，请留意来源。',

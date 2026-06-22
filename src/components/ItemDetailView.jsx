@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CraftingInferenceDialog from './CraftingInferenceDialog.jsx';
 import RecipeBlock from './RecipeBlock.jsx';
 import { cx, pick } from '../lib/ui.js';
 
@@ -18,9 +19,11 @@ export default function ItemDetailView({
   currentWarning,
   isFavorite = false,
   onToggleFavorite,
+  onOpenItem,
   handbookMissingLabel,
   handbookMissingHint,
 }) {
+  const [inferenceOpen, setInferenceOpen] = useState(false);
   const currentItemName = pick(currentItem.name, locale);
   const favoriteLabel = isFavorite
     ? pick({ 'zh-Hans': '取消收藏', 'zh-Hant': '取消收藏', en: 'Remove favorite' }, locale)
@@ -54,17 +57,26 @@ export default function ItemDetailView({
             <h1>{currentItemName}</h1>
           </div>
           <div className="heroSide">
-            <button
-              className={cx('favoriteBtn', 'detailFavoriteBtn', isFavorite && 'active')}
-              type="button"
-              onClick={() => onToggleFavorite?.(currentId)}
-              aria-pressed={isFavorite}
-              aria-label={`${favoriteLabel}：${currentItemName}`}
-              title={favoriteLabel}
-            >
-              <span aria-hidden="true">{isFavorite ? '★' : '☆'}</span>
-              <span className="favoriteBtnText">{favoriteLabel}</span>
-            </button>
+            <div className="heroActionRow">
+              <button
+                className={cx('favoriteBtn', 'detailFavoriteBtn', isFavorite && 'active')}
+                type="button"
+                onClick={() => onToggleFavorite?.(currentId)}
+                aria-pressed={isFavorite}
+                aria-label={`${favoriteLabel}：${currentItemName}`}
+                title={favoriteLabel}
+              >
+                <span aria-hidden="true">{isFavorite ? '★' : '☆'}</span>
+                <span className="favoriteBtnText">{favoriteLabel}</span>
+              </button>
+              <button
+                className="inferenceTriggerBtn"
+                type="button"
+                onClick={() => setInferenceOpen(true)}
+              >
+                {t.inferenceTitle}
+              </button>
+            </div>
             <div className="heroMeta">
               {currentItem.level ? <div className="heroMetaLine">{t.levelPrefix}{currentItem.level}</div> : null}
               {pick(currentItem.type, locale) ? (
@@ -103,6 +115,17 @@ export default function ItemDetailView({
           </div>
         )}
       </article>
+
+      <CraftingInferenceDialog
+        open={inferenceOpen}
+        itemId={currentId}
+        items={items}
+        locale={locale}
+        t={t}
+        onClose={() => setInferenceOpen(false)}
+        onOpenItem={onOpenItem}
+      />
     </main>
   );
 }
+
