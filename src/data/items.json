@@ -10814,11 +10814,11 @@
             },
             {
               "name": {
-                "zh-Hans": "新月长弓",
-                "zh-Hant": "新月長弓",
-                "en": "新月长弓"
-              },
-              "itemId": "gudia_f20b420d57"
+				"zh-Hans": "冰龙之杖",
+				"zh-Hant": "冰龍之杖",
+				"en": "冰龙之杖"
+			  },
+              "itemId": "gudia_61caf81e23"
             }
           ],
           "source": "Gu Dia"
@@ -10852,11 +10852,11 @@
             },
             {
               "name": {
-                "zh-Hans": "新月长弓",
-                "zh-Hant": "新月長弓",
-                "en": "新月长弓"
-              },
-              "itemId": "gudia_f20b420d57"
+				"zh-Hans": "冰龙之杖",
+				"zh-Hant": "冰龍之杖",
+				"en": "冰龙之杖"
+			  },
+              "itemId": "gudia_61caf81e23"
             }
           ],
           "source": "Gu Dia"
@@ -23518,9 +23518,9 @@
       "recipes": [
         {
           "title": {
-            "zh-Hans": "18级赤铁材料配方",
-            "zh-Hant": "18級赤鐵材料配方",
-            "en": "18级赤铁材料配方"
+            "zh-Hans": "18等赤铁配方",
+            "zh-Hant": "18等赤鐵配方",
+            "en": "18等赤铁配方"
           },
           "recommended": true,
           "bad": false,
@@ -23537,9 +23537,9 @@
           "materials": [
             {
               "name": {
-                "zh-Hans": "18级赤铁材料",
-                "zh-Hant": "18級赤鐵材料",
-                "en": "18级赤铁材料"
+                "zh-Hans": "18等赤铁",
+                "zh-Hant": "18等赤鐵",
+                "en": "18等赤铁"
               },
               "type": {
                 "zh-Hans": "赤铁",
@@ -23561,9 +23561,9 @@
             },
             {
               "name": {
-                "zh-Hans": "18级魔玉材料",
-                "zh-Hant": "18級魔玉材料",
-                "en": "18级魔玉材料"
+                "zh-Hans": "18等魔玉",
+                "zh-Hant": "18等魔玉",
+                "en": "18等魔玉"
               },
               "type": {
                 "zh-Hans": "魔玉",
@@ -30219,15 +30219,11 @@
             },
             {
               "name": {
-                "zh-Hans": "16级铝材料",
-                "zh-Hant": "16級鋁材料",
-                "en": "16级铝材料"
-              },
-              "type": {
-                "zh-Hans": "铝",
-                "zh-Hant": "铝",
-                "en": "铝"
-              }
+				"zh-Hans": "青牙护腕",
+				"zh-Hant": "青牙護腕",
+				"en": "青牙护腕"
+			  },
+              "itemId": "gudia_7dc1bf9e6a"
             },
             {
               "name": {
@@ -30243,9 +30239,9 @@
             },
             {
               "name": {
-                "zh-Hans": "18级魔玉材料",
-                "zh-Hant": "18級魔玉材料",
-                "en": "18级魔玉材料"
+                "zh-Hans": "18等魔玉",
+                "zh-Hant": "18等魔玉",
+                "en": "18等魔玉"
               },
               "type": {
                 "zh-Hans": "魔玉",
