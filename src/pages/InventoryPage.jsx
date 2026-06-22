@@ -21,6 +21,7 @@ export default function InventoryPage({
   detailProps,
   favoriteItemIdSet,
   toggleFavoriteItem,
+  onSearchResultClick,
 }) {
   return (
     <>
@@ -86,7 +87,7 @@ export default function InventoryPage({
             {filteredItems.length === 0 ? (
               <div className="emptyList">{t.emptySearch}</div>
             ) : (
-              filteredItems.map(({ id, item }) => (
+              filteredItems.map(({ id, item }, index) => (
                 <ItemListRow
                   key={id}
                   id={id}
@@ -96,7 +97,10 @@ export default function InventoryPage({
                   unrecordedLabel={t.unrecorded}
                   currentId={currentId}
                   rootId={rootId}
-                  onSelect={selectRoot}
+                  onSelect={() => {
+                    onSearchResultClick?.({ id, item, position: index + 1 });
+                    selectRoot(id);
+                  }}
                   warning={getHandbookMissingWarning(item)}
                   showFavoriteAction
                   isFavorite={favoriteItemIdSet?.has(id)}

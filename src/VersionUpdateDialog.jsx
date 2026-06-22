@@ -120,7 +120,7 @@ const COPY = {
   },
 };
 
-export default function VersionUpdateDialog({ version, locale, onOpenPilot }) {
+export default function VersionUpdateDialog({ version, locale, openRequest = 0, onOpenPilot }) {
   const text = COPY[locale] ?? COPY['zh-Hans'];
   const [open, setOpen] = useState(false);
 
@@ -131,6 +131,12 @@ export default function VersionUpdateDialog({ version, locale, onOpenPilot }) {
       setOpen(true);
     }
   }, [version]);
+
+  useEffect(() => {
+    if (openRequest > 0) {
+      setOpen(true);
+    }
+  }, [openRequest]);
 
   function dismiss() {
     markVersionAsSeen(version);

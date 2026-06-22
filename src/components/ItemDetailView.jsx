@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CraftingInferenceDialog from './CraftingInferenceDialog.jsx';
 import RecipeBlock from './RecipeBlock.jsx';
 import { cx, pick } from '../lib/ui.js';
+import { itemAnalyticsParams, trackEvent } from '../lib/analytics.js';
 
 export default function ItemDetailView({
   path,
@@ -22,12 +23,22 @@ export default function ItemDetailView({
   onOpenItem,
   handbookMissingLabel,
   handbookMissingHint,
+  sourcePage = 'unknown',
 }) {
   const [inferenceOpen, setInferenceOpen] = useState(false);
   const currentItemName = pick(currentItem.name, locale);
   const favoriteLabel = isFavorite
     ? pick({ 'zh-Hans': '取消收藏', 'zh-Hant': '取消收藏', en: 'Remove favorite' }, locale)
     : pick({ 'zh-Hans': '收藏', 'zh-Hant': '收藏', en: 'Favorite' }, locale);
+
+  function handleInferenceOpen() {
+    trackEvent('chain_inference_click', {
+      ...itemAnalyticsParams(currentId, currentItem, locale),
+      page: sourcePage,
+      entry: 'detail_button',
+    });
+    setInferenceOpen(true);
+  }
 
   return (
     <main className={cx('content', currentWarning && 'warning')}>
@@ -72,9 +83,9 @@ export default function ItemDetailView({
               <button
                 className="inferenceTriggerBtn"
                 type="button"
-                onClick={() => setInferenceOpen(true)}
+                onClick={handleInferenceOpen}
               >
-                {t.inferenceTitle}
+                <span className="inferenceTriggerText">{t.inferenceTitle}</span>
               </button>
             </div>
             <div className="heroMeta">

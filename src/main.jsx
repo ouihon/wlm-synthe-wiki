@@ -15,6 +15,7 @@ import DungeonMaterialTreePage from './pages/DungeonMaterialTreePage.jsx';
 import CreditsPage from './pages/CreditsPage.jsx';
 import { COMMON_CATEGORIES, GEAR_TABS, GUIDE_LINKS, LOCALES, PAGE_TABS } from './lib/appConfig.js';
 import { cx, getHandbookMissingWarning, getTypeTheme, pick } from './lib/ui.js';
+import { cleanSearchTerm, itemAnalyticsParams, trackEvent } from './lib/analytics.js';
 import './styles.css';
 
 const APP_VERSION = `v${packageInfo.version}`;
@@ -32,6 +33,7 @@ function App() {
   const [locale, setLocale] = useState(() => localStorage.getItem('alchemy-locale') || 'zh-Hans');
   const [pageTab, setPageTab] = useState('inventory');
   const [pilotOpen, setPilotOpen] = useState(false);
+  const [versionDialogRequest, setVersionDialogRequest] = useState(0);
   const [commonCategory, setCommonCategory] = useState('MATK');
   const [typeFilter, setTypeFilter] = useState('all');
   const [rootId, setRootId] = useState(defaultItemId);
@@ -48,6 +50,7 @@ function App() {
   });
   const [gearMenuOpen, setGearMenuOpen] = useState(false);
   const gearMenuRef = useRef(null);
+  const lastSearchEventKeyRef = useRef('');
   const [favoriteItemIds, setFavoriteItemIds] = useState(() => {
     try {
       const raw = localStorage.getItem(FAVORITE_ITEMS_STORAGE_KEY);
@@ -127,6 +130,29 @@ function App() {
     });
   }, [itemEntries, query, locale, typeFilter]);
 
+  useEffect(() => {
+    const { searchTerm, redacted } = cleanSearchTerm(query);
+    if (!searchTerm) return undefined;
+
+    const resultCount = filteredItems.length;
+    const eventKey = [searchTerm, resultCount, typeFilter, locale].join('|');
+    const timer = window.setTimeout(() => {
+      if (lastSearchEventKeyRef.current === eventKey) return;
+      lastSearchEventKeyRef.current = eventKey;
+
+      trackEvent('view_search_results', {
+        search_term: searchTerm,
+        search_term_redacted: redacted,
+        result_count: resultCount,
+        has_result: resultCount > 0,
+        type_filter: typeFilter,
+        page: 'inventory',
+      });
+    }, 700);
+
+    return () => window.clearTimeout(timer);
+  }, [query, filteredItems.length, typeFilter, locale]);
+
   const currentId = path[path.length - 1];
   const currentItem = items[currentId] ?? items[defaultItemId];
   const rootItem = items[rootId] ?? items[defaultItemId];
@@ -138,6 +164,21 @@ function App() {
     setRootId(id);
     setPath([id]);
     setQuery('');
+  }
+
+  function handleSearchResultClick({ id, item, position }) {
+    const { searchTerm, redacted } = cleanSearchTerm(query);
+    if (!searchTerm || !item) return;
+
+    trackEvent('search_result_click', {
+      search_term: searchTerm,
+      search_term_redacted: redacted,
+      result_position: position,
+      result_count: filteredItems.length,
+      type_filter: typeFilter,
+      page: 'inventory',
+      ...itemAnalyticsParams(id, item, locale),
+    });
   }
 
   function openItemFromSheet(id) {
@@ -244,12 +285,33 @@ function App() {
       'zh-Hant': '飄流幻境M不存在此裝備，請留意來源。',
       en: 'Wonderland M does not list this gear. Please check the source.',
     }, locale),
+    sourcePage: pageTab,
   };
 
   return (
     <div className="appShell">
-      <VersionUpdateDialog version={APP_VERSION} locale={locale} onOpenPilot={() => setPilotOpen(true)} />
+      <VersionUpdateDialog
+        version={APP_VERSION}
+        locale={locale}
+        openRequest={versionDialogRequest}
+        onOpenPilot={() => setPilotOpen(true)}
+      />
       <PilotDownloadDialog open={pilotOpen} onClose={() => setPilotOpen(false)} locale={locale} />
+      <button
+        className="updateFab"
+        type="button"
+        onClick={() => {
+          trackEvent('announcement_open', {
+            page: pageTab,
+            entry: 'floating_button',
+          });
+          setVersionDialogRequest((request) => request + 1);
+        }}
+        aria-label={pick({ 'zh-Hans': '公告与更新信息', 'zh-Hant': '公告與更新資訊', en: 'Announcements and update info' }, locale)}
+        title={pick({ 'zh-Hans': '公告', 'zh-Hant': '公告', en: 'Updates' }, locale)}
+      >
+        <span className="updateFabIcon" aria-hidden="true">📣</span>
+      </button>
       <header className="topbar">
         <button className="brand" onClick={() => selectRoot(defaultItemId)} aria-label={t.appTitle}>
           <span className="brandMark">
@@ -339,6 +401,7 @@ function App() {
           detailProps={detailProps}
           favoriteItemIdSet={favoriteItemIdSet}
           toggleFavoriteItem={toggleFavoriteItem}
+          onSearchResultClick={handleSearchResultClick}
         />
       ) : null}
 
