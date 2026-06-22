@@ -14,6 +14,8 @@ export default function CommonGearPage({
   selectRoot,
   getHandbookMissingWarning,
   detailProps,
+  favoriteItemIdSet,
+  toggleFavoriteItem,
 }) {
   return (
     <div className="layout">
@@ -55,6 +57,9 @@ export default function CommonGearPage({
                 rootId={rootId}
                 onSelect={selectRoot}
                 warning={getHandbookMissingWarning(item)}
+                showFavoriteAction
+                isFavorite={favoriteItemIdSet?.has(id)}
+                onToggleFavorite={toggleFavoriteItem}
               />
             ))
           )}

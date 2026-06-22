@@ -353,6 +353,8 @@ function App() {
           selectRoot={selectRoot}
           getHandbookMissingWarning={getHandbookMissingWarning}
           detailProps={detailProps}
+          favoriteItemIdSet={favoriteItemIdSet}
+          toggleFavoriteItem={toggleFavoriteItem}
         />
       ) : null}
 
