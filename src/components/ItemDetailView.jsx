@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CraftingInferenceDialog from './CraftingInferenceDialog.jsx';
+import LuckyListDialog from './LuckyListDialog.jsx';
 import RecipeBlock from './RecipeBlock.jsx';
 import { cx, pick } from '../lib/ui.js';
 import { itemAnalyticsParams, trackEvent } from '../lib/analytics.js';
@@ -26,6 +27,7 @@ export default function ItemDetailView({
   sourcePage = 'unknown',
 }) {
   const [inferenceOpen, setInferenceOpen] = useState(false);
+  const [luckyListOpen, setLuckyListOpen] = useState(false);
   const currentItemName = pick(currentItem.name, locale);
   const favoriteLabel = isFavorite
     ? pick({ 'zh-Hans': '取消收藏', 'zh-Hant': '取消收藏', en: 'Remove favorite' }, locale)
@@ -38,6 +40,15 @@ export default function ItemDetailView({
       entry: 'detail_button',
     });
     setInferenceOpen(true);
+  }
+
+  function handleLuckyListOpen() {
+    trackEvent('lucky_list_click', {
+      ...itemAnalyticsParams(currentId, currentItem, locale),
+      page: sourcePage,
+      entry: 'detail_button',
+    });
+    setLuckyListOpen(true);
   }
 
   return (
@@ -87,6 +98,13 @@ export default function ItemDetailView({
               >
                 <span className="inferenceTriggerText">{t.inferenceTitle}</span>
               </button>
+              <button
+                className="inferenceTriggerBtn"
+                type="button"
+                onClick={handleLuckyListOpen}
+              >
+                <span className="inferenceTriggerText">{t.luckyListTitle}</span>
+              </button>
             </div>
             <div className="heroMeta">
               {currentItem.level ? <div className="heroMetaLine">{t.levelPrefix}{currentItem.level}</div> : null}
@@ -134,6 +152,15 @@ export default function ItemDetailView({
         locale={locale}
         t={t}
         onClose={() => setInferenceOpen(false)}
+        onOpenItem={onOpenItem}
+      />
+      <LuckyListDialog
+        open={luckyListOpen}
+        itemId={currentId}
+        items={items}
+        locale={locale}
+        t={t}
+        onClose={() => setLuckyListOpen(false)}
         onOpenItem={onOpenItem}
       />
     </main>

@@ -63,7 +63,19 @@
     "inferenceStepMetaSuffix": " 步",
     "inferencePathTitle": "推演路径",
     "locateInferenceItem": "定位装备",
-    "inferenceEmptyResult": "没有找到可继续合成的装备"
+    "inferenceEmptyResult": "没有找到可继续合成的装备",
+    "luckyListTitle": "欧皇清单",
+    "closeLuckyListDialog": "关闭欧皇清单弹窗",
+    "luckyListDescription": "统计当前装备在合成过程中一次都不爆时，需要提前准备的全部材料。",
+    "luckyListTotalSuffix": " 个材料",
+    "luckyListKindSuffix": " 种材料",
+    "luckyListMaterialTitle": "材料",
+    "luckyListLevelTitle": "物等",
+    "luckyListSourceTitle": "来源",
+    "luckyListMissingValue": "—",
+    "luckyListAmountTitle": "数量",
+    "luckyListEmptyResult": "没有可统计的材料",
+    "luckyListCircularMark": "循环引用"
   },
   "zh-Hant": {
     "appTitle": "飄流幻境M·新煉金百科",
@@ -129,7 +141,19 @@
     "inferenceStepMetaSuffix": " 步",
     "inferencePathTitle": "推演路徑",
     "locateInferenceItem": "定位裝備",
-    "inferenceEmptyResult": "沒有找到可繼續合成的裝備"
+    "inferenceEmptyResult": "沒有找到可繼續合成的裝備",
+    "luckyListTitle": "歐皇清單",
+    "closeLuckyListDialog": "關閉歐皇清單彈窗",
+    "luckyListDescription": "統計目前裝備在合成過程中一次都不爆時，需要提前準備的全部材料。",
+    "luckyListTotalSuffix": " 個材料",
+    "luckyListKindSuffix": " 種材料",
+    "luckyListMaterialTitle": "材料",
+    "luckyListLevelTitle": "物等",
+    "luckyListSourceTitle": "來源",
+    "luckyListMissingValue": "—",
+    "luckyListAmountTitle": "數量",
+    "luckyListEmptyResult": "沒有可統計的材料",
+    "luckyListCircularMark": "循環引用"
   },
   "en": {
     "appTitle": "Wonderland M Alchemy Wiki",
@@ -195,6 +219,18 @@
     "inferenceStepMetaSuffix": "",
     "inferencePathTitle": "Synthesis path",
     "locateInferenceItem": "Locate gear",
-    "inferenceEmptyResult": "No further craftable gear found"
+    "inferenceEmptyResult": "No further craftable gear found",
+    "luckyListTitle": "Lucky List",
+    "closeLuckyListDialog": "Close Lucky List dialog",
+    "luckyListDescription": "Lists all materials to prepare if every synthesis step succeeds without breaking.",
+    "luckyListTotalSuffix": " materials",
+    "luckyListKindSuffix": " material types",
+    "luckyListMaterialTitle": "Material",
+    "luckyListLevelTitle": "Level",
+    "luckyListSourceTitle": "Source",
+    "luckyListMissingValue": "—",
+    "luckyListAmountTitle": "Qty",
+    "luckyListEmptyResult": "No materials to total",
+    "luckyListCircularMark": "Circular reference"
   }
 }

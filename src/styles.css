@@ -2110,9 +2110,7 @@ select,
   .versionDialog::before,
   .versionDialogAura,
   .pilotCta,
-  .pilotCta::before,
-  .inferenceTriggerBtn,
-  .inferenceTriggerBtn::before {
+  .pilotCta::before {
     animation-duration: 8s;
     animation-iteration-count: infinite;
   }
@@ -3830,58 +3828,30 @@ select,
 }
 
 .inferenceTriggerBtn {
-  position: relative;
-  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 38px;
-  padding: 0 16px;
-  overflow: hidden;
-  border: 1px solid rgba(195, 138, 43, 0.38);
+  padding: 0 14px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  color: #7c3f0a;
-  background:
-    linear-gradient(135deg, #fff8e7 0%, #fdecc5 45%, #f9d98a 100%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.84),
-    0 0 0 1px rgba(255, 255, 255, 0.48),
-    0 0 18px rgba(245, 158, 11, 0.3),
-    0 10px 22px rgba(146, 64, 14, 0.16);
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
   font-size: 13px;
-  font-weight: 950;
+  font-weight: 900;
   white-space: nowrap;
-  animation: highGlowPulse 2.8s ease-in-out infinite;
-}
-
-.inferenceTriggerBtn::before {
-  content: "";
-  position: absolute;
-  inset: -42% -34%;
-  z-index: 0;
-  background: linear-gradient(115deg, transparent 24%, rgba(255, 255, 255, 0.16) 40%, rgba(255, 255, 255, 0.72) 50%, rgba(255, 255, 255, 0.14) 62%, transparent 76%);
-  transform: translateX(-74%) rotate(8deg);
-  animation: spotlightSweep 3.1s ease-in-out infinite;
-  pointer-events: none;
 }
 
 .inferenceTriggerText {
-  position: relative;
-  z-index: 1;
   letter-spacing: 0.01em;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.78);
 }
 
 .inferenceTriggerBtn:hover {
-  color: #6b2f04;
-  border-color: rgba(195, 138, 43, 0.56);
-  transform: translateY(-2px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0 0 2px rgba(255, 255, 255, 0.42),
-    0 0 24px rgba(245, 158, 11, 0.4),
-    0 14px 28px rgba(146, 64, 14, 0.2);
+  color: var(--ink);
+  border-color: rgba(37, 99, 235, 0.18);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
 }
 
 .inferenceTriggerBtn:focus-visible,
@@ -4381,5 +4351,212 @@ select,
 
   .inferencePathChain {
     gap: 6px;
+  }
+}
+
+.luckyListDialog {
+  width: min(1120px, 100%);
+}
+
+.luckyListBody {
+  display: grid;
+  gap: 12px;
+  padding: 14px 16px 16px;
+}
+
+.luckyListIntro p {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.luckyElementTabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.luckyElementTab {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.72);
+  text-align: left;
+}
+
+.luckyElementTab strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.luckyElementTab span {
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 11px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.luckyElementTab:hover {
+  border-color: rgba(37, 99, 235, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.luckyElementTab.active {
+  border-color: rgba(37, 99, 235, 0.36);
+  color: var(--accent-deep);
+  background: var(--accent-soft);
+}
+
+.luckyElementTab:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.34);
+  outline-offset: 2px;
+}
+
+.luckyElementPanel {
+  min-width: 0;
+}
+
+.luckyListMaterialPanel {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(248, 251, 255, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.luckyListMaterialHead,
+.luckyListMaterialRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.45fr) 78px 88px minmax(160px, 1fr) 70px;
+  align-items: center;
+  gap: 8px;
+}
+
+.luckyListMaterialHead {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.03em;
+}
+
+.luckyListMaterialHead span:last-child {
+  justify-self: end;
+}
+
+.luckyListMaterialRows {
+  display: grid;
+  max-height: min(56vh, 520px);
+  overflow: auto;
+  padding: 6px;
+}
+
+.luckyListMaterialRow {
+  width: 100%;
+  min-height: 42px;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+}
+
+button.luckyListMaterialRow:hover {
+  border-color: rgba(37, 99, 235, 0.16);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.luckyListMaterialRow.plain {
+  cursor: default;
+}
+
+.luckyListMaterialName {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 950;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.luckyListLevelCell,
+.luckyListTypeCell,
+.luckyListSourceCell,
+.luckyListMissingCell,
+.luckyListCircularCell {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 850;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.luckyListTypeCell {
+  display: flex;
+  align-items: center;
+}
+
+.luckyListSourceCell {
+  color: var(--ink-muted);
+}
+
+.luckyListMissingCell {
+  color: rgba(91, 110, 136, 0.58);
+}
+
+.luckyListCircularCell {
+  grid-column: 1 / -1;
+  color: #9a4d12;
+}
+
+.luckyListAmount {
+  justify-self: end;
+  color: var(--accent-deep);
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.luckyListMaterialRow:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.34);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .luckyElementTabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .luckyListMaterialHead,
+  .luckyListMaterialRow {
+    grid-template-columns: minmax(120px, 1fr) 62px 70px 74px;
+  }
+
+  .luckyListMaterialHead span:nth-child(4),
+  .luckyListSourceCell {
+    display: none;
+  }
+
+  .luckyListMaterialHead span:last-child {
+    display: block;
   }
 }
