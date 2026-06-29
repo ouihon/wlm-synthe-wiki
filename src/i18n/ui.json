@@ -44,6 +44,7 @@
     "pilotRelease3Text": "改善插件操作手感与整体可靠性。",
     "pilotFootnote": "请依照个人需求合理使用插件功能。",
     "inferenceTitle": "合成链推演",
+    "inferenceTooltip": "看看当前装备还能继续合成哪些装备。",
     "inferenceTitleSeparator": " · ",
     "closeInferenceDialog": "关闭合成链推演弹窗",
     "inferenceWithinSteps": "步内",
@@ -65,6 +66,7 @@
     "locateInferenceItem": "定位装备",
     "inferenceEmptyResult": "没有找到可继续合成的装备",
     "luckyListTitle": "欧皇清单",
+    "luckyListTooltip": "统计一路不爆时需要提前准备的全部材料。",
     "closeLuckyListDialog": "关闭欧皇清单弹窗",
     "luckyListDescription": "统计当前装备在合成过程中一次都不爆时，需要提前准备的全部材料。",
     "luckyListTotalSuffix": " 个材料",
@@ -75,7 +77,15 @@
     "luckyListMissingValue": "—",
     "luckyListAmountTitle": "数量",
     "luckyListEmptyResult": "没有可统计的材料",
-    "luckyListCircularMark": "循环引用"
+    "luckyListCircularMark": "循环引用",
+    "correctionButton": "纠错",
+    "correctionTooltip": "若您发现存在错误配方，请帮忙反馈，让世界充满爱~",
+    "correctionCopiedToast": "装备和配方信息已复制剪贴板，请粘贴到反馈窗口",
+    "correctionFeedbackTitle": "纠错反馈",
+    "closeCorrectionDialog": "关闭纠错反馈弹窗",
+    "correctionRecipeSeparator": "：",
+    "correctionRankPrefix": "（",
+    "correctionRankSuffix": "）"
   },
   "zh-Hant": {
     "appTitle": "飄流幻境M·新煉金百科",
@@ -122,6 +132,7 @@
     "pilotRelease3Text": "改善插件操作手感與整體可靠性。",
     "pilotFootnote": "請依照個人需求合理使用插件功能。",
     "inferenceTitle": "合成鏈推演",
+    "inferenceTooltip": "看看目前裝備還能繼續合成哪些裝備。",
     "inferenceTitleSeparator": " · ",
     "closeInferenceDialog": "關閉合成鏈推演彈窗",
     "inferenceWithinSteps": "步內",
@@ -143,6 +154,7 @@
     "locateInferenceItem": "定位裝備",
     "inferenceEmptyResult": "沒有找到可繼續合成的裝備",
     "luckyListTitle": "歐皇清單",
+    "luckyListTooltip": "統計一路不爆時需要提前準備的全部材料。",
     "closeLuckyListDialog": "關閉歐皇清單彈窗",
     "luckyListDescription": "統計目前裝備在合成過程中一次都不爆時，需要提前準備的全部材料。",
     "luckyListTotalSuffix": " 個材料",
@@ -153,7 +165,15 @@
     "luckyListMissingValue": "—",
     "luckyListAmountTitle": "數量",
     "luckyListEmptyResult": "沒有可統計的材料",
-    "luckyListCircularMark": "循環引用"
+    "luckyListCircularMark": "循環引用",
+    "correctionButton": "糾錯",
+    "correctionTooltip": "若您發現存在錯誤配方，請幫忙回饋，讓世界充滿愛~",
+    "correctionCopiedToast": "裝備和配方資訊已複製到剪貼簿，請貼到回饋窗口",
+    "correctionFeedbackTitle": "糾錯回饋",
+    "closeCorrectionDialog": "關閉糾錯回饋彈窗",
+    "correctionRecipeSeparator": "：",
+    "correctionRankPrefix": "（",
+    "correctionRankSuffix": "）"
   },
   "en": {
     "appTitle": "Wonderland M Alchemy Wiki",
@@ -200,6 +220,7 @@
     "pilotRelease3Text": "Improves plugin responsiveness and overall reliability.",
     "pilotFootnote": "Please use plugin features reasonably based on your own needs.",
     "inferenceTitle": "Synthesis Chain",
+    "inferenceTooltip": "See which gear this item can continue crafting into.",
     "inferenceTitleSeparator": " · ",
     "closeInferenceDialog": "Close synthesis chain dialog",
     "inferenceWithinSteps": " steps",
@@ -221,6 +242,7 @@
     "locateInferenceItem": "Locate gear",
     "inferenceEmptyResult": "No further craftable gear found",
     "luckyListTitle": "Lucky List",
+    "luckyListTooltip": "Total the materials needed if every synthesis step succeeds.",
     "closeLuckyListDialog": "Close Lucky List dialog",
     "luckyListDescription": "Lists all materials to prepare if every synthesis step succeeds without breaking.",
     "luckyListTotalSuffix": " materials",
@@ -231,6 +253,14 @@
     "luckyListMissingValue": "—",
     "luckyListAmountTitle": "Qty",
     "luckyListEmptyResult": "No materials to total",
-    "luckyListCircularMark": "Circular reference"
+    "luckyListCircularMark": "Circular reference",
+    "correctionButton": "Report",
+    "correctionTooltip": "If you find an incorrect recipe, please send feedback and help make the world kinder~",
+    "correctionCopiedToast": "Gear and recipe info copied. Please paste it into the feedback form.",
+    "correctionFeedbackTitle": "Correction Feedback",
+    "closeCorrectionDialog": "Close correction feedback dialog",
+    "correctionRecipeSeparator": ": ",
+    "correctionRankPrefix": "(",
+    "correctionRankSuffix": ")"
   }
 }

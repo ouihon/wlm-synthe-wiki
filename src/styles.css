@@ -675,7 +675,7 @@ select,
 }
 
 .recipeCard {
-  overflow: hidden;
+  overflow: visible;
   min-height: 620px;
   border-radius: var(--radius-xl);
 }
@@ -773,6 +773,87 @@ select,
   justify-items: start;
   gap: 10px;
   min-width: 0;
+}
+
+.itemTitleRow {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  min-width: 0;
+}
+
+.correctionTriggerBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 10px 0 8px;
+  border: 1px solid rgba(37, 99, 235, 0.16);
+  border-radius: 999px;
+  color: var(--accent-deep);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.correctionTriggerIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.correctionTriggerBtn:hover {
+  border-color: rgba(37, 99, 235, 0.26);
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.comicTooltipBubble {
+  position: fixed;
+  z-index: 260;
+  width: max-content;
+  max-width: min(340px, calc(100vw - 24px));
+  padding: 10px 12px;
+  border: 2px solid rgba(22, 32, 49, 0.84);
+  border-radius: 16px;
+  color: var(--ink);
+  background: #fffef8;
+  box-shadow:
+    0 10px 24px rgba(15, 23, 42, 0.14),
+    3px 3px 0 rgba(22, 32, 49, 0.12);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+  transform: translateY(-100%);
+}
+
+.comicTooltipBubble::after {
+  content: "";
+  position: absolute;
+  left: var(--tooltip-arrow-left, 50%);
+  bottom: -9px;
+  width: 16px;
+  height: 16px;
+  border-right: 2px solid rgba(22, 32, 49, 0.84);
+  border-bottom: 2px solid rgba(22, 32, 49, 0.84);
+  background: #fffef8;
+  transform: translateX(-50%) rotate(45deg);
 }
 
 .detailFavoriteBtn {
@@ -3855,6 +3936,7 @@ select,
 }
 
 .inferenceTriggerBtn:focus-visible,
+.correctionTriggerBtn:focus-visible,
 .inferenceCloseBtn:focus-visible,
 .inferenceActionBtn:focus-visible,
 .inferenceResetBtn:focus-visible,
@@ -3876,6 +3958,10 @@ select,
   backdrop-filter: blur(8px);
 }
 
+.correctionDialogOverlay {
+  z-index: 92;
+}
+
 .inferenceDialog {
   display: flex;
   flex-direction: column;
@@ -3886,6 +3972,11 @@ select,
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 28px 84px rgba(15, 23, 42, 0.26);
+}
+
+.correctionDialog {
+  width: min(820px, 100%);
+  max-height: min(780px, calc(100vh - 36px));
 }
 
 .inferenceDialogHead {
@@ -3936,6 +4027,64 @@ select,
 .inferenceDialogBody {
   min-height: 300px;
   overflow: auto;
+}
+
+.correctionDialogBody {
+  min-height: min(640px, calc(100vh - 130px));
+  padding: 10px;
+  background: #f7f9fc;
+}
+
+.correctionEmbed {
+  width: 100%;
+  min-height: min(620px, calc(100vh - 150px));
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: white;
+}
+
+.correctionEmbed iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  min-height: min(620px, calc(100vh - 150px));
+  border: 0;
+}
+
+.correctionToast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 140;
+  width: min(460px, calc(100% - 32px));
+  padding: 18px 20px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 18px;
+  color: var(--accent-deep);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 22px 70px rgba(15, 23, 42, 0.24);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1.55;
+  text-align: center;
+  white-space: normal;
+  transform: translate(-50%, -50%);
+}
+
+.correctionToast::before {
+  content: "✓";
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 10px;
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.24);
+  font-size: 20px;
+  font-weight: 950;
 }
 
 .inferenceSelectPanel {
@@ -4273,6 +4422,10 @@ select,
 }
 
 @media (max-width: 760px) {
+  .comicTooltipBubble {
+    display: none;
+  }
+
   .heroActionRow {
     justify-content: stretch;
     width: 100%;

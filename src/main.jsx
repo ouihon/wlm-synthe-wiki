@@ -6,7 +6,7 @@ import dungeonMaterialCraftingTreeData from './data/dungeon_material_crafting_tr
 import uiText from './i18n/ui.json';
 import packageInfo from '../package.json';
 import VersionUpdateDialog from './VersionUpdateDialog.jsx';
-import PilotDownloadDialog from './components/PilotDownloadDialog.jsx';
+// import PilotDownloadDialog from './components/PilotDownloadDialog.jsx';
 import InventoryPage from './pages/InventoryPage.jsx';
 import CommonGearPage from './pages/CommonGearPage.jsx';
 import FavoritesPage from './pages/FavoritesPage.jsx';
@@ -32,7 +32,7 @@ function App() {
   const defaultItemId = itemsData.defaultItemId;
   const [locale, setLocale] = useState(() => localStorage.getItem('alchemy-locale') || 'zh-Hans');
   const [pageTab, setPageTab] = useState('inventory');
-  const [pilotOpen, setPilotOpen] = useState(false);
+  // const [pilotOpen, setPilotOpen] = useState(false);
   const [versionDialogRequest, setVersionDialogRequest] = useState(0);
   const [commonCategory, setCommonCategory] = useState('MATK');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -294,9 +294,8 @@ function App() {
         version={APP_VERSION}
         locale={locale}
         openRequest={versionDialogRequest}
-        onOpenPilot={() => setPilotOpen(true)}
       />
-      <PilotDownloadDialog open={pilotOpen} onClose={() => setPilotOpen(false)} locale={locale} />
+      {/* <PilotDownloadDialog open={pilotOpen} onClose={() => setPilotOpen(false)} locale={locale} /> */}
       <button
         className="updateFab"
         type="button"
@@ -320,11 +319,11 @@ function App() {
           <span className="brandText">{t.appTitle}</span>
         </button>
         <div className="topActions" aria-label={t.language}>
-          <button className="pilotCta" onClick={() => setPilotOpen(true)}>
+          {/* <button className="pilotCta" onClick={() => setPilotOpen(true)}>
             <span className="pilotCtaGlow" aria-hidden="true" />
             <span className="pilotCtaIcon" aria-hidden="true">⇣</span>
             <span className="pilotCtaText">{t.pilotCta}</span>
-          </button>
+          </button> */}
           {LOCALES.map((entry) => (
             <button
               key={entry.key}
