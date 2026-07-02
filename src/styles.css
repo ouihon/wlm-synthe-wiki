@@ -4713,3 +4713,125 @@ button.luckyListMaterialRow:hover {
     display: block;
   }
 }
+.itemIconFrame {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(22, 32, 49, 0.1);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 248, 252, 0.88));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 10px rgba(37, 54, 88, 0.08);
+}
+
+.itemIconFrame.missing {
+  border-style: dashed;
+  border-color: rgba(101, 114, 135, 0.24);
+  color: rgba(101, 114, 135, 0.58);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(245, 248, 252, 0.62));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.itemIconFallback {
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.itemIconImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.itemRowMain {
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 10px;
+}
+
+.itemRowText {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.itemRowIcon {
+  width: 38px;
+  height: 38px;
+}
+
+.itemHero {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.heroIdentity {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.itemHeroIcon {
+  width: 64px;
+  height: 64px;
+  margin-top: 2px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ffffff, #edf4ff);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    0 14px 30px rgba(37, 99, 235, 0.14);
+}
+
+.itemHeroIcon .itemIconFallback {
+  font-size: 22px;
+}
+
+.formulaMaterial {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.formulaMaterialIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.materialCardIcon {
+  width: 42px;
+  height: 42px;
+  margin: 0 0 2px;
+}
+
+.materialCard.disabled .materialCardIcon {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .itemHero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .heroIdentity {
+    gap: 12px;
+  }
+
+  .itemHeroIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+  }
+
+  .heroSide {
+    justify-items: start;
+    max-width: none;
+  }
+}

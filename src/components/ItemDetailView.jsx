@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import ItemIcon from './ItemIcon.jsx';
 import CorrectionDialog from './CorrectionDialog.jsx';
 import CraftingInferenceDialog from './CraftingInferenceDialog.jsx';
 import LuckyListDialog from './LuckyListDialog.jsx';
@@ -237,19 +238,22 @@ export default function ItemDetailView({
 
       <article className="recipeCard">
         <section className="itemHero">
-          <div className="itemHeroTitle">
-            <div className="eyebrow">{pick(rootItem.name, locale) === currentItemName ? t.root : t.current}</div>
-            <div className="itemTitleRow">
-              <h1>{currentItemName}</h1>
-              <TooltipButton
-                className="correctionTriggerBtn"
-                type="button"
-                onClick={handleCorrectionOpen}
-                tooltip={t.correctionTooltip}
-              >
-                <span className="correctionTriggerIcon" aria-hidden="true">?</span>
-                <span>{t.correctionButton}</span>
-              </TooltipButton>
+          <div className="heroIdentity">
+            <ItemIcon item={currentItem} locale={locale} className="itemHeroIcon" placeholder />
+            <div className="itemHeroTitle">
+              <div className="eyebrow">{pick(rootItem.name, locale) === currentItemName ? t.root : t.current}</div>
+              <div className="itemTitleRow">
+                <h1>{currentItemName}</h1>
+                <TooltipButton
+                  className="correctionTriggerBtn"
+                  type="button"
+                  onClick={handleCorrectionOpen}
+                  tooltip={t.correctionTooltip}
+                >
+                  <span className="correctionTriggerIcon" aria-hidden="true">?</span>
+                  <span>{t.correctionButton}</span>
+                </TooltipButton>
+              </div>
             </div>
           </div>
           <div className="heroSide">

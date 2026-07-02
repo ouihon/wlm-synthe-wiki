@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemIcon from './ItemIcon.jsx';
 import TypeTag from './TypeTag.jsx';
 import { cx, entryBool, pick } from '../lib/ui.js';
 
@@ -53,7 +54,8 @@ export default function RecipeBlock({ item, itemId, recipe, recipeIndex, items, 
                 {index > 0 && <span className="plus">+</span>}
                 {linked ? (
                   <button className="formulaMaterial" onClick={() => enterMaterial(material.itemId)}>
-                    {label}
+                    <ItemIcon item={linked} locale={locale} className="formulaMaterialIcon" decorative />
+                    <span>{label}</span>
                   </button>
                 ) : (
                   <span className="formulaMaterial plain">{label}</span>
@@ -89,6 +91,7 @@ export default function RecipeBlock({ item, itemId, recipe, recipeIndex, items, 
                 disabled={!linked}
               >
                 <span className="materialIndex">{String(index + 1).padStart(2, '0')}</span>
+                <ItemIcon item={linked} locale={locale} className="materialCardIcon" decorative />
                 <span className="materialName">{label}</span>
                 <span className="materialMeta materialMetaRow">
                   {linked ? (

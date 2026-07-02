@@ -1,4 +1,5 @@
 import React from 'react';
+import ItemIcon from './ItemIcon.jsx';
 import TypeTag from './TypeTag.jsx';
 import { cx, pick } from '../lib/ui.js';
 
@@ -32,10 +33,13 @@ export default function ItemListRow({
       )}
     >
       <button className="itemRowMain" type="button" onClick={() => onSelect(id)}>
-        <span className="itemName">{itemName}</span>
-        <span className="itemMeta itemMetaRow">
-          <span>{item.level ? `${levelLabel}${item.level}` : unrecordedLabel}</span>
-          <TypeTag type={item.type} locale={locale} compact />
+        <ItemIcon item={item} locale={locale} className="itemRowIcon" decorative placeholder />
+        <span className="itemRowText">
+          <span className="itemName">{itemName}</span>
+          <span className="itemMeta itemMetaRow">
+            <span>{item.level ? `${levelLabel}${item.level}` : unrecordedLabel}</span>
+            <TypeTag type={item.type} locale={locale} compact />
+          </span>
         </span>
       </button>
 
